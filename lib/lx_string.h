@@ -94,5 +94,7 @@ extern char lx_gdputc(lx_gd *, const char);
 extern char lx_gdstrput(lx_gd *, const lx_s *);
 extern char lx_gdflush(lx_gd *);
 extern char lx_gdfree(lx_gd *);
+extern char lx_gdaddulong(lx_gd *, unsigned long, unsigned int);
+extern char lx_gdaddlong(lx_gd *, long, unsigned int);
 
 #endif

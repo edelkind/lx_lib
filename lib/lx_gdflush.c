@@ -14,6 +14,9 @@ char lx_gdflush (gd)
 {
 	register int ret;
 
+	/* AIX can't handle 0-length writes */
+	if (!gd->n) return 0;
+
 	for (;;) {
 		ret = write (gd->fd, gd->buf+gd->p, gd->n);
 

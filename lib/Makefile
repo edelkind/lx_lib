@@ -9,6 +9,7 @@ SRC             = lx_alloc.c \
                   lx_chop.c \
                   lx_free.c \
                   lx_gd2s.c \
+                  lx_gdaddnum.c \
                   lx_gdappend.c \
                   lx_gdcopy.c \
                   lx_gdfill.c \
@@ -33,7 +34,6 @@ SRC             = lx_alloc.c \
                   lx_strff.c \
                   lx_strfw.c \
                   lx_strlen.c \
-                  lx_strnout.c \
                   lx_strnull.c \
                   lx_stroffer.c \
                   lx_strout.c \
@@ -45,6 +45,7 @@ SRC             = lx_alloc.c \
                   lx_caseb.c \
                   lx_cases.c \
                   lx_strindex.c \
+#                  lx_strnout.c
 
 OBJ             = $(SRC:.c=.o)
 LIB             = liblx.a
