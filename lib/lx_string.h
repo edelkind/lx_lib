@@ -48,6 +48,8 @@ extern void lx_zero();
 extern void lx_zeroa();
 extern void lx_strrev();
 
+extern char lx_lowerb();
+extern char lx_upperb();
 extern void lx_lowers();
 extern void lx_uppers();
 extern void lx_lowersp();
