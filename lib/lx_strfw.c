@@ -17,7 +17,7 @@ char lx_strfw (s, p, n)
 	char **p;
 	unsigned int n;
 {
-	if (s->len > n) n = s->len;
+	if (s->len < n) n = s->len;
 
 	if (p) {
 		if (!(*p = malloc(n + 1))) return 1;
