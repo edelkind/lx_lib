@@ -26,7 +26,6 @@ char lx_strinsert (s, p, len, off, del)
     start_to = s->s + off;
     start_from = start_to + del;
 
-    //printf ("%d\n", s->len - (start_from - s->s));
     memmove(start_to + len, start_from, s->len - (start_from - s->s));
     memmove(start_to, p, len);
     s->len += len - del;
