@@ -9,7 +9,7 @@
 
 char lx_gdstrput (gd, ss1)
 	lx_gd *gd;
-	lx_s  *ss1;
+	const lx_s  *ss1;
 {
 	register unsigned int left;
 	lx_s ss2; /* no need for initialization with a mirror */

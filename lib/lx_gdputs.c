@@ -11,9 +11,9 @@ extern int strlen();
 
 char lx_gdputs (gd, s)
 	lx_gd *gd;
-	char  *s;
+	const char  *s;
 {
-	lx_s stmp = {s}; /* buf to string, immediately */
+	lx_s stmp = {(char *)s}; /* buf to string, immediately */
 	stmp.alloc = stmp.len = strlen(s);
 
 	return (lx_gdstrput(gd, &stmp));
@@ -28,10 +28,10 @@ char lx_gdputs (gd, s)
 
 char lx_gdputsn (gd, s, n)
 	lx_gd *gd;
-	char  *s;
+	const char  *s;
 	unsigned int n;
 {
-	lx_s stmp = {s}; /* buf to string, immediately */
+	lx_s stmp = {(char *)s}; /* buf to string, immediately */
 	stmp.alloc = stmp.len = n;
 
 	return (lx_gdstrput(gd, &stmp));

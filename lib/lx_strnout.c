@@ -32,7 +32,7 @@ int lx_strnout (int fd, ...)
 
 		if (str->alloc != 0) {
 			/* it's a string structure */
-			len += lx_strout (str);
+			len += lx_strout (fd, str);
 			continue;
 		}
 

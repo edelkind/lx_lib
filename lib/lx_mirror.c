@@ -13,7 +13,7 @@ extern void *memcpy();
 
 void lx_mirror(sd, ss)
 	lx_s *sd;
-	lx_s *ss;
+	const lx_s *ss;
 {
 	(void) memcpy (sd, ss, sizeof(lx_s));
 }

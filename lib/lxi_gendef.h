@@ -38,8 +38,8 @@
 
 #define LX_gdaddstr(GD, str, len) \
 	{                                                       \
-		(void) memcpy (GD->buf+GD->p+GD->n, str, len);  \
-		GD->n += len;                                   \
+		(void) memcpy ((GD)->buf+(GD)->p+(GD)->n, str, len);  \
+		(GD)->n += len;                                   \
 	}
 
 #if 0

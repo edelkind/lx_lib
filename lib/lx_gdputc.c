@@ -11,9 +11,9 @@ extern int strlen();
 
 char lx_gdputc (gd, c)
 	lx_gd *gd;
-	char  c;
+	const char  c;
 {
-	lx_s stmp = {&c}; /* buf to string, immediately */
+	lx_s stmp = {(char *)&c}; /* buf to string, immediately */
 	stmp.alloc = stmp.len = 1;
 
 	return (lx_gdstrput(gd, &stmp));

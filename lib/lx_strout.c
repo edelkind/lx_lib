@@ -1,4 +1,3 @@
-#include <stdio.h>  /* FILE declaration */
 #include "lx_string.h"
 extern int write();
 extern unsigned int fwrite();
@@ -24,7 +23,7 @@ int lx_strout (fd, str)
 #endif
 
 unsigned int lx_fstrout (fs, str)
-	FILE *fs;
+	void *fs;
 	struct lx_string *str;
 {
 	if (!str->s || str->len == 0) return 0;
