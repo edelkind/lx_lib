@@ -8,9 +8,9 @@
 char lx_lowerb (c)
 	register char c;
 {
-	if (c < 'A' || c > 'Z') return;
+	if (c < 'A' || c > 'Z') return c;
 
-	c += ('a'-'A');
+	return (c + ('a'-'A'));
 }
 
 
@@ -23,8 +23,8 @@ char lx_lowerb (c)
 char lx_upperb (c)
 	register char c;
 {
-	if (c < 'a' || c > 'z') return;
+	if (c < 'a' || c > 'z') return c;
 
-	c += ('A'-'a');
+	return (c + ('A'-'a'));
 }
 
