@@ -1,0 +1,11 @@
+HOME		= /var/passwd
+
+CC              = gcc
+
+AR              = ar cr
+RANLIB          = ranlib
+
+CFLAGS          = -O2 -Wall
+LDFLAGS         = 
+DFLAGS          =    # debugging
+

@@ -1,0 +1,16 @@
+GENERIC DESCRIPTORS
+
+Generic descriptors are a one-way replacement for file descriptors (socket
+descriptors, etc), which enable much faster transactions.
+
+If you need to search a file descriptor for a delimiter, you must read one
+byte at a time.  This is very costly in terms of system resources.  The same
+holds true for writing.  Using generic descriptors, however, a specified amount
+of bytes are read from the given file descriptor at a time, and the generic
+descriptor can be searched with minimal cost.
+
+Generic descriptors are generally only usable one way at a time (reading or
+writing), regardless of the status of the real file descriptor (though you can
+create two generic descriptors with one file descriptor).  Misuse will yield
+predictable, but probably undesirable, results.
+

@@ -1,0 +1,51 @@
+%<TITLE=function: lx_zfree()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>void lx_zfree(lx_s *s)</TT>
+%endlist()
+
+<BR>
+
+Zero the memory area used by <TT>s</TT>.  Then free <TT>s</TT> and set
+<TT>s->s</TT> back to 0 by way of <TT>lx_free()</TT>.<BR>
+<BR>
+Note that not all allocated memory is necessarily zeroed; just that which is
+currently in use.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, void)
+	%tbl2bline(allocation ensured, n/a)
+	%tbl2bline(previous allocation required, yes %'(error checks)')
+%endtable()
+
+<BR>
+<BR>
+
+%list(SEE ALSO)
+	%lritem(func_lx_free)
+	%lritem(func_lx_alloc)
+%endlist()
+
+%list(EXAMPLE)
+	<PRE>
+
+{
+	lx_s ns = {0};
+
+	lx_strset (&ns, "some sensitive information.");
+	ns.s[ns.len-1] = 0; /* replace '.' with '\0' */
+	lx_strout (4, &ns); /* write to imaginary pipe on fd 4 */
+	lx_zfree (&ns);
+}
+
+	</PRE>
+%endlist()
+
+#include foot.inc

@@ -1,0 +1,27 @@
+%<TITLE=lx_lib: blurb>
+#include head.inc
+
+lx_lib is meant to be a refined data library, designed for convenience,
+security, and functionality.
+<BR>
+<BR>
+Strings need not be scanned for length requirements, which improves the speed
+of various string processes many fold. Automatic (re)allocation allows for
+better security practices, and obviates the common practice of allocating much
+more than would be necessary.  Dynamic allocation aside, including the length
+and allocation size in each string promotes more secure programming practices
+and engrained support for the handling of binary code.
+<BR>
+<BR>
+Generic descriptors allow for better buffering practices, hence potentially
+faster reading and writing operations.  They also allow for trivial (and fast)
+delimiter separation during reads.
+<BR>
+<BR>
+
+<BR>
+<BR>
+
+%link(status, documentation status)<BR>
+
+#include foot.inc

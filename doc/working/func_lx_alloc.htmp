@@ -1,0 +1,63 @@
+%<TITLE=function: lx_alloc()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>char lx_alloc(lx_s *s, unsigned int elem)</TT>
+%endlist()
+
+<BR>
+
+Allocate <TT>elem</TT> bytes for use in <TT>s</TT>.  String struct <TT>s</TT>
+should not be allocated; <TT>s->s</TT> should have a value of 0.<BR>
+<BR>
+This function is not commonly used, though there is no reason why it
+shouldn't be.  More common is <TT>lx_setalloc()</TT>, which checks whether
+<TT>s</TT> has been previously allocated.<BR>
+<BR>
+Note that if string struct <TT>s</TT> <I>has</I> been previously allocated,
+the previously allocated memory will be left as-is, and a completely new
+memory block will be allocated for <TT>s</TT>.  If you do not keep a
+reference to the previously allocated block of memory, you will never be able
+to free it.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, 0 on success %'(1 on out-of-memory error)')
+	%tbl2bline(allocation ensured, explicit)
+	%tbl2bline(previous allocation required, no')
+%endtable()
+
+<BR>
+<BR>
+
+%list(SEE ALSO)
+	%lritem(func_lx_realloc)
+	%lritem(func_lx_setalloc)
+	%lritem(func_lx_plusalloc)
+	%lritem(func_lx_setxbuf)
+	%lritem(func_lx_free)
+%endlist()
+
+%list(EXAMPLE)
+	<PRE>
+
+{
+	lx_s ns = {0};
+	char *stuff = "some string longer than 20 characters";
+
+	lx_alloc (&ns, 20);
+	memcpy (ns.s, stuff, 20);
+	ns.len = 20;
+	lx_strout (1, &ns);
+}
+
+	</PRE>
+%endlist()
+
+
+#include foot.inc

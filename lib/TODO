@@ -1,0 +1,8 @@
+* continue work on string arrays (lx_sa_*)
+
+* add a "sensitive data" function, and hooks throughout the library.  If the
+sensitive data flag is set, zero all data before abandoning it.
+
+* IMPROVEMENT: instead of allocating new memory for the *chomp() functions,
+put the 'cstr' variable directly into ns.  Then, umm, just don't free it.
+Then modify them to return void.

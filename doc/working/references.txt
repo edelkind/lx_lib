@@ -1,0 +1,46 @@
+ABOUT THIS FILE
+---------------
+
+Documentation files can reference items in this file using chpp.  For
+example, if a reference is named "qmail_base", and you want to add a list
+item with that reference, you would use the function lritem(qmail_base).  It
+will create a link to qmail_base.html and give the description.
+
+Note that references and descriptions are given in the form:
+
+	[whitespace]<reference><space[s]>::<space[s]><description>[whitespace]
+
+Only lines which include two colons with spaces around them are processed.
+Everything else is ignored.  If there are two references with the same name,
+the last reference is used.
+
+
+------------------
+
+DATA TYPES:
+
+FUNCTION REFERENCE:
+
+lx_alloc.c:
+	func_lx_alloc :: allocate a string struct not yet used
+	func_lx_realloc :: reallocate a string struct to hold a different amount
+	func_lx_setalloc :: allocate a string struct, used or not
+	func_lx_plusalloc :: add specified amount of bytes to an allocated string struct
+	func_lx_setxbuf :: sets the extra buffer amount for allocations
+
+	func_lx_cadd :: add a given character to a string buffer
+	func_lx_check0 :: ensure that s ends in a binary 0.  If not, add one.
+
+lx_chop.c:
+	func_lx_chop :: remove the last n characters from a string buffer
+	func_lx_chomp :: remove all specified ending characters from a string buffer
+	func_lx_chomp_ws :: remove all whitespace from the end of a string buffer
+	func_lx_chompf :: remove all specified beginning characters
+
+lx_free.c:
+	func_lx_free :: free a string structure, set string back to 0
+	func_lx_zfree :: zero a string structure, then call lx_free()
+
+
+OTHER:
+	example_programs :: example programs and speedtests

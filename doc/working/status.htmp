@@ -1,0 +1,57 @@
+%<TITLE=documentation status>
+#include head.inc
+#include refs.inc
+
+%list(KEY)
+	%nitem(0, %'not started')
+	%nitem(1, %'barely started')
+	%nitem(2, %'has some good info, but mostly bare')
+	%nitem(3, %'doing pretty well')
+	%nitem(4, %'mostly finished')
+	%nitem(5, %'finished; only needs upkeep')
+%endlist()
+
+<BR>
+<BR>
+
+%table(FUNCTION REFERENCE, 3)
+
+	%tblhead(STUFF)
+		%tblstat(func_lx_alloc, 0)
+		%tblstat(func_lx_realloc, 0)
+		%tblstat(func_lx_setalloc, 0)
+		%tblstat(func_lx_plusalloc, 0)
+		%tblstat(func_lx_setxbuf, 0)
+		%tblstat(func_lx_cadd, 5)
+		%tblstat(func_lx_check0, 5)
+		%tblstat(func_lx_chop, 5)
+		%tblstat(func_lx_chomp, 5)
+		%tblstat(func_lx_chomp_ws, 5)
+		%tblstat(func_lx_chompf, 5)
+		%tblstat(func_lx_free, 5)
+		%tblstat(func_lx_zfree, 5)
+
+%endtable()
+
+<BR>
+<BR>
+
+%table(CODE EXAMPLES, 3)
+
+	<!-- XXX: add some examples here -->
+
+%endtable()
+
+<BR>
+<BR>
+
+%table(OTHER, 3)
+
+	%tblstat(example_programs, 0)
+
+%endtable()
+
+<BR>
+<BR>
+
+#include foot.inc

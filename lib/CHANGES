@@ -1,0 +1,75 @@
+2001.03.14
+
+add lx_gdputs.c (lx_gdputs())
+add lx_gdstrput.c (lx_gdstrput())
+add lx_gdflush.c (lx_gdflush())
+mod lxi_gendef.h (added LX_gdaddstr())
+add README.gendesc
+add CHANGELOG
+add TODO
+mod lx_stralloc.c (added commentary for lx_plusalloc)
+
+
+2001.03.22
+
+mod lx_sa_alloc.c:
+	added lx_sa_realloc()
+	modified lx_sa_setalloc() to use lx_sa_realloc()
+
+mod lx_stralloc.c:
+	added lx_realloc()
+	modified lx_setalloc() to use lx_realloc()
+
+add lx_sa_adds.c (lx_sa_adds())
+
+
+2001.03.23
+
+add lx_gdfree.c (lx_gdfree())
+
+2001.03.29
+
+add lx_check0.c (lx_check0())
+
+2001.04.01
+
+add ../Makefile for recursive makes and make cleans
+
+2001.04.02
+
+at the suggestion of a co-worker, ran its4 on the code tree.  No problems
+	were found (any warnings issued did not pertain).  I do not consider
+	this to be a useful evaluation, however.
+
+2001.04.04
+
+add lx_strrev.c (lx_strrev())
+
+...
+
+2001.07.24
+
+started work on documentation.
+
+2001.07.25
+
+added out-of-memory checking to chomp functions in lx_chop.c, but removed
+user-error checks to ensure that s was allocated.  They're just plain
+unnecessary.
+
+continued work on documentation.
+
+small cleanup of lx_free.c (lx_free() and lx_zfree())
+
+name change: stralloc.c -> alloc.c
+
+removed idiot-proofing (non-allocation ensurance) from lx_alloc() in lx_alloc.c
+
+...
+
+2001.10.10
+
+replaced makefile (and family)
+
+moved bin, speedtests, and docs directories to their proper places
+

@@ -1,0 +1,53 @@
+%<TITLE=function: lx_chompf()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>char lx_chompf(lx_s *s, char *cstr)</TT>
+%endlist()
+
+<BR>
+
+Remove any initial characters located in <TT>cstr</TT> from string buffer
+<TT>s</TT>.<BR>
+<BR>
+<TT>lx_chompf()</TT> overwrites the initial memory space used by <TT>s</TT>.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, 0 on success %'(1 on out-of-memory error)')
+	%tbl2bline(allocation ensured, n/a)
+	%tbl2bline(previous allocation required, yes)
+%endtable()
+
+<BR>
+<BR>
+
+%list(SEE ALSO)
+	%lritem(func_lx_chop)
+	%lritem(func_lx_chomp)
+	%lritem(func_lx_chomp_ws)
+%endlist()
+
+%list(EXAMPLE)
+	<PRE>
+
+char get_line (gd, s, match)
+	lx_gd *gd;
+	lx_s *s;
+	char *match;
+{
+	if (lx_getln(s, gd, match, 4096)) _exit (1);
+	lx_chomp_ws (s);
+	return lx_chompf (s, '\t '); /* remove any initial spaces or tabs */
+}
+
+	</PRE>
+%endlist()
+
+
+#include foot.inc

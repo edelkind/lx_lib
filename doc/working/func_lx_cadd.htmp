@@ -1,0 +1,40 @@
+%<TITLE=function: lx_cadd()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>char lx_cadd(lx_s *s_dest, char c)</TT>
+%endlist()
+
+<BR>
+
+Add the given character <TT>c</TT> to string buffer <TT>s_dest</TT>.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, 0 on success %'(1 otherwise)')
+	%tbl2bline(allocation ensured, yes)
+	%tbl2bline(previous allocation required, no)
+%endtable()
+
+<BR>
+<BR>
+
+%list(EXAMPLE)
+	<PRE>
+
+lx_s s = {0};
+char *string = "some string");
+
+lx_strset (&s, string);
+lx_cadd (&s, '\n');
+
+	</PRE>
+%endlist()
+
+
+#include foot.inc

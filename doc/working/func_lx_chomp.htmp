@@ -1,0 +1,55 @@
+%<TITLE=function: lx_chomp()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>char lx_chomp(lx_s *s, char *cstr)</TT>
+%endlist()
+
+<BR>
+
+Remove all ending characters located in <TT>cstr</TT> from string buffer
+<TT>s</TT>.<BR>
+<BR>
+This is done by modifying <TT>s->len</TT>.  <TT>lx_chomp()</TT> does not
+deallocate or overwrite any memory used by <TT>s</TT>.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, 0 on success %'(1 on out-of-memory error)')
+	%tbl2bline(allocation ensured, n/a)
+	%tbl2bline(previous allocation required, yes)
+%endtable()
+
+<BR>
+<BR>
+
+%list(SEE ALSO)
+	%lritem(func_lx_chop)
+	%lritem(func_lx_chomp_ws)
+	%lritem(func_lx_chompf)
+%endlist()
+
+%list(EXAMPLE)
+	<PRE>
+
+char get_line (gd, s, match)
+	lx_gd *gd;
+	lx_s *s;
+	char *match;
+{
+	if (lx_getln(s, gd, match, 4096)) _exit (1);
+	return lx_chomp (s, '\n\r '); /* remove newline, and any carriage */
+	                              /* returns or spaces that may exist */
+	                              /* at the end of s                  */
+}
+
+	</PRE>
+%endlist()
+
+
+#include foot.inc

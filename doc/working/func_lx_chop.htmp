@@ -1,0 +1,54 @@
+%<TITLE=function: lx_chop()>
+#include head.inc
+#include refs.inc
+#include refext.inc
+
+%list(USAGE)
+	<TT>char lx_chop(lx_s *s, unsigned int n)</TT>
+%endlist()
+
+<BR>
+
+Remove the last <TT>n</TT> characters from string buffer <TT>s</TT>.<BR>
+<BR>
+This is done by modifying <TT>s->len</TT>.  <TT>lx_chop()</TT> does not
+deallocate or overwrite memory.
+
+<BR>
+<BR>
+<BR>
+
+%table(PROPERTIES)
+	%tbl2bline(return value, 0 on success %'(1 if <TT>n</TT> &gt; <TT>s->len</TT>)')
+	%tbl2bline(allocation ensured, n/a)
+	%tbl2bline(previous allocation required, yes)
+%endtable()
+
+<BR>
+<BR>
+
+%list(SEE ALSO)
+	%lritem(func_lx_chomp)
+	%lritem(func_lx_chomp_ws)
+	%lritem(func_lx_chompf)
+%endlist()
+
+%list(EXAMPLE)
+	<PRE>
+
+char get_line (gd, s, match)
+	lx_gd *gd;
+	lx_s *s;
+	char *match;
+{
+	if (lx_getln(s, gd, match, 4096)) _exit (1);
+	if (LX_match_ok(match)) return lx_chop (s, 1); /* remove newline */
+	return 0;
+}
+
+
+	</PRE>
+%endlist()
+
+
+#include foot.inc

@@ -1,0 +1,4 @@
+
+% mkdir /some/path/to/install/html/files
+% make public INSTALLDIR=/some/path/to/install/html/files/
+
