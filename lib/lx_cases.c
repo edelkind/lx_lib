@@ -1,3 +1,4 @@
+#include "lx_string.h"
 
 #if 0
 	*** lx_lowers ***
@@ -93,8 +94,6 @@ char lx_lowerstr (ss, s, l)
 	char *s;
 	unsigned int l;
 {
-	char c;
-
 	if (lx_setalloc (ss, l))
 		return 1;
 
@@ -115,8 +114,6 @@ char lx_upperstr (ss, s, l)
 	char *s;
 	unsigned int l;
 {
-	char c;
-
 	if (lx_setalloc (ss, l))
 		return 1;
 
