@@ -34,7 +34,7 @@ char lx_strcmp (s1, s2)
 
 #if 0
 	*** lx_strscmp ***
-	compares two lx_string strings
+	compares an lx_string string and a character pointer.
 	returns 0 on match, 1 on no match
 #endif
 
@@ -63,4 +63,132 @@ char lx_strscmp (s1, s2)
 
 		len--;
 	}
+}
+
+
+#if 0
+	*** lx_stricmp ***
+	compares two lx_string strings, case insensitively
+	returns 0 on match, 1 on no match
+#endif
+
+char lx_stricmp (s1, s2)
+	struct lx_string *s1;
+	struct lx_string *s2;
+{
+	register char *p1;
+	register char *p2;
+	register int len = s1->len;
+
+	if (len != s2->len)
+		return (1);
+
+	p1 = s1->s;
+	p2 = s2->s;
+
+	for (;;) {
+		if (!len) /* EOS */
+			return 0;
+
+		if (lx_lowerb(*p1++) != lx_lowerb(*p2++))
+			return 1;
+
+		len--;
+	}
+}
+
+
+#if 0
+	*** lx_strlcmp ***
+	compares two lx_string strings, comparing the right one as lowercase
+	returns 0 on match, 1 on no match
+#endif
+
+char lx_strlcmp (s1, s2)
+	struct lx_string *s1;
+	struct lx_string *s2;
+{
+	register char *p1;
+	register char *p2;
+	register int len = s1->len;
+
+	if (len != s2->len)
+		return (1);
+
+	p1 = s1->s;
+	p2 = s2->s;
+
+	for (;;) {
+		if (!len) /* EOS */
+			return 0;
+
+		if (*p1++ != lx_lowerb(*p2++))
+			return 1;
+
+		len--;
+	}
+}
+
+
+#if 0
+	*** lx_strncmp ***
+	compares two lx_string strings, up to l bytes
+	returns 0 on match, 1 on no match
+#endif
+
+char lx_strncmp (s1, s2, l)
+	lx_s *s1, *s2;
+	unsigned int l;
+{
+	lx_s x1, x2; /* mirrored */
+	lx_mirror (&x1, s1);
+	lx_mirror (&x2, s2);
+
+	if (x1.len > l) x1.len = l;
+	if (x2.len > l) x2.len = l;
+
+	return (lx_strcmp (&x1, &x2));
+}
+
+
+#if 0
+	*** lx_strnicmp ***
+	compares two lx_string strings, up to l bytes, case insensitively
+	returns 0 on match, 1 on no match
+#endif
+
+char lx_strnicmp (s1, s2, l)
+	lx_s *s1, *s2;
+	unsigned int l;
+{
+	lx_s x1, x2; /* mirrored */
+	lx_mirror (&x1, s1);
+	lx_mirror (&x2, s2);
+
+	if (x1.len > l) x1.len = l;
+	if (x2.len > l) x2.len = l;
+
+	return (lx_stricmp (&x1, &x2));
+}
+
+
+#if 0
+	*** lx_strnlcmp ***
+	compares two lx_string strings, up to l bytes, testing the
+	right as lowercase
+	returns 0 on match, 1 on no match
+#endif
+
+char lx_strnlcmp (s1, s2, l)
+	lx_s *s1, *s2;
+	unsigned int l;
+{
+	lx_s x1, x2; /* mirrored */
+	lx_mirror (&x1, s1);
+	lx_mirror (&x2, s2);
+
+	if (x1.len > l) x1.len = l;
+	if (x2.len > l) x2.len = l;
+
+	return (lx_strlcmp (&x1, &x2));
 }
