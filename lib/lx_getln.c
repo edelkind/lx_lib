@@ -19,7 +19,7 @@ char lx_getseg (s, gd, cp, match, max)
 	struct lx_string *s;
 	lx_gd *gd;
 	char *cp;
-	char *match;
+	unsigned char *match;
 	register unsigned long max;
 {
 	char c;
@@ -76,7 +76,7 @@ char lx_getseg (s, gd, cp, match, max)
 char lx_getln (s, gd, match, maxlen)
 	struct lx_string *s;
 	lx_gd *gd;
-	char *match;
+	unsigned char *match;
 	unsigned long maxlen;
 {
 	return (lx_getseg (s, gd, "\n", match, maxlen));
