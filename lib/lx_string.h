@@ -16,6 +16,7 @@ extern char lx_realloc();
 extern char lx_setalloc();
 extern char lx_plusalloc();
 extern char lx_strcopy();
+extern char lx_strncopy();
 extern char lx_strcat();
 extern char lx_stradd();
 extern char lx_striadd();
