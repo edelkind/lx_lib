@@ -42,6 +42,7 @@ extern char lx_strnpcmp();
 extern char lx_strnipcmp();
 extern char lx_strnlpcmp();
 extern char lx_strff();
+extern char lx_strfw();
 extern char lx_straddp(lx_s*a,char*b,...);
 extern char lx_strsetp(lx_s*a,char*b,...);
 
