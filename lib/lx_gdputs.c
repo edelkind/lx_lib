@@ -26,7 +26,7 @@ char lx_gdputs (gd, s)
 	returns 0 on success
 #endif
 
-char lx_gdputsn (gd, s, n) {
+char lx_gdputsn (gd, s, n)
 	lx_gd *gd;
 	char  *s;
 	unsigned int n;
