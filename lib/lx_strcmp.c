@@ -192,3 +192,71 @@ char lx_strnlcmp (s1, s2, l)
 
 	return (lx_strlcmp (&x1, &x2));
 }
+
+
+#if 0
+	*** lx_strnpcmp ***
+	compares l bytes of two character pointers
+	does not check for embedded binary zeroes -- checks the entire
+	string length, until a difference is found.
+	returns 0 on match
+#endif
+
+char lx_strnpcmp (p1, p2, l)
+	register char *p1, *p2;
+	unsigned int l;
+{
+	for (;;) {
+		if (!l--) return 0; if (*p1++ != *p2++) break; 
+		if (!l--) return 0; if (*p1++ != *p2++) break; 
+		if (!l--) return 0; if (*p1++ != *p2++) break; 
+	}
+
+	return 1;
+}
+
+
+#if 0
+	*** lx_strnipcmp ***
+	compares l bytes of two character pointers, case insensitively
+	does not check for embedded binary zeroes -- checks the entire
+	string length, until a difference is found.
+	returns 0 on match
+#endif
+
+char lx_strnipcmp (p1, p2, l)
+	register char *p1, *p2;
+	unsigned int l;
+{
+	for (;;) {
+		if (!l--) return 0; if (lx_lowerb(*p1++) != lx_lowerb(*p2++)) break; 
+		if (!l--) return 0; if (lx_lowerb(*p1++) != lx_lowerb(*p2++)) break; 
+		if (!l--) return 0; if (lx_lowerb(*p1++) != lx_lowerb(*p2++)) break; 
+	}
+
+	return 1;
+}
+
+
+#if 0
+	*** lx_strnlpcmp ***
+	compares l bytes of two character pointers, testing the
+	right as lowercase
+	does not check for embedded binary zeroes -- checks the
+	entire string length, until a difference is found.
+	returns 0 on match
+#endif
+
+char lx_strnlpcmp (p1, p2, l)
+	register char *p1, *p2;
+	unsigned int l;
+{
+	for (;;) {
+		if (!l--) return 0; if (*p1++ != lx_lowerb(*p2++)) break; 
+		if (!l--) return 0; if (*p1++ != lx_lowerb(*p2++)) break; 
+		if (!l--) return 0; if (*p1++ != lx_lowerb(*p2++)) break; 
+	}
+
+	return 1;
+}
+
