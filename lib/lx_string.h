@@ -89,6 +89,7 @@ extern char lx_gdfill();
 extern char lx_gdicopy();
 extern char lx_gdiappend();
 extern char lx_gdputs();
+extern char lx_gdputsn();
 extern char lx_gdputc();
 extern char lx_gdstrput();
 extern char lx_gdflush();
