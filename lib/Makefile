@@ -41,6 +41,7 @@ SRC             = lx_alloc.c \
                   lx_strrev.c \
                   lx_strset.c \
                   lx_strsetp.c \
+		  lx_strinsert.c \
                   lx_zero.c \
                   lx_caseb.c \
                   lx_cases.c \

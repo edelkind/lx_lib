@@ -23,6 +23,7 @@ extern char lx_striadd(lx_s *, char *, unsigned int);
 extern char lx_strset(lx_s *, char *);
 extern char lx_striset(lx_s *, char *, unsigned int);
 extern char lx_strnset(lx_s *, char *, unsigned int);
+extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
 extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
 extern char lx_cadd(lx_s *, char);
 extern char lx_check0(lx_s *);
