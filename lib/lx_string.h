@@ -45,6 +45,7 @@ extern char lx_strnlpcmp(char *, char *, unsigned int);
 extern char lx_strff(lx_s *, char **, char, unsigned int);
 extern char lx_strfw(lx_s *, char **, unsigned int);
 extern long lx_strindex(lx_s *, char, unsigned int);
+extern long lx_strsindex(lx_s *, char *, unsigned int, unsigned int);
 extern char lx_straddp(lx_s *, char *, ...);
 extern char lx_strsetp(lx_s *, char *, ...);
 

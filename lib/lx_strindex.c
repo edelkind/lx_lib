@@ -24,3 +24,39 @@ long lx_strindex (s, c, n)
 
 	return ((char *)p - s->s);
 }
+
+
+#if 0
+	*** lx_strsindex ***
+	find the index of one of a set of specified characters
+	n should be a positive integer, referring to which occurrence
+	the function should find (i.e. 1 for first, 2 for second, etc)
+	returns the index, or -1 if there was none.
+#endif
+
+long lx_strsindex (s, set, setl, n)
+	lx_s *s;
+	char *set;
+	unsigned int setl, n;
+{
+	unsigned int sl, l = s->len;
+	register unsigned char *p = s->s;
+	register unsigned char *x;
+	unsigned char c;
+
+	for (;;) {
+	    if (!l--) return -1;
+	    x = set;
+	    sl = setl;
+	    c = *p++;
+
+	    for (;;) {
+		if (!sl--) break; if (*x == c) { if (!--n) goto out; } x++;
+		if (!sl--) break; if (*x == c) { if (!--n) goto out; } x++;
+	    }
+	}
+
+out:
+	return ((char *)p - s->s);
+}
+
