@@ -38,9 +38,8 @@ char lx_strcat (s1, s2)
 		return 255;
 
 	/* if there isn't enough space allocated, allocate it */
-//	if ((s1->alloc - s1->len) < s2->len)
-		if (lx_setalloc(s1, (s1->len + s2->len)) != 0)
-			return 1;
+	if (lx_setalloc(s1, (s1->len + s2->len)) != 0)
+		return 1;
 
 	lx_strcatb(s1->s, s2->s, s1->len, s2->len);
 	s1->len += s2->len;
