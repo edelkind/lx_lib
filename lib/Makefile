@@ -44,6 +44,7 @@ SRC             = lx_alloc.c \
                   lx_zero.c \
                   lx_caseb.c \
                   lx_cases.c \
+                  lx_strindex.c \
 
 OBJ             = $(SRC:.c=.o)
 LIB             = liblx.a
