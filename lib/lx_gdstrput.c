@@ -1,5 +1,7 @@
 #include "lx_string.h"
 
+extern void *memcpy();
+
 #if 0
 	*** lx_gdstrput ***
 	add a string to the end of a generic descriptor

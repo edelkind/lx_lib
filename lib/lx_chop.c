@@ -1,5 +1,7 @@
 #include "lx_string.h"
 
+extern void *memcpy();
+
 #if 0
 	*** lx_chop ***
 	delete the last n characters from a string buffer

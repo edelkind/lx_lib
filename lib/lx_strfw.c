@@ -21,7 +21,7 @@ char lx_strfw (s, p, n)
 
 	if (p) {
 		if (!(*p = malloc(n + 1))) return 1;
-		memcpy (*p, s->s, n);
+		memmove (*p, s->s, n);
 		*(*p + n) = 0;
 	}
 

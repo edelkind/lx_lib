@@ -42,7 +42,7 @@ char lx_strff (s, p, c, n)
 				if (p) {
 					char *q = *p;
 					*p = (char *)malloc(s->len - ix);
-					memcpy(*p, q, s->len - ix);
+					memmove(*p, q, s->len - ix);
 				}
 				lx_striset (s, px, ix);
 				return 0;
