@@ -25,6 +25,7 @@ char lx_strfw (s, p, n)
 		*(*p + n) = 0;
 	}
 
-	memmove (s->s, s->s + n, s->len - n);
+	s->len -= n;
+	memmove (s->s, s->s + n, s->len);
 	return 0;
 }
