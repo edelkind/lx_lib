@@ -25,6 +25,7 @@ extern char lx_striset(lx_s *, char *, unsigned int);
 extern char lx_strnset(lx_s *, char *, unsigned int);
 extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
 extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
+extern char lx_straddlong(lx_s *, long, unsigned int);
 extern char lx_cadd(lx_s *, char);
 extern char lx_check0(lx_s *);
 extern char lx_chop(lx_s *, unsigned int);
@@ -69,6 +70,8 @@ extern void lx_lowersp(char *, char *, unsigned int);
 extern void lx_uppersp(char *, char *, unsigned int);
 extern char lx_lowerstr(lx_s *, char *, unsigned int);
 extern char lx_upperstr(lx_s *, char *, unsigned int);
+
+extern int  lx_map();
 
 extern void *lx_stroffer(lx_s *);
 

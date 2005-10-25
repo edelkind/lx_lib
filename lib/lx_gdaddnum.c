@@ -30,7 +30,7 @@ char lx_gdaddulong (gd, num, base)
 
 		while (len--) {
 			n = (num % base);
-			numstr[len] = ((n < 10) ? '0' : ('A' - 10)) + n;
+			numstr[len] = ((n < 10) ? '0' : ('a' - 10)) + n;
 			num /= base;
 		}
 

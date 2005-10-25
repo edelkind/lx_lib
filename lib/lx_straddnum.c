@@ -29,10 +29,24 @@ char lx_straddulong (s_dest, num, base)
 		numstr[len] = 0;
 		while (len--) {
 			n = (num % base);
-			numstr[len] = ((n < 10) ? '0' : ('A' - 10)) + n;
+			numstr[len] = ((n < 10) ? '0' : ('a' - 10)) + n;
 			num /= base;
 		}
 
 		return (lx_stradd (s_dest, (char *)numstr));
 	}
 }
+
+char lx_straddlong (s_dest, num, base)
+	struct lx_string *s_dest;
+	long num;
+	unsigned int base;
+{
+	if (num < 0) {
+		if (lx_cadd(s_dest, '-')) return 1;
+		num = -num;
+	}
+
+	return lx_straddulong(s_dest, num, base);
+}
+

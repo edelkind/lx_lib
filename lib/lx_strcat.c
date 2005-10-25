@@ -34,9 +34,6 @@ char lx_strcat (s1, s2)
 	struct lx_string *s1;
 	struct lx_string *s2;
 {
-	if (!(s1->s) || !(s2->s))
-		return 255;
-
 	/* if there isn't enough space allocated, allocate it */
 	if (lx_setalloc(s1, (s1->len + s2->len)) != 0)
 		return 1;
