@@ -22,8 +22,8 @@ struct lx_map_opt {
 #define LXM_d(n)       ((struct lx_map_opt){ LX_TYPE_INT,    (void *)n, 10  })
 #define LXM_lu(n)      ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)n, 10  })
 #define LXM_du(n)      ((struct lx_map_opt){ LX_TYPE_UINT,   (void *)n, 10  })
-#define LXM_lxs(s)     ((struct lx_map_opt){ LX_TYPE_STRING, s->s,   s->len })
 #define LXM_x(n)       ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)n, 16  })
+#define LXM_lxs(s)     ((struct lx_map_opt){ LX_TYPE_STRING, s->s,   s->len })
 #define LXM_END        ((struct lx_map_opt){ LX_TYPE_END,    0,         0   })
 
 static inline char *LX_N_TO_S(i, ip, base)
