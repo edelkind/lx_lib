@@ -1,6 +1,6 @@
 #include "lx_string.h"
+#include <string.h>
 
-extern int strlen();
 
 #if 0
 	*** lx_gdputc ***

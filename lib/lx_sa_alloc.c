@@ -1,8 +1,7 @@
 #include "lx_string.h"
-extern char *malloc();
-extern char *memmove();
-extern char *realloc();
-extern void free();
+
+#include <stdlib.h>
+#include <string.h>
 
 /* extra allocation amount over the normal allocation (could allow for
    fewer allocations, hence speed execution) */

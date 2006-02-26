@@ -1,7 +1,7 @@
 #include "lx_string.h"
 
-extern void *memmove();
-extern int   strlen();
+#include <string.h>
+
 
 #if 0
 	add a normal string to an array of string buffers

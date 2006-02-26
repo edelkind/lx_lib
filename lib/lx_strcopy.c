@@ -1,5 +1,6 @@
 #include "lx_string.h"
-extern char *memmove();
+
+#include <string.h>
 
 #if 0
 	*** lx_strcopy ***

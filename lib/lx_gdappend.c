@@ -1,6 +1,6 @@
 #include "lx_string.h"
 
-extern void *memcpy ();
+#include <string.h>
 
 
 #if 0
