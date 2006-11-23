@@ -1,3 +1,6 @@
+- CRITICAL: ensure that all malloc implementations correctly handle malloc(0)
+  (otherwise, change all instances where malloc() is used)
+
 * continue work on string arrays (lx_sa_*)
 
 * add a "sensitive data" function, and hooks throughout the library.  If the

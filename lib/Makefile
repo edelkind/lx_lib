@@ -22,6 +22,7 @@ SRC             = lx_alloc.c \
                   lx_getln.c \
                   lx_map.c \
                   lx_mirror.c \
+                  lx_objects.c \
                   lx_read.c \
                   lx_sa_add.c \
                   lx_sa_adds.c \

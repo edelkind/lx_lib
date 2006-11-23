@@ -75,6 +75,11 @@ extern int  lx_map();
 
 extern void *lx_stroffer(lx_s *);
 
+/* objects */
+
+extern void *lx_new(void);
+extern void  lx_destroy(void *);
+
 /* arrays */
 
 extern char lx_sa_add(lx_sa *, lx_s *);
