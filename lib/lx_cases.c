@@ -13,8 +13,9 @@ void lx_lowers (s, l)
 	char c;
 	while (l--) {
 		c = *s;
-		if (c < 'A' || c > 'Z') continue;
-		*s++ = c + ('a' - 'A');
+		if (c >= 'A' && c <= 'Z')
+                    *s = c + ('a' - 'A');
+                s++;
 	}
 }
 
@@ -32,8 +33,9 @@ void lx_uppers (s, l)
 	char c;
 	while (l--) {
 		c = *s;
-		if (c < 'a' || c > 'z') continue;
-		*s++ = c + ('A' - 'a');
+		if (c >= 'a' && c <= 'z')
+                    *s = c + ('A' - 'a');
+                s++;
 	}
 }
 
