@@ -15,16 +15,16 @@ struct lx_map_opt {
 #define LX_TYPE_UINT   0x04
 #define LX_TYPE_INT    0x05
 
-#define LXM_q(s)       ((struct lx_map_opt){ LX_TYPE_STRING, s, sizeof(s)-1 })
-#define LXM_qm(s)      ((struct lx_map_opt){ LX_TYPE_STRING, s, sizeof(s)   })
-#define LXM_mb(s, len) ((struct lx_map_opt){ LX_TYPE_STRING, s,         len })
-#define LXM_l(n)       ((struct lx_map_opt){ LX_TYPE_LONG,   (void *)n, 10  })
-#define LXM_d(n)       ((struct lx_map_opt){ LX_TYPE_INT,    (void *)n, 10  })
-#define LXM_lu(n)      ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)n, 10  })
-#define LXM_du(n)      ((struct lx_map_opt){ LX_TYPE_UINT,   (void *)n, 10  })
-#define LXM_x(n)       ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)n, 16  })
-#define LXM_lxs(s)     ((struct lx_map_opt){ LX_TYPE_STRING, s->s,   s->len })
-#define LXM_END        ((struct lx_map_opt){ LX_TYPE_END,    0,         0   })
+#define LXM_q(s)       ((struct lx_map_opt){ LX_TYPE_STRING, (s), sizeof(s)-1   })
+#define LXM_qm(s)      ((struct lx_map_opt){ LX_TYPE_STRING, (s), sizeof(s)     })
+#define LXM_mb(s, len) ((struct lx_map_opt){ LX_TYPE_STRING, (s),         (len) })
+#define LXM_l(n)       ((struct lx_map_opt){ LX_TYPE_LONG,   (void *)(n), 10    })
+#define LXM_d(n)       ((struct lx_map_opt){ LX_TYPE_INT,    (void *)(n), 10    })
+#define LXM_lu(n)      ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)(n), 10    })
+#define LXM_du(n)      ((struct lx_map_opt){ LX_TYPE_UINT,   (void *)(n), 10    })
+#define LXM_x(n)       ((struct lx_map_opt){ LX_TYPE_ULONG,  (void *)(n), 16    })
+#define LXM_lxs(ls)    ((struct lx_map_opt){ LX_TYPE_STRING, (ls)->s, (ls)->len })
+#define LXM_END        ((struct lx_map_opt){ LX_TYPE_END,    0,         0       })
 
 static inline char *LX_N_TO_S(i, ip, base)
     unsigned long i;
