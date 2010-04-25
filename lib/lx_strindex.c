@@ -14,7 +14,7 @@ long lx_strindex (s, c, n)
 	unsigned int n;
 {
 	unsigned int l = s->len;
-	register unsigned char *p = s->s;
+	register char *p = s->s;
 
 	for (;;) {
 		if (!l--) return -1; if (*p == c) { if (!--n) break; } p++;
@@ -40,9 +40,9 @@ long lx_strsindex (s, set, setl, n)
 	unsigned int setl, n;
 {
 	unsigned int sl, l = s->len;
-	register unsigned char *p = s->s;
-	register unsigned char *x;
-	unsigned char c;
+	register char *p = s->s;
+	register char *x;
+	char c;
 
 	for (;;) {
 	    if (!l--) return -1;

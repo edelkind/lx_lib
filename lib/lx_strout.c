@@ -1,6 +1,9 @@
 #include "lx_string.h"
+#include <stdio.h>
 extern int write();
+/*
 extern unsigned int fwrite();
+*/
 
 #if 0
 	*** lx_strout ***
