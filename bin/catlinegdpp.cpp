@@ -1,4 +1,5 @@
-#include <lx>
+#include <stdexcept>
+#include <lx.hh>
 
 using namespace lx;
 
@@ -27,7 +28,7 @@ int main() {
     Gd gdout(1, BLOCKSIZE);
     Gd gderr(2);
 
-    string buf;
+    String buf;
     bool match; // unnecessary in this context
 
     gdout.autoflush(true); // flush on destroy
@@ -42,11 +43,14 @@ int main() {
             gdout.put(buf);
 	} while (!gdin.eof);
 
-    } catch (exception& e) {
-        gderr.put("lx::getln: ", e.what(), endl);
+    } catch (std::exception& e) {
+        gderr.put((char *)"lx::getln: ");
+        gderr.put((char *)(void *)e.what());
+        gderr.put((char *)(void *)"\n");
+        //gderr.put("lx::getln: ", e.what(), endl);
         // or, could offer: gderr.putchain << "lx::getln: " << e.what() << endl;
 
-        exit (1);
+        return 1;
     }
 
 

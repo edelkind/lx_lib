@@ -14,8 +14,12 @@ extern "C" {
 class AllocError: public std::exception
 { const char *what() { return "Bad Allocation"; } };
 
+// TODO: add errno checking/reporting
 class ReadError: public std::exception
 { const char *what() { return "Read Error"; } };
+
+class WriteError: public std::exception
+{ const char *what() { return "Write Error"; } };
 
 
 class Gd;
@@ -89,9 +93,14 @@ class Gd {
 
         bool autoflush(bool val) throw();
         bool autoflush()         throw();
+        void flush()             throw();
 
         bool getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError);
         bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError);
+
+        // TODO: templatized variable-argument put() version using lx_map()
+        void put(String& s)     throw(WriteError);
+        void put(char *s)       throw(WriteError);
 
     protected:
         bool _autoflush;
@@ -120,6 +129,7 @@ inline Gd::Gd(int fd, unsigned int blocksize) throw(AllocError)
  ***********/
 inline Gd::~Gd() throw()
 {
+    if (_autoflush) flush();
     lx_gdfree(&gd);
 }
 
@@ -131,12 +141,16 @@ inline bool Gd::autoflush(bool val) throw()
     return oaf;
 }
 
+inline void Gd::flush() throw()
+{ lx_gdflush(&gd); }
 
 inline bool Gd::getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError)
 {
     unsigned char match;
-    if (!lx_getln(&s.s, &gd, &match, maxlen))
+    if (!lx_getln(&s.s, &gd, &match, maxlen)) {
+        if (!match) eof = true;
         return (match == MATCH_OK);
+    }
 
     throw AllocError(); // TODO: check errno, maybe throw ReadError
 }
@@ -144,13 +158,26 @@ inline bool Gd::getln(String& s, unsigned long maxlen)          throw(AllocError
 inline bool Gd::getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
 {
     unsigned char match;
-    if (!lx_getseg(&s.s, &gd, &c, &match, maxlen))
+    if (!lx_getseg(&s.s, &gd, &c, &match, maxlen)) {
+        if (!match) eof = true;
         return (match == MATCH_OK);
+    }
 
     throw AllocError(); // TODO: check errno, maybe throw ReadError
 }
 
 
+inline void Gd::put(String& s) throw(WriteError)
+{
+    if (lx_gdstrput(&gd, &s.s))
+        throw WriteError();
+}
+
+inline void Gd::put(char *s) throw(WriteError)
+{
+    if (lx_gdputs(&gd, s))
+        throw WriteError();
+}
 
 
 /****************************************************************************
