@@ -126,7 +126,7 @@ extern "C" {
 class AllocError: public std::exception
 { const char *what() { return "Bad Allocation"; } };
 
-// TODO: add errno checking/reporting
+/// \todo add errno checking/reporting
 class ReadError: public std::exception
 { const char *what() { return "Read Error"; } };
 
@@ -141,7 +141,8 @@ class Gd;
 class String;
 
 
-/*** lx::String (LX Generic Data Buffer class) ******************************
+/************************************************************************//**
+ *** lx::String (LX Generic Data Buffer class)
  ****************************************************************************/
 
 class String {
@@ -149,33 +150,33 @@ class String {
     public:
         lx_string s;
 
-        /********************************************************************
+        /****************************************************************//**
           Constructors and destructors
          ********************************************************************/
 
-        /*** [new] : [init this, basic form]
+        /** [new] : [init this, basic form]
         */
         inline String() throw()
         { s.s = 0; }
 
-        /*** [new] : lx_strset(this, src)
+        /** [new] : lx_strset(this, src)
         */
         inline String(const char *src) throw(AllocError)
         { s.s = 0; copy(src); }
 
-        /*** [new] : lx_striset(this, src, n)
+        /** [new] : lx_striset(this, src, n)
         */
         inline String(const char *src, unsigned int n) throw(AllocError)
         { s.s = 0; copy(src, n); }
 
-        /*** [destroy] : lx_free(this)
+        /** [destroy] : lx_free(this)
         */
         inline ~String() throw()
         { if (s.s) lx_free(&s); }
 
 
 
-        /********************************************************************
+        /****************************************************************//**
           convenience for underlying data structures
          ********************************************************************/
 
@@ -190,11 +191,11 @@ class String {
 
 
 
-        /********************************************************************
+        /****************************************************************//**
           String assignment functions
          ********************************************************************/
 
-        /*** strnset : lx_strnset(this, src, maxlen)
+        /** strnset : lx_strnset(this, src, maxlen)
         */
         inline void strnset(const char *src, unsigned int maxlen) throw(AllocError)
         {
@@ -203,7 +204,7 @@ class String {
         }
 
 
-        /*** copy : lx_strcopy(this, src)
+        /** copy : lx_strcopy(this, src)
         */
         inline void copy(const String& src) throw(AllocError)
         {
@@ -212,7 +213,7 @@ class String {
         }
 
 
-        /*** copy : lx_strncopy(this, src, maxlen)
+        /** copy : lx_strncopy(this, src, maxlen)
         */
         inline void copy(const String& src, unsigned int maxlen) throw(AllocError)
         {
@@ -221,16 +222,16 @@ class String {
         }
 
 
-        /*** copy : lx_strset(this, src)
+        /** copy : lx_strset(this, src)
         */
         inline void copy(const char *src) throw(AllocError)
         {
-            if (lx_strset(&s, const_cast<char*>(src) )) // TODO: fix const in lxlib
+            if (lx_strset(&s, const_cast<char*>(src) )) /// \todo fix const in lxlib
                 throw AllocError();
         }
 
 
-        /*** copy : lx_striset(this, src, n)
+        /** copy : lx_striset(this, src, n)
         */
         inline void copy(const char *src, unsigned int n) throw(AllocError)
         {
@@ -239,11 +240,11 @@ class String {
         }
 
 
-        /********************************************************************
+        /****************************************************************//**
           String append functions
          ********************************************************************/
 
-        /*** append : lx_strcat(this, src)
+        /** append : lx_strcat(this, src)
         */
         inline void append(const String& src) throw(AllocError)
         {
@@ -251,7 +252,7 @@ class String {
                 throw AllocError();
         }
 
-        /*** append : lx_striadd(this, src, maxlen||src.len())
+        /** append : lx_striadd(this, src, maxlen||src.len())
         */
         inline void append(const String& src, unsigned int maxlen) throw(AllocError)
         {
@@ -263,7 +264,7 @@ class String {
         }
 
 
-        /*** append : lx_striadd(this, src, len)
+        /** append : lx_striadd(this, src, len)
         */
         inline void append(const char *src, unsigned int len) throw(AllocError)
         {
@@ -271,7 +272,7 @@ class String {
                 throw AllocError();
         }
 
-        /*** append : lx_stradd(this, src)
+        /** append : lx_stradd(this, src)
         */
         inline void append(const char *src) throw(AllocError)
         {
@@ -279,7 +280,7 @@ class String {
                 throw AllocError();
         }
 
-        /*** append : lx_cadd(this, src)
+        /** append : lx_cadd(this, src)
         */
         inline void append(char c) throw(AllocError)
         {
@@ -288,11 +289,11 @@ class String {
         }
 
 
-        /********************************************************************
+        /****************************************************************//**
           Interfacing with non-lx functions
          ********************************************************************/
 
-        /*** check0 : lx_check0(this)
+        /** check0 : lx_check0(this)
         */
         inline void check0() throw(AllocError)
         {
@@ -302,33 +303,33 @@ class String {
 
 
 
-        /********************************************************************
+        /****************************************************************//**
           Data manipulation functions
          ********************************************************************/
 
 
-        /*** chop : lx_chop(this, n)
+        /** chop : lx_chop(this, n)
          */
         inline void chop(unsigned int n) throw (UnderflowError)
             { if (lx_chop(&s, n)) throw UnderflowError(); }
 
 
-        /*** chomp : lx_chomp(this, cstr)
+        /** chomp : lx_chomp(this, cstr)
          */
         inline void chomp(char *cstr) throw (AllocError)
             { if (lx_chomp(&s, cstr)) throw AllocError(); }
 
-        /*** chompf : lx_chompf(this, cstr)
+        /** chompf : lx_chompf(this, cstr)
          */
         inline void chompf(char *cstr) throw (AllocError)
             { if (lx_chompf(&s, cstr)) throw AllocError(); }
 
-        /*** chomp : lx_chomp_ws(this)
+        /** chomp : lx_chomp_ws(this)
          */
         inline void chomp() throw ()
             { lx_chomp_ws(&s); }
 
-        /*** lx_chompf_ws(this) */
+        /** lx_chompf_ws(this) */
         inline void chompf() throw (AllocError)
             { if (lx_chompf_ws(&s)) throw AllocError(); }
 
@@ -351,7 +352,8 @@ class String {
 
 
 
-/*** lx::Gd (LX Generic Descriptor) class ***********************************
+/************************************************************************//**
+ *** lx::Gd (LX Generic Descriptor) class
  ****************************************************************************/
 class Gd {
 
@@ -362,11 +364,11 @@ class Gd {
         Gd(int fd, unsigned int blocksize = 0) throw(AllocError);
         ~Gd() throw();
 
-        /********************************************************************
+        /****************************************************************//**
           Constructors and destructors
          ********************************************************************/
 
-        /*********** construct
+        /** construct.
          *
          * init this.gd with file descriptor [fd], and optionally an explicit [blocksize]
          * autoflush defaults to false
@@ -384,7 +386,7 @@ class Gd {
                 throw AllocError();
         }
 
-        /*********** destroy
+        /** destroy.
          *
          * free this.gd
          ***********/
@@ -395,11 +397,11 @@ class Gd {
         }
 
 
-        /********************************************************************
+        /****************************************************************//**
           State changing functions
          ********************************************************************/
 
-        /** Set autoflush property to val
+        /** Set autoflush property to val.
          *
          * Return old autoflush value.
          */
@@ -410,7 +412,7 @@ class Gd {
             return oaf;
         }
 
-        /** Return autoflush value */
+        /** Return autoflush value. */
         inline bool autoflush() throw()
         { return _autoflush; }
 
@@ -419,14 +421,15 @@ class Gd {
         { lx_gdflush(&gd); }
 
 
-        /********************************************************************
+        /****************************************************************//**
           GD seeking and searching functions
          ********************************************************************/
 
         /**
          * Get a segment, and place it into s.  Maximum segment length to
-         * retrieve is maxlen.  Returns true if EOS was reached, false
-         * otherwise.
+         * retrieve is maxlen.
+         *
+         * Returns true if EOS was reached, false otherwise.
          */
         inline bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
         {
@@ -436,7 +439,7 @@ class Gd {
                 return (match == MATCH_OK);
             }
 
-            throw AllocError(); // TODO: check errno, maybe throw ReadError
+            throw AllocError(); /// \todo check errno, maybe throw ReadError
         }
 
         /**
@@ -450,14 +453,14 @@ class Gd {
                 return (match == MATCH_OK);
             }
 
-            throw AllocError(); // TODO: check errno, maybe throw ReadError
+            throw AllocError(); /// \todo check errno, maybe throw ReadError
         }
 
 
-        /********************************************************************
+        /****************************************************************//**
           GD output functions
 
-          // TODO: templatized variable-argument put() version using lx_map()
+          \todo templatized variable-argument put() version using lx_map()
          ********************************************************************/
 
         /**
