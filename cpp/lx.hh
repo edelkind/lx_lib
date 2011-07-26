@@ -27,15 +27,15 @@
 extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
 extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
 extern char lx_straddlong(lx_s *, long, unsigned int);
-extern char lx_cadd(lx_s *, char);
-extern char lx_check0(lx_s *);
-extern char lx_chop(lx_s *, unsigned int);
-extern char lx_chomp(lx_s *, char *);
-extern void lx_chomp_ws(lx_s *);
-extern char lx_chompf(lx_s *s, char *);
-extern char lx_chompf_ws(lx_s *);
-extern char lx_strcmp(lx_s *, lx_s *);
-extern char lx_strscmp(lx_s *, char *);
+//! extern char lx_cadd(lx_s *, char);
+//! extern char lx_check0(lx_s *);
+//! extern char lx_chop(lx_s *, unsigned int);
+//! extern char lx_chomp(lx_s *, char *);
+//! extern void lx_chomp_ws(lx_s *);
+//! extern char lx_chompf(lx_s *s, char *);
+//! extern char lx_chompf_ws(lx_s *);
+//! extern char lx_strcmp(lx_s *, lx_s *);
+//! extern char lx_strscmp(lx_s *, char *);
 extern char lx_stricmp(lx_s *, lx_s *);
 extern char lx_strlcmp(lx_s *, lx_s *);
 extern char lx_strncmp(lx_s *, lx_s *, unsigned int);
@@ -133,6 +133,9 @@ class ReadError: public std::exception
 class WriteError: public std::exception
 { const char *what() { return "Write Error"; } };
 
+class UnderflowError: public std::exception
+{ const char *what() { return "Underflow Error"; } };
+
 
 class Gd;
 class String;
@@ -146,142 +149,205 @@ class String {
     public:
         lx_string s;
 
-        String()                                throw();
-        String(const char *src)                 throw(AllocError);
-        String(const char *src, unsigned int n) throw(AllocError);
-        ~String() throw();
+        /********************************************************************
+          Constructors and destructors
+         ********************************************************************/
 
-        /* convenience for underlying data structures */
-        lx_s& base();
-        unsigned int len();
-        char *ptr();
+        /*** [new] : [init this, basic form]
+        */
+        inline String() throw()
+        { s.s = 0; }
 
-        void strnset(const char *src, unsigned int maxlen)  throw(AllocError);
-        void copy(const String& src)                        throw(AllocError);
-        void copy(const String& src, unsigned int maxlen)   throw(AllocError);
-        void copy(const char   *src)                        throw(AllocError);
-        void copy(const char   *src, unsigned int n)        throw(AllocError);
+        /*** [new] : lx_strset(this, src)
+        */
+        inline String(const char *src) throw(AllocError)
+        { s.s = 0; copy(src); }
 
-        void append(const String& src)                      throw(AllocError);
-        void append(const String& src, unsigned int maxlen) throw(AllocError);
-        void append(const char *src, unsigned int len)      throw(AllocError);
-        void append(const char *src)                        throw(AllocError);
+        /*** [new] : lx_striset(this, src, n)
+        */
+        inline String(const char *src, unsigned int n) throw(AllocError)
+        { s.s = 0; copy(src, n); }
+
+        /*** [destroy] : lx_free(this)
+        */
+        inline ~String() throw()
+        { if (s.s) lx_free(&s); }
+
+
+
+        /********************************************************************
+          convenience for underlying data structures
+         ********************************************************************/
+
+        inline lx_s& base()
+        { return s; }
+
+        inline unsigned int len()
+        { return s.len; }
+
+        inline char *ptr()
+        { return s.s; }
+
+
+
+        /********************************************************************
+          String assignment functions
+         ********************************************************************/
+
+        /*** strnset : lx_strnset(this, src, maxlen)
+        */
+        inline void strnset(const char *src, unsigned int maxlen) throw(AllocError)
+        {
+            if (lx_strnset(&s, (char *)(void *)src, maxlen))
+                throw AllocError();
+        }
+
+
+        /*** copy : lx_strcopy(this, src)
+        */
+        inline void copy(const String& src) throw(AllocError)
+        {
+            if (lx_strcopy(&s, const_cast<lx_s*>(&src.s) ))
+                throw AllocError();
+        }
+
+
+        /*** copy : lx_strncopy(this, src, maxlen)
+        */
+        inline void copy(const String& src, unsigned int maxlen) throw(AllocError)
+        {
+            if (lx_strncopy(&s, const_cast<lx_s*>(&src.s), maxlen))
+                throw AllocError();
+        }
+
+
+        /*** copy : lx_strset(this, src)
+        */
+        inline void copy(const char *src) throw(AllocError)
+        {
+            if (lx_strset(&s, const_cast<char*>(src) )) // TODO: fix const in lxlib
+                throw AllocError();
+        }
+
+
+        /*** copy : lx_striset(this, src, n)
+        */
+        inline void copy(const char *src, unsigned int n) throw(AllocError)
+        {
+            if (lx_striset(&s, const_cast<char*>(src), n))
+                throw AllocError();
+        }
+
+
+        /********************************************************************
+          String append functions
+         ********************************************************************/
+
+        /*** append : lx_strcat(this, src)
+        */
+        inline void append(const String& src) throw(AllocError)
+        {
+            if (lx_strcat(&s, const_cast<lx_s*>(&src.s) ))
+                throw AllocError();
+        }
+
+        /*** append : lx_striadd(this, src, maxlen||src.len())
+        */
+        inline void append(const String& src, unsigned int maxlen) throw(AllocError)
+        {
+            if (maxlen > src.s.len)
+                maxlen = src.s.len;
+
+            if (lx_striadd(&s, src.s.s, maxlen))
+                throw AllocError();
+        }
+
+
+        /*** append : lx_striadd(this, src, len)
+        */
+        inline void append(const char *src, unsigned int len) throw(AllocError)
+        {
+            if (lx_striadd(&s, const_cast<char*>(src), len))
+                throw AllocError();
+        }
+
+        /*** append : lx_stradd(this, src)
+        */
+        inline void append(const char *src) throw(AllocError)
+        {
+            if (lx_stradd(&s, const_cast<char*>(src) ))
+                throw AllocError();
+        }
+
+        /*** append : lx_cadd(this, src)
+        */
+        inline void append(char c) throw(AllocError)
+        {
+            if (lx_cadd(&s, c ))
+                throw AllocError();
+        }
+
+
+        /********************************************************************
+          Interfacing with non-lx functions
+         ********************************************************************/
+
+        /*** check0 : lx_check0(this)
+        */
+        inline void check0() throw(AllocError)
+        {
+            if (lx_check0(&s))
+                throw AllocError();
+        }
+
+
+
+        /********************************************************************
+          Data manipulation functions
+         ********************************************************************/
+
+
+        /*** chop : lx_chop(this, n)
+         */
+        inline void chop(unsigned int n) throw (UnderflowError)
+            { if (lx_chop(&s, n)) throw UnderflowError(); }
+
+
+        /*** chomp : lx_chomp(this, cstr)
+         */
+        inline void chomp(char *cstr) throw (AllocError)
+            { if (lx_chomp(&s, cstr)) throw AllocError(); }
+
+        /*** chompf : lx_chompf(this, cstr)
+         */
+        inline void chompf(char *cstr) throw (AllocError)
+            { if (lx_chompf(&s, cstr)) throw AllocError(); }
+
+        /*** chomp : lx_chomp_ws(this)
+         */
+        inline void chomp() throw ()
+            { lx_chomp_ws(&s); }
+
+        /*** lx_chompf_ws(this) */
+        inline void chompf() throw (AllocError)
+            { if (lx_chompf_ws(&s)) throw AllocError(); }
+
+
+        /** returns true if strings match; false if not */
+        inline bool compare(lx_s *s2) throw()
+            { return !lx_strcmp(&s, s2); }
+
+        /** returns true if strings match; false if not */
+        inline bool compare(char *s2) throw()
+            { return !lx_strscmp(&s, s2); }
+
+
 
     protected:
 };
 
-/*** [new] : [init this, basic form]
- */
-inline String::String() throw()
-{ s.s = 0; }
 
 
-/*** [new] : lx_strset(this, src)
- */
-inline String::String(const char *src) throw(AllocError)
-{ s.s = 0; copy(src); }
-
-/*** [new] : lx_striset(this, src, n)
- */
-inline String::String(const char *src, unsigned int n) throw(AllocError)
-{ s.s = 0; copy(src, n); }
-
-/*** [destroy] : lx_free(this)
- */
-inline String::~String() throw()
-{ if (s.s) lx_free(&s); }
-
-inline lx_s& String::base()
-{ return s; }
-
-inline unsigned int String::len()
-{ return s.len; }
-
-inline char *String::ptr()
-{ return s.s; }
-
-
-
-/*** strnset : lx_strnset(this, src, maxlen)
- */
-inline void String::strnset(const char *src, unsigned int maxlen) throw(AllocError)
-{
-    if (lx_strnset(&s, (char *)(void *)src, maxlen))
-        throw AllocError();
-}
-
-
-/*** copy : lx_strcopy(this, src)
- */
-inline void String::copy(const String& src) throw(AllocError)
-{
-    if (lx_strcopy(&s, const_cast<lx_s*>(&src.s) ))
-        throw AllocError();
-}
-
-
-/*** copy : lx_strncopy(this, src, maxlen)
- */
-inline void String::copy(const String& src, unsigned int maxlen) throw(AllocError)
-{
-    if (lx_strncopy(&s, const_cast<lx_s*>(&src.s), maxlen))
-        throw AllocError();
-}
-
-
-/*** copy : lx_strset(this, src)
- */
-inline void String::copy(const char *src) throw(AllocError)
-{
-    if (lx_strset(&s, const_cast<char*>(src) )) // TODO: fix const in lxlib
-        throw AllocError();
-}
-
-
-/*** copy : lx_striset(this, src, n)
- */
-inline void String::copy(const char *src, unsigned int n) throw(AllocError)
-{
-    if (lx_striset(&s, const_cast<char*>(src), n))
-        throw AllocError();
-}
-
-
-/*** append : lx_strcat(this, src)
- */
-inline void String::append(const String& src) throw(AllocError)
-{
-    if (lx_strcat(&s, const_cast<lx_s*>(&src.s) ))
-        throw AllocError();
-}
-
-/*** append : lx_striadd(this, src, maxlen||src.len())
- */
-inline void String::append(const String& src, unsigned int maxlen) throw(AllocError)
-{
-    if (maxlen > src.s.len)
-        maxlen = src.s.len;
-
-    if (lx_striadd(&s, src.s.s, maxlen))
-        throw AllocError();
-}
-
-
-/*** append : lx_striadd(this, src, len)
- */
-inline void String::append(const char *src, unsigned int len) throw(AllocError)
-{
-    if (lx_striadd(&s, const_cast<char*>(src), len))
-        throw AllocError();
-}
-
-/*** append : lx_stradd(this, src)
- */
-inline void String::append(const char *src) throw(AllocError)
-{
-    if (lx_stradd(&s, const_cast<char*>(src) ))
-        throw AllocError();
-}
 
 
 
@@ -296,93 +362,126 @@ class Gd {
         Gd(int fd, unsigned int blocksize = 0) throw(AllocError);
         ~Gd() throw();
 
-        bool autoflush(bool val) throw();
-        bool autoflush()         throw();
-        void flush()             throw();
+        /********************************************************************
+          Constructors and destructors
+         ********************************************************************/
 
-        bool getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError);
-        bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError);
+        /*********** construct
+         *
+         * init this.gd with file descriptor [fd], and optionally an explicit [blocksize]
+         * autoflush defaults to false
+         *
+         * exceptions:
+         *   - AllocError
+         *
+         ***********/
+        inline Gd(int fd, unsigned int blocksize) throw(AllocError)
+        {
+            _autoflush = false;
+            eof = false;
 
-        // TODO: templatized variable-argument put() version using lx_map()
-        void put(String& s)     throw(WriteError);
-        void put(char *s)       throw(WriteError);
+            if (lx_gdnew(&gd, fd, blocksize))
+                throw AllocError();
+        }
+
+        /*********** destroy
+         *
+         * free this.gd
+         ***********/
+        inline ~Gd() throw()
+        {
+            if (_autoflush) flush();
+            lx_gdfree(&gd);
+        }
+
+
+        /********************************************************************
+          State changing functions
+         ********************************************************************/
+
+        /** Set autoflush property to val
+         *
+         * Return old autoflush value.
+         */
+        inline bool autoflush(bool val) throw()
+        {
+            bool oaf = _autoflush;
+            _autoflush = val;
+            return oaf;
+        }
+
+        /** Return autoflush value */
+        inline bool autoflush() throw()
+        { return _autoflush; }
+
+        /** lx_gdflush(this) */
+        inline void flush() throw()
+        { lx_gdflush(&gd); }
+
+
+        /********************************************************************
+          GD seeking and searching functions
+         ********************************************************************/
+
+        /**
+         * Get a segment, and place it into s.  Maximum segment length to
+         * retrieve is maxlen.  Returns true if EOS was reached, false
+         * otherwise.
+         */
+        inline bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
+        {
+            unsigned char match;
+            if (!lx_getseg(&s.s, &gd, &c, &match, maxlen)) {
+                if (!match) eof = true;
+                return (match == MATCH_OK);
+            }
+
+            throw AllocError(); // TODO: check errno, maybe throw ReadError
+        }
+
+        /**
+         * Same as getseg(), but c is '\n'.
+         */
+        inline bool getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError)
+        {
+            unsigned char match;
+            if (!lx_getln(&s.s, &gd, &match, maxlen)) {
+                if (!match) eof = true;
+                return (match == MATCH_OK);
+            }
+
+            throw AllocError(); // TODO: check errno, maybe throw ReadError
+        }
+
+
+        /********************************************************************
+          GD output functions
+
+          // TODO: templatized variable-argument put() version using lx_map()
+         ********************************************************************/
+
+        /**
+         * lx_gdstrput(this, S.base())
+         */
+        inline void put(String& S) throw(WriteError)
+        {
+            if ( lx_gdstrput( &gd, &S.base() ) )
+                throw WriteError();
+        }
+
+        /**
+         * lx_gdputs(this, c_str)
+         */
+        inline void put(char *c_str) throw(WriteError)
+        {
+            if ( lx_gdputs(&gd, c_str) )
+                throw WriteError();
+        }
 
     protected:
         bool _autoflush;
 };
 
-
-/*********** construct
- * init this.gd with file descriptor [fd], and optionally an explicit [blocksize]
- * autoflush defaults to false
- *
- * exceptions:
- *   - AllocError
- *
- ***********/
-inline Gd::Gd(int fd, unsigned int blocksize) throw(AllocError)
-{
-    _autoflush = false;
-    eof = false;
-
-    if (lx_gdnew(&gd, fd, blocksize))
-        throw AllocError();
-}
-
-/*********** destroy
- * free this.gd
- ***********/
-inline Gd::~Gd() throw()
-{
-    if (_autoflush) flush();
-    lx_gdfree(&gd);
-}
-
-
-inline bool Gd::autoflush(bool val) throw()
-{
-    bool oaf = _autoflush;
-    _autoflush = val;
-    return oaf;
-}
-
-inline void Gd::flush() throw()
-{ lx_gdflush(&gd); }
-
-inline bool Gd::getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError)
-{
-    unsigned char match;
-    if (!lx_getln(&s.s, &gd, &match, maxlen)) {
-        if (!match) eof = true;
-        return (match == MATCH_OK);
-    }
-
-    throw AllocError(); // TODO: check errno, maybe throw ReadError
-}
-
-inline bool Gd::getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
-{
-    unsigned char match;
-    if (!lx_getseg(&s.s, &gd, &c, &match, maxlen)) {
-        if (!match) eof = true;
-        return (match == MATCH_OK);
-    }
-
-    throw AllocError(); // TODO: check errno, maybe throw ReadError
-}
-
-
-inline void Gd::put(String& s) throw(WriteError)
-{
-    if (lx_gdstrput(&gd, &s.s))
-        throw WriteError();
-}
-
-inline void Gd::put(char *s) throw(WriteError)
-{
-    if (lx_gdputs(&gd, s))
-        throw WriteError();
-}
 
 
 /****************************************************************************
