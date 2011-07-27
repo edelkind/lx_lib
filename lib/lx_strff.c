@@ -6,13 +6,19 @@ extern void *memmove();
 extern void *malloc();
 #endif
 
-#if 0
-	*** lx_strff ***
-	fast forward past the nth instance of a specified character 
-	unless p == 0, a pointer to the previous beginning will be kept.
-	the specified character will become the 0-termination for the new ptr.
-	returns 0 on success.
-#endif
+/**
+ * Fast forward past the nth instance of a specified character.
+ * The current implementation copies the remaining data to the beginning of s
+ * (without reallocating).
+ * 
+ * If p is not null, it will hold a pointer to the previous beginning
+ * (allocated with malloc()).
+ * 
+ * p[index] (the index of the specified character) will be the 0-termination
+ * for the new ptr.
+ * 
+ * Returns 0 on success.
+ */
 
 char lx_strff (s, p, c, n)
 	struct lx_string *s;

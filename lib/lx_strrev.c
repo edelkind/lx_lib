@@ -1,11 +1,10 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_strrev ***
-	reverse a string struct
-	note that the string struct must already have value.
-	returns nothing
-#endif
+/**
+ * Reverse the contents of a string struct.
+ *
+ * Note that the string struct must already have value.
+ */
 
 void lx_strrev (s)
 	lx_s *s;

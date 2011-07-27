@@ -1,10 +1,10 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_cadd ***
-	adds a given character to a string buffer
-	returns 0 on success.
-#endif
+/**
+ * Adds a given character to a string buffer.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_cadd (s_dest, c)
 	struct lx_string *s_dest;

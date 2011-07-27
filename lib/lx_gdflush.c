@@ -3,11 +3,11 @@
 
 extern int write ();
 
-#if 0
-	*** lx_gdflush ***
-	flush generic descriptor output
-	returns 0 on success
-#endif
+/**
+ * Flush generic descriptor output.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_gdflush (gd)
 	lx_gd *gd;

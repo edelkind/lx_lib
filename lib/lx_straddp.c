@@ -1,11 +1,11 @@
 #include <stdarg.h>
 #include "lx_string.h"
 
-#if 0
-	*** lx_straddp ***
-	adds given strings to a string buffer
-	returns 0 on success
-#endif
+/**
+ * Adds given strings to a string buffer.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_straddp (lx_s *s_dest, char *src, ...)
 	/* lx_s *s_dest; */

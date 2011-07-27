@@ -1,11 +1,12 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_strcatb ***
-	concatenate two strings, each of specified respective lengths
-	inner function -- made to be called by lx_strcat
-	no return value
-#endif
+/**
+ * Concatenate two strings, each of specified respective lengths....
+ *
+ * Inner function -- made to be called by lx_strcat().
+ *
+ * \deprecated May be renamed in the future.
+ */
 
 void lx_strcatb (s1, s2, len1, len2)
 	register char *s1;
@@ -24,11 +25,11 @@ void lx_strcatb (s1, s2, len1, len2)
 }
 
 
-#if 0
-	*** lx_strcat ***
-	concatenate two strings, allocating space if necessary
-	returns 0 on success
-#endif
+/**
+	Concatenate two strings, allocating space if necessary.
+
+	Returns 0 on success.
+ */
 
 char lx_strcat (s1, s2)
 	struct lx_string *s1;

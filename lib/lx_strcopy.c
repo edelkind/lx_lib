@@ -2,11 +2,11 @@
 
 #include <string.h>
 
-#if 0
-	*** lx_strcopy ***
-	copies one buffer to another
-	returns 0 if successful
-#endif
+/**
+ * Copies one buffer to another.
+ *
+ * Returns 0 if successful.
+ */
 
 char lx_strcopy (dest, src)
 	struct lx_string *dest;
@@ -22,10 +22,11 @@ char lx_strcopy (dest, src)
 }
 
 
-#if 0
-	copies the first l bytes of one buffer to another
-	returns 0 on success
-#endif
+/**
+ * Copies the first l bytes of one buffer to another.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_strncopy (dest, src, l)
 	lx_s *dest, *src;

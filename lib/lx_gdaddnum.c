@@ -1,12 +1,12 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_gdaddulong ***
-	adds a given unsigned number to a string buffer, in string context
-	if you have a number with a base of more than 35, you are not
-	promised a useful result.
-	returns 0 on success.
-#endif
+/**
+ * Adds a given unsigned number to a string buffer, in string context.
+ * If you have a number with a base of more than 35, you are not
+ * promised a useful result.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_gdaddulong (gd, num, base)
 	lx_gd *gd;
@@ -38,6 +38,8 @@ char lx_gdaddulong (gd, num, base)
 	}
 }
 
+/** Like lx_gdaddulong(), but signed.
+ */
 char lx_gdaddlong (gd, num, base)
 	lx_gd *gd;
 	signed long num;

@@ -7,16 +7,18 @@
 
 #include <string.h>
 
-/* extra allocation amount over the normal allocation (could allow for
-   fewer allocations, hence speed execution) */
+/** \internal
+ * extra allocation amount over the normal allocation (could allow for
+ * fewer allocations, hence speed execution)
+ */
 static unsigned int extra_buf = 0;
 
 
-#if 0
-	*** lx_alloc ***
-	allocate a string struct not yet used
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Allocate a string struct not yet used.
+ *
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_alloc (s, elem)
 	lx_s *s;
@@ -36,19 +38,20 @@ char lx_alloc (s, elem)
 }
 
 
-#if 0
-	*** lx_realloc ***
-	reallocate a string struct to hold a different amount
-	if the memory cannot be allocated, str is untouched.
-
-	NOTES: 
-	   extra_buf is not used here; given values are exact.
-	   never use realloc if the string is not already allocated.
-	   this function may be renamed to lxi_realloc in the future;
-	     avoid using it in programs.
-
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Reallocate a string struct to hold a different amount.
+ *
+ * if the memory cannot be allocated, str is untouched.
+ * 
+ * NOTES: 
+ *    - extra_buf is not used here; given values are exact.
+ *    - never use realloc if the string is not already allocated.
+ * \deprecated
+ *    this function may be renamed to lxi_realloc in the future;
+ *    avoid using it in programs.
+ * 
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_realloc (str, elem)
 	struct lx_string *str;
@@ -70,11 +73,11 @@ char lx_realloc (str, elem)
 }
 
 
-#if 0
-	*** lx_setalloc ***
-	allocate a string struct, used or not
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Allocate a string struct, used or not.
+ *
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_setalloc (str, elem)
 	struct lx_string *str;
@@ -105,11 +108,11 @@ char lx_setalloc (str, elem)
 }
 
 
-#if 0
-	*** lx_plusalloc ***
-	add elem bytes to allocated s
-	returns 0 on success, 1 on error
-#endif
+/**
+ * Add elem bytes to allocated s.
+ *
+ * Returns 0 on success, 1 on error
+ */
 
 char lx_plusalloc (s, elem)
 	lx_s *s;
@@ -120,14 +123,15 @@ char lx_plusalloc (s, elem)
 }
 
 
-#if 0
-	*** lx_setxbuf ***
-	sets the extra buffer amount for allocations
-	any time new space actually needs to be allocated, allocate this
-	extra amount, allowing for potentially fewer allocations and hence
-	faster program execution
-	returns the old extra buffer amount.
-#endif
+/**
+ * Sets the extra buffer amount for allocations.
+ *
+ * Any time new space actually needs to be allocated, allocate this
+ * extra amount, allowing for potentially fewer allocations and hence
+ * faster program execution.
+ *
+ * Returns the old extra buffer amount.
+ */
 
 unsigned int lx_setxbuf (x)
 	unsigned int x;

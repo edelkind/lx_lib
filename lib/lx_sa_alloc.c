@@ -8,11 +8,11 @@
 static unsigned int extra_sa_buf = 0;
 
 
-#if 0
-	*** lx_sa_alloc ***
-	allocate an array of string structs not yet used
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Allocate an array of string structs not yet used.
+ *
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_sa_alloc (sa, elem)
 	struct lx_stringarray *sa;
@@ -32,19 +32,19 @@ char lx_sa_alloc (sa, elem)
 }
 
 
-#if 0
-	*** lx_sa_realloc ***
-	reallocate a string struct array, used only
-	if it cannot be allocated, it is left untouched.
-
-	NOTES:
-	   extra_sa_buf is not used here; given values are exact.
-	   never use realloc if the string is not already allocated.
-	   this function may be renamed to lxi_sa_realloc in the future;
-	     avoid using it in programs.
-
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Reallocate a (previously used!) string struct array.
+ *
+ * If it cannot be allocated, it is left untouched.
+ * 
+ * NOTES:
+ *    Extra_sa_buf is not used here; given values are exact.
+ *    Never use realloc if the string is not already allocated.
+ *    \deprecated This function may be renamed to lxi_sa_realloc in the future;
+ *      avoid using it in programs.
+ * 
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_sa_realloc (sa, elem)
 	struct lx_stringarray *sa;
@@ -64,11 +64,11 @@ char lx_sa_realloc (sa, elem)
 }
 
 
-#if 0
-	*** lx_sa_setalloc ***
-	allocate an array of string structs, used or not
-	returns 0 on success, 1 on error.
-#endif
+/**
+ * Allocate an array of string structs, used or not.
+ *
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_sa_setalloc (sa, elem)
 	struct lx_stringarray *sa;
@@ -98,11 +98,11 @@ char lx_sa_setalloc (sa, elem)
 }
 
 
-#if 0
-	*** lx_sa_plusalloc ***
-	add elem elements to allocated sa
-	returns 0 on success, 1 on error
-#endif
+/**
+ * Add elem elements to allocated sa.
+ *
+ * Returns 0 on success, 1 on error.
+ */
 
 char lx_sa_plusalloc (sa, elem)
 	lx_sa *sa;
@@ -113,14 +113,15 @@ char lx_sa_plusalloc (sa, elem)
 }
 
 
-#if 0
-	*** lx_sa_setxbuf ***
-	sets the extra buffer array amount for allocations
-	any time new space actually needs to be allocated, allocate this
-	extra amount, allowing for potentially fewer allocations and hence
-	faster program execution
-	returns the old extra buffer array amount.
-#endif
+/**
+ * Sets the extra buffer array amount for allocations.
+ *
+ * Any time new space actually needs to be allocated, allocate this
+ * extra amount, allowing for potentially fewer allocations and hence
+ * faster program execution.
+ *
+ * Returns the old extra buffer array amount.
+ */
 
 unsigned int lx_sa_setxbuf (x)
 	unsigned int x;

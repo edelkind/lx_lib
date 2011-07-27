@@ -8,12 +8,11 @@ extern void *memchr ();
 
 #define RSB(n) return(n)
 
-#if 0
-	*** lx_getseg ***
-	gets a segment (delimited by c) from gd and inserts it into dest
-	returns 0 on success (if c was matched, 'match' is set to 1)
-	returns 1 on error
-#endif
+/**
+ * Gets a segment (delimited by *cp) from gd and inserts it into s.
+ *
+ * Returns 0 on success (if *cp was matched, match is set to 1), or 1 on error.
+ */
 
 char lx_getseg (s, gd, cp, match, max)
 	struct lx_string *s;
@@ -62,16 +61,17 @@ char lx_getseg (s, gd, cp, match, max)
 	}
 }
 
-#if 0
-	*** lx_getln ***
-	gets a line (delimited by '\n') from fd and inserts it into dest
-	accepts at most maxlen bytes of input for a line
-	if maxlen == 0, input line length is unlimited
-
-	WARNING: if length is unlimited, you may run out of memory reading
-	         from continuous input that does not contain a delimiter.
-	returns 0 on success
-#endif
+/**
+ * Gets a line (delimited by '\n') from gd and inserts it into s.
+ * 
+ * Accepts at most maxlen bytes of input for a line.
+ * If maxlen == 0, input line length is unlimited.
+ * 
+ * WARNING: if length is unlimited, you may run out of memory reading
+ *          from continuous input that does not contain a delimiter.
+ *
+ * Returns as lx_getseg().
+ */
 
 char lx_getln (s, gd, match, maxlen)
 	struct lx_string *s;

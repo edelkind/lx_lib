@@ -2,12 +2,13 @@
 #include <string.h>
 
 
-#if 0
-	*** lx_gdputc ***
-	outputs a character to a generic descriptor
-	NOTE: remember to flush the gd
-	returns 0 on success
-#endif
+/**
+ * Outputs a character to a generic descriptor.
+ *
+ * NOTE: Remember to flush the gd.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_gdputc (gd, c)
 	lx_gd *gd;

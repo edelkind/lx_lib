@@ -1,15 +1,14 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_strinsert ***
-        insert len bytes of string p into s, at position off, allocating
-        additional space if necessary.  del characters will be removed from
-        s at the place of insert.
-
-        s must contain at least off+del bytes.
-
-	returns 0 on success
-#endif
+/**
+ * Insert len bytes of string p into s, at position off, allocating
+ * additional space if necessary.  del characters will be removed from
+ * s at the place of insert.
+ * 
+ * s must already contain at least off+del bytes.
+ * 
+ * Returns 0 on success.
+ */
 
 extern void *memmove();
 

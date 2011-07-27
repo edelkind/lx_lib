@@ -6,11 +6,11 @@ extern void *memmove();
 extern void *malloc();
 #endif
 
-#if 0
-	*** lx_stroffer ***
-	offers a string buffer as a pointer.
-	returns a pointer to a newly created string, or 0 on error.
-#endif
+/**
+ * Offers a string buffer as a pointer.
+ *
+ * Returns a pointer to a newly allocated C string, or 0 on error.
+ */
 
 void *lx_stroffer (s)
 	lx_s *s;

@@ -2,12 +2,13 @@
 
 extern void *memcpy();
 
-#if 0
-	*** lx_gdstrput ***
-	add a string to the end of a generic descriptor
-	flush if necessary
-	returns 0 on success
-#endif
+/**
+ * Add a string to the end of a lx_gd.
+ *
+ * Flush when gd is full.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_gdstrput (gd, ss1)
 	lx_gd *gd;

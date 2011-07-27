@@ -1,10 +1,10 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_lowers ***
-	make l bytes of s lowercase (if applicable)
-	returns nothing
-#endif
+/**
+ * Make l bytes of s lowercase (if applicable).
+ *
+ * Returns nothing.
+ */
 
 void lx_lowers (s, l)
 	char *s;
@@ -20,11 +20,11 @@ void lx_lowers (s, l)
 }
 
 
-#if 0
-	*** lx_uppers ***
-	make l bytes of s uppercase (if applicable)
-	returns nothing
-#endif
+/**
+ * Make l bytes of s uppercase (if applicable).
+ *
+ * Returns nothing.
+ */
 
 void lx_uppers (s, l)
 	char *s;
@@ -40,12 +40,13 @@ void lx_uppers (s, l)
 }
 
 
-#if 0
-	*** lx_lowersp ***
-	store l lowercase bytes of s into p
-	note that p _must_ have at least l bytes allocated to avoid overflow
-	returns nothing
-#endif
+/**
+ * Store l lowercase bytes of s into p.
+ *
+ * Note that p _must_ have at least l bytes allocated to avoid overflow.
+ *
+ * Returns nothing.
+ */
 
 void lx_lowersp (p, s, l)
 	char *p, *s;
@@ -62,12 +63,13 @@ void lx_lowersp (p, s, l)
 }
 
 
-#if 0
-	*** lx_uppersp ***
-	store l uppercase bytes of s into p
-	note that p _must_ have at least l bytes allocated to avoid overflow
-	returns nothing
-#endif
+/**
+ * Store l uppercase bytes of s into p.
+ *
+ * Note that p _must_ have at least l bytes allocated to avoid overflow.
+ *
+ * Returns nothing.
+ */
 
 void lx_uppersp (p, s, l)
 	char *p, *s;
@@ -84,12 +86,13 @@ void lx_uppersp (p, s, l)
 }
 
 
-#if 0
-	*** lx_lowerstr ***
-	store l lowercase bytes of s into ss
-	str may be dynamically allocated.
-	returns zero on success, 1 otherwise
-#endif
+/**
+ * Store l lowercase bytes of s into ss.
+ *
+ * Str may be dynamically allocated.
+ *
+ * Returns zero on success, 1 otherwise.
+ */
 
 char lx_lowerstr (ss, s, l)
 	lx_s *ss;
@@ -104,12 +107,13 @@ char lx_lowerstr (ss, s, l)
 }
 
 
-#if 0
-	*** lx_upperstr ***
-	store l uppercase bytes of s into ss
-	str may be dynamically allocated.
-	returns zero on success, 1 otherwise
-#endif
+/**
+ * Store l uppercase bytes of s into ss.
+ *
+ * Str may be dynamically allocated.
+ *
+ * Returns zero on success, 1 otherwise.
+ */
 
 char lx_upperstr (ss, s, l)
 	lx_s *ss;

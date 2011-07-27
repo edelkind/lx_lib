@@ -1,10 +1,10 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_check0 ***
-	Ensure that s ends in a binary 0.  If not, add one.
-	returns 0 on success.
-#endif
+/**
+ * Ensure that s ends in a binary 0.  If not, add one.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_check0 (s)
 	lx_s *s;

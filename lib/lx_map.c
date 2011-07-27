@@ -2,18 +2,16 @@
 #include "lx_string.h"
 #include "lx_map.h"
 
-/***************************************************************************
-  lx_map
-
+/***********************************************************************//**
   Map arguments with a particular function.
 
   [f] must be a function that takes its arguments as:
     int f((void *)dest, (void *)src, (int)len);
 
   This function is to be called from within a loop, for iterating over
-  function arguments.  If the function returns 0, lx_map returns 0; if this
-  is the last iteration, lx_map returns 1; if the function returns something
-  other than 0, lx_map returns -1.  The function result can be found in [r].
+  function arguments.  If the function returns 0, lx_map() returns 0; if this
+  is the last iteration, lx_map() returns 1; if the function returns something
+  other than 0, lx_map() returns -1.  The function result can be found in [rv].
 
   returns:
     0 on success
@@ -43,7 +41,6 @@
     }
 
  ***************************************************************************/
-
 int lx_map(f, dst, ap, rv)
     int (*f)(void *, void *, int);
     void *dst;

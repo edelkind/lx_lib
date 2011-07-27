@@ -2,11 +2,11 @@
 
 #include <string.h>
 
-#if 0
-	*** lx_chop ***
-	delete the last n characters from a string buffer
-	returns 0 on success.
-#endif
+/**
+ * Delete the last n characters from a string buffer.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_chop (s, n)
 	struct lx_string *s;
@@ -18,11 +18,11 @@ char lx_chop (s, n)
 	return 1;
 }
 
-#if 0
-	*** lx_chomp ***
-	delete all ending characters from a string buffer matching one in cstr
-	returns 0 on success.
-#endif
+/**
+ * Delete all ending characters from a string buffer matching one in cstr.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_chomp (s, cstr)
 	lx_s *s;
@@ -58,11 +58,11 @@ char lx_chomp (s, cstr)
 	return 0;
 }
 
-#if 0
-	*** lx_chomp_ws ***
-	removes all whitespace characters from the end of a string buffer
-	returns nothing
-#endif
+/**
+ * Removes all whitespace characters from the end of a string buffer.
+ *
+ * Returns nothing.
+ */
 
 void lx_chomp_ws (s)
 	lx_s *s;
@@ -82,11 +82,11 @@ void lx_chomp_ws (s)
 	}
 }
 
-#if 0
-	*** lx_chompf ***
-	delete all beginning characters matching one in cstr
-	returns 0 on success.
-#endif
+/**
+ * Delete all beginning characters matching one in cstr.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_chompf (s, cstr)
 	lx_s *s;
@@ -125,11 +125,11 @@ char lx_chompf (s, cstr)
 	return 0;
 }
 
-#if 0
-	*** lx_chompf_ws ***
-	delete all beginning whitespace characters 
-	returns 0 on success.
-#endif
+/**
+ * Delete all beginning whitespace characters.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_chompf_ws (s)
 	lx_s *s;

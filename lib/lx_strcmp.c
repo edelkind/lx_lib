@@ -1,10 +1,10 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_strcmp ***
-	compares two lx_string strings
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strcmp (s1, s2)
 	struct lx_string *s1;
@@ -32,11 +32,11 @@ char lx_strcmp (s1, s2)
 }
 
 
-#if 0
-	*** lx_strscmp ***
-	compares an lx_string string and a character pointer.
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares an lx_string string and a character pointer.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strscmp (s1, s2)
 	struct lx_string *s1;
@@ -66,11 +66,11 @@ char lx_strscmp (s1, s2)
 }
 
 
-#if 0
-	*** lx_stricmp ***
-	compares two lx_string strings, case insensitively
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings, case insensitively.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_stricmp (s1, s2)
 	struct lx_string *s1;
@@ -98,11 +98,11 @@ char lx_stricmp (s1, s2)
 }
 
 
-#if 0
-	*** lx_strlcmp ***
-	compares two lx_string strings, comparing the right one as lowercase
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings, comparing the right one as lowercase.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strlcmp (s1, s2)
 	struct lx_string *s1;
@@ -130,11 +130,11 @@ char lx_strlcmp (s1, s2)
 }
 
 
-#if 0
-	*** lx_strncmp ***
-	compares two lx_string strings, up to l bytes
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings, up to l bytes.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strncmp (s1, s2, l)
 	lx_s *s1, *s2;
@@ -151,11 +151,11 @@ char lx_strncmp (s1, s2, l)
 }
 
 
-#if 0
-	*** lx_strnicmp ***
-	compares two lx_string strings, up to l bytes, case insensitively
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings, up to l bytes, case insensitively.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strnicmp (s1, s2, l)
 	lx_s *s1, *s2;
@@ -172,12 +172,12 @@ char lx_strnicmp (s1, s2, l)
 }
 
 
-#if 0
-	*** lx_strnlcmp ***
-	compares two lx_string strings, up to l bytes, testing the
-	right as lowercase
-	returns 0 on match, 1 on no match
-#endif
+/**
+ * Compares two lx_string strings, up to l bytes, testing the
+ * right as lowercase.
+ *
+ * Returns 0 on match, 1 on no match.
+ */
 
 char lx_strnlcmp (s1, s2, l)
 	lx_s *s1, *s2;
@@ -194,13 +194,14 @@ char lx_strnlcmp (s1, s2, l)
 }
 
 
-#if 0
-	*** lx_strnpcmp ***
-	compares l bytes of two character pointers
-	does not check for embedded binary zeroes -- checks the entire
-	string length, until a difference is found.
-	returns 0 on match
-#endif
+/**
+ * Compares l bytes of two character pointers.
+ *
+ * Does not check for embedded binary zeroes -- checks the entire
+ * string length, until a difference is found.
+ *
+ * Returns 0 on match.
+ */
 
 char lx_strnpcmp (p1, p2, l)
 	register char *p1, *p2;
@@ -216,13 +217,14 @@ char lx_strnpcmp (p1, p2, l)
 }
 
 
-#if 0
-	*** lx_strnipcmp ***
-	compares l bytes of two character pointers, case insensitively
-	does not check for embedded binary zeroes -- checks the entire
-	string length, until a difference is found.
-	returns 0 on match
-#endif
+/**
+ * Compares l bytes of two char* pointers, case insensitively.
+ *
+ * Does not check for embedded binary zeroes -- checks the entire
+ * string length, until a difference is found.
+ *
+ * Returns 0 on match.
+ */
 
 char lx_strnipcmp (p1, p2, l)
 	register char *p1, *p2;
@@ -238,14 +240,15 @@ char lx_strnipcmp (p1, p2, l)
 }
 
 
-#if 0
-	*** lx_strnlpcmp ***
-	compares l bytes of two character pointers, testing the
-	right as lowercase
-	does not check for embedded binary zeroes -- checks the
-	entire string length, until a difference is found.
-	returns 0 on match
-#endif
+/**
+ * Compares l bytes of two character pointers, testing the
+ * right as lowercase.
+ *
+ * Does not check for embedded binary zeroes -- checks the
+ * entire string length, until a difference is found.
+ *
+ * Returns 0 on match.
+ */
 
 char lx_strnlpcmp (p1, p2, l)
 	register char *p1, *p2;

@@ -2,13 +2,12 @@
 
 #include <string.h>
 
-#if 0
-	*** lx_gd2s ***
-	copies at most *amt bytes from gd to s
-	advances gd, and adjusts *amt to the proper amount left
-	does not check size of s; everything must be set up beforehand
-	returns nothing
-#endif
+/**
+ * Copies at most *amt bytes from gd to s.
+ *
+ * Advances gd, and adjusts *amt to the proper amount left.
+ * Does not check size of s; everything must be set up beforehand.
+ */
 
 void lx_gd2s (s, gd, amt)
 	lx_s *s;

@@ -2,10 +2,11 @@
 
 extern void *memmove();
 
-#if 0
-	add a string buffer element to an array of string buffers
-	returns 0 on success
-#endif
+/**
+ * Add a string buffer element to an array of string buffers.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_sa_add (sa, s)
 	lx_sa *sa;

@@ -1,15 +1,14 @@
 #include "lx_string.h"
 #include <stdlib.h>
 
-/***************************************************************************
-  allocate a chunk the size of an lx_s
-  subelement [s] will be zero, depicting unallocated content.
+/***********************************************************************//**
+  Allocate a chunk the size of an lx_s.
+  Subelement [s] will be zero, depicting unallocated content.
 
-  returns:
-  a pointer to the new chunk on success
+  Returns:
+  A pointer to the new chunk on success;
   0 on out-of-memory error
  ***************************************************************************/
-
 void *lx_new(void)
 {
     lx_s *data = malloc(sizeof(lx_s));
@@ -18,10 +17,8 @@ void *lx_new(void)
     return data;
 }
 
-/***************************************************************************
-  destroy a previously allocated lx_s object, including the data within it.
-
-  returns nothing.
+/***********************************************************************//**
+  Destroy a previously allocated lx_s object, including the data within it.
  ***************************************************************************/
 
 void lx_destroy(void *obj)

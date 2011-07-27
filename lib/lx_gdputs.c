@@ -2,12 +2,13 @@
 
 #include <string.h>
 
-#if 0
-	*** lx_gdputs ***
-	outputs a string to a generic descriptor
-	NOTE: remember to flush the gd
-	returns 0 on success
-#endif
+/**
+ * Outputs a string to a generic descriptor.
+ *
+ * NOTE: Remember to flush the gd.
+ *
+ * returns 0 on success
+ */
 
 char lx_gdputs (gd, s)
 	lx_gd *gd;
@@ -19,12 +20,13 @@ char lx_gdputs (gd, s)
 	return (lx_gdstrput(gd, &stmp));
 }
 
-#if 0
-	*** lx_gdputsn ***
-	outputs n bytes to a generic descriptor
-	NOTE: remember to flush the gd
-	returns 0 on success
-#endif
+/**
+ * Outputs n bytes to a generic descriptor.
+ *
+ * NOTE: Remember to flush the gd.
+ *
+ * returns 0 on success
+ */
 
 char lx_gdputsn (gd, s, n)
 	lx_gd *gd;

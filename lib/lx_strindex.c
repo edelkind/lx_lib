@@ -1,12 +1,13 @@
 #include "lx_string.h"
 
-#if 0
-	*** lx_strindex ***
-	find the index of a specified character
-	n should be a positive integer, referring to which occurrence
-	the function should find (i.e. 1 for first, 2 for second, etc)
-	returns the index, or -1 if there was none.
-#endif
+/**
+ * Find the index of a specified character.
+ *
+ * n should be a positive integer, referring to which occurrence
+ * the function should find (i.e. 1 for first, 2 for second, etc).
+ *
+ * Returns the index, or -1 if there was none.
+ */
 
 long lx_strindex (s, c, n)
 	lx_s *s;
@@ -26,13 +27,14 @@ long lx_strindex (s, c, n)
 }
 
 
-#if 0
-	*** lx_strsindex ***
-	find the index of one of a set of specified characters
-	n should be a positive integer, referring to which occurrence
-	the function should find (i.e. 1 for first, 2 for second, etc)
-	returns the index, or -1 if there was none.
-#endif
+/**
+ * Find the index of one of a set of specified characters.
+ *
+ * n should be a positive integer, referring to which occurrence
+ * the function should find (i.e. 1 for first, 2 for second, etc).
+ *
+ * Returns the index, or -1 if there was none.
+ */
 
 long lx_strsindex (s, set, setl, n)
 	lx_s *s;

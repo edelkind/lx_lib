@@ -1,11 +1,13 @@
 #include <stdarg.h>
 #include "lx_string.h"
 
-#if 0
-	*** lx_strsetp ***
-	sets a string buffer to given strings
-	returns 0 on success
-#endif
+/**
+ * Sets s_dest to given C strings (concatenated).
+ * The last value MUST be null.
+ * All C strings are concatenated together.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_strsetp (lx_s *s_dest, char *src, ...)
 	/* lx_s *s_dest; */

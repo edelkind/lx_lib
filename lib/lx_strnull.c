@@ -1,11 +1,9 @@
 #include "lx_string.h"
 extern void *memset ();
 
-#if 0
-	*** lx_strnull ***
-	free and nullify a string
-	returns nothing
-#endif
+/**
+ * lx_free() and nullify the structure of s.
+ */
 
 void lx_strnull(s)
 	lx_s *s;
@@ -14,11 +12,9 @@ void lx_strnull(s)
 	memset (s, 0, sizeof(lx_s));
 }
 
-#if 0
-	*** lx_strznull ***
-	zfree and nullify a string
-	returns nothing
-#endif
+/**
+ * lx_zfree() and nullify the structure of s.
+ */
 
 void lx_strznull(s)
 	lx_s *s;

@@ -3,11 +3,13 @@
 #include <string.h>
 
 
-#if 0
-	add a normal string to an array of string buffers
-	note that the source string is copied.
-	returns 0 on success
-#endif
+/**
+ * Add a C string to an array of string buffers.
+ *
+ * Note that the source string is copied.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_sa_adds (sa, src)
 	lx_sa *sa;

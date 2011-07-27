@@ -1,11 +1,13 @@
 #include "lx_string.h"
 extern void *memmove();
 
-#if 0
-	*** lx_strset ***
-	set a string buffer to a given string
-	returns 0 on success.
-#endif
+/**
+ * Set s_dest to the contents of a given C string.
+ *
+ * src is copied into s_dest.
+ *
+ * Returns 0 on success, 1 on ENOMEM.
+ */
 
 char lx_strset (s_dest, src)
 	struct lx_string *s_dest;
@@ -20,11 +22,13 @@ char lx_strset (s_dest, src)
 	return (lx_strcopy (s_dest, &s_src));
 }
 
-#if 0
-	*** lx_strnset ***
-	set a string buffer to at most n chars of a given string
-	returns 0 on success.
-#endif
+/**
+ * Set a s_dest to at most n chars of a given C string.
+ *
+ * The relevant contents of src are copied into s_dest.
+ *
+ * Returns 0 on success, 1 on ENOMEM.
+ */
 
 char lx_strnset (s_dest, src, n)
 	lx_s *s_dest;
@@ -45,13 +49,14 @@ char lx_strnset (s_dest, src, n)
 	return (lx_strcopy (s_dest, &s_src));
 }
 
-#if 0
-	*** lx_striset ***
-	set a string buffer (s_dest) to exactly n chars of a given string (src)
-	if src is shorter than n, you will have problems; use lx_strnset
-	instead.
-	returns 0 on success.
-#endif
+/**
+ * Set a string buffer (s_dest) to exactly n chars of a given C string (src).
+ *
+ * If src is shorter than n, you will have problems; use lx_strnset()
+ * instead.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_striset (s_dest, src, n)
 	struct lx_string *s_dest;

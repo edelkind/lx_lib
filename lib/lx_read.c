@@ -2,15 +2,16 @@
 
 extern int read();
 
-#if 0
-	*** lx_read ***
-	read from generic descriptor
-	will read at MOST gd->n+gd->alloc+gd->p, which is the default
-	if amount == 0.
-
-        AVOID ME.  USE lx_gdread() INSTEAD.
-	returns 0 on success
-#endif
+/**
+ * Read from generic descriptor.
+ *
+ * Will read at MOST gd->n+gd->alloc+gd->p, which is the default
+ * if amount == 0.
+ * 
+ *  \deprecated AVOID ME.  USE lx_gdread() INSTEAD.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_read (s, gd, amount)
 	lx_s *s;
@@ -41,15 +42,14 @@ char lx_read (s, gd, amount)
 
 }
 
-#if 0
-	*** lx_gdread ***
-	reads from generic descriptor gd, placing the result into s.
-        offset is the offset into s at which to begin storing data.
-
-	return values are similar to those of read(2):
-            the amount read will be returned, or
-            -1 on error (errno will be set)
-#endif
+/**
+ * Reads from generic descriptor gd, placing the result into s.
+ *     offset is the offset into s at which to begin storing data.
+ * 
+ * Return values are similar to those of read():
+ *         the amount read will be returned, or
+ *         -1 on error (errno will be set)
+ */
 int lx_gdread (s, gd, amount, offset)
 	lx_s *s;
 	register lx_gd *gd;

@@ -1,11 +1,11 @@
 #include "lx_string.h"
 extern void free ();
 
-#if 0
-	***lx_free***
-	frees string structure, and sets string back to 0
-	returns nothing.
-#endif
+/**
+ * Frees string structure, and sets string back to 0.
+ *
+ * Returns nothing.
+ */
 
 void lx_free (s)
 	lx_s *s;
@@ -18,11 +18,11 @@ void lx_free (s)
 	s->s = 0;
 }
 
-#if 0
-	*** lx_zfree ***
-	frees string structure using lx_free, but zeroes structure first
-	returns nothing.
-#endif
+/**
+ * Frees string structure using lx_free, but zeroes structure first.
+ *
+ * Returns nothing.
+ */
 
 void lx_zfree (s)
 	lx_s *s;

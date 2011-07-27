@@ -5,11 +5,11 @@ extern int write();
 extern unsigned int fwrite();
 */
 
-#if 0
-	*** lx_strout ***
-	print a string to a given file descriptor
-	returns the number of bytes written, or -1 on error
-#endif
+/**
+ * Print str to a given file descriptor (fd).
+ *
+ * Returns the number of bytes written, or -1 on error.
+ */
 
 int lx_strout (fd, str)
 	int fd;
@@ -19,11 +19,11 @@ int lx_strout (fd, str)
 	return (write (fd, str->s, str->len));
 }
 
-#if 0
-	*** lx_fstrout ***
-	print a string to a given stream
-	returns the number of characters written; short/0 count on error
-#endif
+/**
+ * Print str to a given FILE* stream.
+ *
+ * Returns the number of characters written; short/0 count on error (see fwrite()).
+ */
 
 unsigned int lx_fstrout (fs, str)
 	void *fs;

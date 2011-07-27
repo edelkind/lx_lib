@@ -2,11 +2,11 @@
 
 #include <string.h>
 
-#if 0
-	*** lx_stradd ***
-	adds a given string to a string buffer
-	returns 0 on success.
-#endif
+/**
+ * Adds a given string to a string buffer.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_stradd (s_dest, src)
 	struct lx_string *s_dest;
@@ -18,11 +18,11 @@ char lx_stradd (s_dest, src)
 	return (lx_striadd(s_dest, src, strlen(src)));
 }
 
-#if 0
-	*** lx_striadd ***
-	adds the specified amount of a given string to a string buffer
-	returns 0 on success.
-#endif
+/**
+ * Adds the specified amount of a given string to a string buffer.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_striadd (s_dest, src, len)
 	lx_s *s_dest;

@@ -1,9 +1,9 @@
 
-#if 0
-	*** lx_lowerb ***
-	make a particular byte lowercase, if applicable
-	returns the new character
-#endif
+/**
+ * Make a particular byte lowercase, if applicable.
+ *
+ * Returns the new character.
+ */
 
 char lx_lowerb (c)
 	register char c;
@@ -14,11 +14,11 @@ char lx_lowerb (c)
 }
 
 
-#if 0
-	*** lx_upperb ***
-	make a particular byte uppercase, if applicable
-	returns the new character
-#endif
+/**
+ * Make a particular byte uppercase, if applicable.
+ *
+ * Returns the new character.
+ */
 
 char lx_upperb (c)
 	register char c;

@@ -3,15 +3,15 @@
 #include <string.h>
 
 
-#if 0
-	*** lx_gdiappend ***
-	appends the specified amount from a generic descriptor to a string
-	buffer.
-	if the specified amount does not exist in the generic descriptor,
-	you will have problems.
-
-	returns 0 on success.
-#endif
+/**
+ * Appends the specified amount from a generic descriptor to a string
+ * buffer.
+ *
+ * If the specified amount does not exist in the generic descriptor,
+ * you will have problems.
+ * 
+ * Returns 0 on success.
+ */
 
 char lx_gdiappend (s, gd, amount)
 	lx_s *s;

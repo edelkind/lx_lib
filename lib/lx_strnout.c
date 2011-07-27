@@ -5,14 +5,15 @@ extern int write ();
 extern unsigned int fwrite ();
 extern void *memset();
 
-#if 0
-	*** lx_strnout ***
-	print multiple strings to a given fd
-	must be zero-terminated
-	returns the number of characters written
-
-	DON'T USE THIS RIGHT NOW.  IT'S BAD.
-#endif
+/**
+ * Print multiple strings to a given fd.
+ * 
+ * Must be zero-terminated.
+ * 
+ * Returns the number of characters written.
+ * 
+ * \deprecated DON'T USE THIS RIGHT NOW.  IT'S BAD.
+ */
 
 int lx_strnout (int fd, ...)
 {

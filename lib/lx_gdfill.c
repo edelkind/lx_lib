@@ -2,11 +2,11 @@
 
 extern int read();
 
-#if 0
-	*** lx_gdfill ***
-	fills up a generic descriptor
-	returns 0 on success
-#endif
+/**
+ * Fills up a generic descriptor.
+ *
+ * Returns 0 on success.
+ */
 
 char lx_gdfill (gd)
 	lx_gd *gd;

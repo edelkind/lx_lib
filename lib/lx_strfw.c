@@ -2,15 +2,15 @@
 extern void *memmove();
 extern void *malloc();
 
-#if 0
-	*** lx_strfw ***
-	move the string forward n bytes.  The place in memory is not
-	modified, nor is the allocation.
-
-	if p != 0, a pointer to the removed portion will be kept.
-
-	returns 0 on success.
-#endif
+/**
+ * Move the string forward n bytes.  The place in memory is not
+ * modified, nor is the allocation.
+ * 
+ * If p != 0, a pointer to the removed portion will be kept (allocated with
+ * malloc()).
+ * 
+ * Returns 0 on success, or 1 on ENOMEM.
+ */
 
 char lx_strfw (s, p, n)
 	lx_s *s;
