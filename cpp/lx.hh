@@ -106,8 +106,8 @@ extern char lx_gdputc(lx_gd *, const char);
 //! extern char lx_gdstrput(lx_gd *, const lx_s *); // Gd::put(String)
 //! extern char lx_gdflush(lx_gd *);
 //- extern char lx_gdfree(lx_gd *);
-extern char lx_gdaddulong(lx_gd *, unsigned long, unsigned int);
-extern char lx_gdaddlong(lx_gd *, long, unsigned int);
+//! extern char lx_gdaddulong(lx_gd *, unsigned long, unsigned int);
+//! extern char lx_gdaddlong(lx_gd *, long, unsigned int);
 
 #endif /*** END PORTING STATUS **********************************************/
 
@@ -594,6 +594,26 @@ class Gd {
         inline void put(char *c_str) throw(WriteError)
         {
             if ( lx_gdputs(&gd, c_str) )
+                throw WriteError();
+        }
+
+        /** Add unsigned num with base base.
+         * @see: lx_gdaddulong()
+         */
+        inline void putulong(unsigned long num,
+                             unsigned int base=10) throw(AllocError)
+        {
+            if (lx_gdaddulong(&gd, num, base))
+                throw WriteError();
+        }
+
+        /** Add signed num with base base.
+         * @see: lx_gdaddlong()
+         */
+        inline void putlong(long num,
+                            unsigned int base=10) throw(AllocError)
+        {
+            if (lx_gdaddlong(&gd, num, base))
                 throw WriteError();
         }
 
