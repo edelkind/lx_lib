@@ -1,9 +1,11 @@
 #include "lx_string.h"
-extern void *memmove();
+#include <string.h>
+//extern void *memmove();
 #if DMALLOC
 # include "/usr/local/include/dmalloc.h"
 #else
-extern void *malloc();
+#include <stdlib.h>
+//extern void *malloc();
 #endif
 
 /**
@@ -19,7 +21,6 @@ extern void *malloc();
  * 
  * Returns 0 on success.
  */
-
 char lx_strff (s, p, c, n)
 	struct lx_string *s;
 	char **p;

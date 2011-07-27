@@ -1,9 +1,11 @@
 #include "lx_string.h"
-extern void *memmove();
+#include <string.h>
+//extern void *memmove();
 #if DMALLOC
 # include "/usr/local/include/dmalloc.h"
 #else
-extern void *malloc();
+#include <stdlib.h>
+//extern void *malloc();
 #endif
 
 /**
@@ -11,7 +13,6 @@ extern void *malloc();
  *
  * Returns a pointer to a newly allocated C string, or 0 on error.
  */
-
 void *lx_stroffer (s)
 	lx_s *s;
 {

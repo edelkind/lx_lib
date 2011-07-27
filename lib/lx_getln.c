@@ -1,7 +1,9 @@
 #include "lx_string.h"
 
-extern int read ();
-extern void *memchr ();
+#include <unistd.h>
+//extern int read ();
+#include <string.h>
+//extern void *memchr ();
 
 
 #define DS '\n'     /* default separator (one character) */

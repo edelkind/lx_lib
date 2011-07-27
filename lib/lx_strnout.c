@@ -1,9 +1,10 @@
-#include <stdio.h>  /* FILE declaration */
-#include <stdarg.h>
 #include "lx_string.h"
-extern int write ();
-extern unsigned int fwrite ();
-extern void *memset();
+
+#include <stdarg.h>
+#include <unistd.h>
+//extern int write ();
+#include <string.h>
+//extern void *memset();
 
 /**
  * Print multiple strings to a given fd.
@@ -14,7 +15,6 @@ extern void *memset();
  * 
  * \deprecated DON'T USE THIS RIGHT NOW.  IT'S BAD.
  */
-
 int lx_strnout (int fd, ...)
 {
 	va_list ap;

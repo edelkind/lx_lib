@@ -1,5 +1,6 @@
 #include "lx_string.h"
-extern void *memmove();
+#include <string.h>
+//extern void *memmove();
 
 /**
  * Set s_dest to the contents of a given C string.
@@ -8,7 +9,6 @@ extern void *memmove();
  *
  * Returns 0 on success, 1 on ENOMEM.
  */
-
 char lx_strset (s_dest, src)
 	struct lx_string *s_dest;
 	char *src;
@@ -29,7 +29,6 @@ char lx_strset (s_dest, src)
  *
  * Returns 0 on success, 1 on ENOMEM.
  */
-
 char lx_strnset (s_dest, src, n)
 	lx_s *s_dest;
 	register char *src;
@@ -57,7 +56,6 @@ char lx_strnset (s_dest, src, n)
  *
  * Returns 0 on success.
  */
-
 char lx_striset (s_dest, src, n)
 	struct lx_string *s_dest;
 	char *src;

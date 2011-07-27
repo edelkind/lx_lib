@@ -1,5 +1,7 @@
 #include "lx_string.h"
-extern void free ();
+
+#include <stdlib.h>
+//extern void free ();
 
 /**
  * Frees string structure, and sets string back to 0.

@@ -3,7 +3,8 @@
 #if DMALLOC
 # include "/usr/local/include/dmalloc.h"
 #else
-extern void *malloc();
+#include <stdlib.h>
+//extern void *malloc();
 #endif
 
 /**

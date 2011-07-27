@@ -1,6 +1,7 @@
 #include "lx_string.h"
 
-extern void *memset();
+#include <string.h>
+//extern void *memset();
 
 /**
  * Sets the used contents of s to zero.

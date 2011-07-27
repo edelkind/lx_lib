@@ -1,6 +1,8 @@
 #include "lx_string.h"
-extern void *memmove();
-extern void *malloc();
+#include <string.h>
+//extern void *memmove();
+#include <stdlib.h>
+//extern void *malloc();
 
 /**
  * Move the string forward n bytes.  The place in memory is not
@@ -11,7 +13,6 @@ extern void *malloc();
  * 
  * Returns 0 on success, or 1 on ENOMEM.
  */
-
 char lx_strfw (s, p, n)
 	lx_s *s;
 	char **p;

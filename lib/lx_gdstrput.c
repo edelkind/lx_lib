@@ -1,6 +1,7 @@
 #include "lx_string.h"
 
-extern void *memcpy();
+#include <string.h>
+//extern void *memcpy();
 
 /**
  * Add a string to the end of a lx_gd.

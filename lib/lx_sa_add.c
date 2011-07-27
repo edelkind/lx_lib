@@ -1,13 +1,13 @@
 #include "lx_string.h"
 
-extern void *memmove();
+#include <string.h>
+//extern void *memmove();
 
 /**
  * Add a string buffer element to an array of string buffers.
  *
  * Returns 0 on success.
  */
-
 char lx_sa_add (sa, s)
 	lx_sa *sa;
 	lx_s *s;

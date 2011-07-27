@@ -1,7 +1,8 @@
 #include <errno.h>
 #include "lx_string.h"
 
-extern int write ();
+#include <unistd.h>
+//extern int write ();
 
 /**
  * Flush generic descriptor output.

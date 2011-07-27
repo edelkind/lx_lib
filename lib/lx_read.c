@@ -1,6 +1,7 @@
 #include "lx_string.h"
 
-extern int read();
+#include <unistd.h>
+//extern int read();
 
 /**
  * Read from generic descriptor.
@@ -12,7 +13,6 @@ extern int read();
  *
  * Returns 0 on success.
  */
-
 char lx_read (s, gd, amount)
 	lx_s *s;
 	register lx_gd *gd;

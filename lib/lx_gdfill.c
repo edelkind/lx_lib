@@ -1,6 +1,7 @@
 #include "lx_string.h"
 
-extern int read();
+#include <unistd.h>
+//extern int read();
 
 /**
  * Fills up a generic descriptor.

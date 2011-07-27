@@ -1,11 +1,13 @@
 #include "lx_string.h"
 
-extern int close();
+#include <unistd.h>
+//extern int close();
 #if DMALLOC
 # include "/usr/local/include/dmalloc.h"
 #else
-extern void *malloc();
-extern void free();
+#include <stdlib.h>
+//extern void *malloc();
+//extern void free();
 #endif
 
 /**

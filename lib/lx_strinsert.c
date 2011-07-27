@@ -1,5 +1,8 @@
 #include "lx_string.h"
 
+#include <string.h>
+//extern void *memmove();
+
 /**
  * Insert len bytes of string p into s, at position off, allocating
  * additional space if necessary.  del characters will be removed from
@@ -9,9 +12,6 @@
  * 
  * Returns 0 on success.
  */
-
-extern void *memmove();
-
 char lx_strinsert (s, p, len, off, del)
     lx_s *s;
     char *p;

@@ -24,9 +24,9 @@
 //! extern char lx_strset(lx_s *, char *);
 //! extern char lx_striset(lx_s *, char *, unsigned int);
 //! extern char lx_strnset(lx_s *, char *, unsigned int);
-extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
-extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
-extern char lx_straddlong(lx_s *, long, unsigned int);
+//! extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
+//! extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
+//! extern char lx_straddlong(lx_s *, long, unsigned int);
 //! extern char lx_cadd(lx_s *, char);
 //! extern char lx_check0(lx_s *);
 //! extern char lx_chop(lx_s *, unsigned int);
@@ -146,56 +146,72 @@ class String;
  ****************************************************************************/
 
 class String {
+    /**
+     * @defgroup Sumbrella lx::String components
+     * @{
+     */
 
     public:
         lx_string s;
 
         /****************************************************************//**
-          Constructors and destructors
+          @defgroup Snew Constructors and destructors
+          @{
          ********************************************************************/
 
-        /** [new] : [init this, basic form]
+        /** [new] : [init this, basic form].
         */
         inline String() throw()
         { s.s = 0; }
 
-        /** [new] : lx_strset(this, src)
+        /** [new] : lx_strset(this, src).
+         * @see lx_strset()
         */
         inline String(const char *src) throw(AllocError)
         { s.s = 0; copy(src); }
 
-        /** [new] : lx_striset(this, src, n)
+        /** [new] : lx_striset(this, src, n).
+         * @see lx_striset()
         */
         inline String(const char *src, unsigned int n) throw(AllocError)
         { s.s = 0; copy(src, n); }
 
-        /** [destroy] : lx_free(this)
+        /** [destroy] : lx_free(this).
+         * @see lx_free()
         */
         inline ~String() throw()
         { if (s.s) lx_free(&s); }
 
 
 
+        /** @} */
         /****************************************************************//**
-          convenience for underlying data structures
+          @defgroup Sconvenient Convenience for underlying data structures
+          @{
          ********************************************************************/
 
+        /** returns underlying lx_s */
         inline lx_s& base()
         { return s; }
 
+        /** length of underlying lx_s */
         inline unsigned int len()
         { return s.len; }
 
+        /** pointer to the buffer of the underlying lx_s */
         inline char *ptr()
         { return s.s; }
 
 
 
+        /** @} */
         /****************************************************************//**
-          String assignment functions
+          @defgroup Sassign String assignment functions
+          @{
          ********************************************************************/
 
-        /** strnset : lx_strnset(this, src, maxlen)
+        /** strnset : lx_strnset(this, src, maxlen).
+         * @see lx_strnset()
         */
         inline void strnset(const char *src, unsigned int maxlen) throw(AllocError)
         {
@@ -204,7 +220,8 @@ class String {
         }
 
 
-        /** copy : lx_strcopy(this, src)
+        /** copy : lx_strcopy(this, src).
+         * @see lx_strcopy()
         */
         inline void copy(const String& src) throw(AllocError)
         {
@@ -213,7 +230,8 @@ class String {
         }
 
 
-        /** copy : lx_strncopy(this, src, maxlen)
+        /** copy : lx_strncopy(this, src, maxlen).
+         * @see lx_strncopy()
         */
         inline void copy(const String& src, unsigned int maxlen) throw(AllocError)
         {
@@ -222,7 +240,8 @@ class String {
         }
 
 
-        /** copy : lx_strset(this, src)
+        /** copy : lx_strset(this, src).
+         * @see lx_strset()
         */
         inline void copy(const char *src) throw(AllocError)
         {
@@ -231,7 +250,8 @@ class String {
         }
 
 
-        /** copy : lx_striset(this, src, n)
+        /** copy : lx_striset(this, src, n).
+         * @see lx_striset()
         */
         inline void copy(const char *src, unsigned int n) throw(AllocError)
         {
@@ -240,11 +260,14 @@ class String {
         }
 
 
+        /** @} */
         /****************************************************************//**
-          String append functions
+          @defgroup Sappend String append/insert functions
+          @{
          ********************************************************************/
 
-        /** append : lx_strcat(this, src)
+        /** append : lx_strcat(this, src).
+         * @see lx_strcat()
         */
         inline void append(const String& src) throw(AllocError)
         {
@@ -252,7 +275,8 @@ class String {
                 throw AllocError();
         }
 
-        /** append : lx_striadd(this, src, maxlen||src.len())
+        /** append : lx_striadd(this, src, maxlen||src.len()).
+         * @see lx_striadd()
         */
         inline void append(const String& src, unsigned int maxlen) throw(AllocError)
         {
@@ -264,7 +288,8 @@ class String {
         }
 
 
-        /** append : lx_striadd(this, src, len)
+        /** append : lx_striadd(this, src, len).
+         * @see lx_striadd()
         */
         inline void append(const char *src, unsigned int len) throw(AllocError)
         {
@@ -272,7 +297,8 @@ class String {
                 throw AllocError();
         }
 
-        /** append : lx_stradd(this, src)
+        /** append : lx_stradd(this, src).
+         * @see lx_stradd()
         */
         inline void append(const char *src) throw(AllocError)
         {
@@ -280,7 +306,8 @@ class String {
                 throw AllocError();
         }
 
-        /** append : lx_cadd(this, src)
+        /** append : lx_cadd(this, src).
+         * @see lx_cadd()
         */
         inline void append(char c) throw(AllocError)
         {
@@ -288,12 +315,54 @@ class String {
                 throw AllocError();
         }
 
+        /** Add unsigned num with base base.
+         * @see: lx_straddulong()
+         */
+        inline void addulong(unsigned long num,
+                             unsigned int base=10) throw(AllocError)
+        {
+            if (lx_straddulong(&s, num, base))
+                throw AllocError();
+        }
 
+        /** Add signed num with base base.
+         * @see: lx_straddlong()
+         */
+        inline void addlong(long num,
+                            unsigned int base=10) throw(AllocError)
+        {
+            if (lx_straddlong(&s, num, base))
+                throw AllocError();
+        }
+
+        /** Append to string.
+         * \param p pointer to data for insertion
+         * \param len length of data to insert
+         * \param off offset from beginning of self to begin insertion
+         * \param del amount to delete from self[off] before inserting
+         *
+         * self must already contain at least off+del bytes.
+         *
+         * @see: lx_strinsert()
+         */
+        inline void insert( const char *p,
+                            unsigned int len,
+                            unsigned int off,
+                            unsigned int del=0) throw(AllocError)
+        {
+            if (lx_strinsert(&s, const_cast<char*>(p), len, off, del))
+                throw AllocError();
+        }
+
+
+        /** @} */
         /****************************************************************//**
-          Interfacing with non-lx functions
+          @defgroup Sext Interfacing with non-lx functions
+          @{
          ********************************************************************/
 
-        /** check0 : lx_check0(this)
+        /** check0 : lx_check0(this).
+         * @see lx_check0()
         */
         inline void check0() throw(AllocError)
         {
@@ -303,48 +372,72 @@ class String {
 
 
 
+        /** @} */
         /****************************************************************//**
-          Data manipulation functions
+          @defgroup Smanip Data manipulation functions
+          @{
          ********************************************************************/
 
 
-        /** chop : lx_chop(this, n)
+        /** chop : lx_chop(this, n).
+         * @see lx_chop()
          */
         inline void chop(unsigned int n) throw (UnderflowError)
             { if (lx_chop(&s, n)) throw UnderflowError(); }
 
 
-        /** chomp : lx_chomp(this, cstr)
+        /** chomp : lx_chomp(this, cstr).
+         * @see lx_chomp()
          */
         inline void chomp(char *cstr) throw (AllocError)
             { if (lx_chomp(&s, cstr)) throw AllocError(); }
 
-        /** chompf : lx_chompf(this, cstr)
+        /** chompf : lx_chompf(this, cstr).
+         * @see lx_chompf()
          */
         inline void chompf(char *cstr) throw (AllocError)
             { if (lx_chompf(&s, cstr)) throw AllocError(); }
 
-        /** chomp : lx_chomp_ws(this)
+        /** chomp : lx_chomp_ws(this).
+         * @see lx_chomp_ws()
          */
         inline void chomp() throw ()
             { lx_chomp_ws(&s); }
 
-        /** lx_chompf_ws(this) */
+        /** lx_chompf_ws(this).
+         * @see lx_chompf_ws()
+         */
         inline void chompf() throw (AllocError)
             { if (lx_chompf_ws(&s)) throw AllocError(); }
 
 
-        /** returns true if strings match; false if not */
+        /** @} */
+        /****************************************************************//**
+          @defgroup Scomp Comparison functions
+          @{
+         ********************************************************************/
+
+        /**
+         * returns true if strings match; false if not.
+         * Note C++ style, not C style.
+         * @see lx_strcmp()
+         */
         inline bool compare(lx_s *s2) throw()
             { return !lx_strcmp(&s, s2); }
 
-        /** returns true if strings match; false if not */
+        /**
+         * returns true if strings match; false if not.
+         * Note C++ style, not C style.
+         * @see lx_strscmp()
+         */
         inline bool compare(char *s2) throw()
             { return !lx_strscmp(&s, s2); }
 
-
+        /** @} */
 
     protected:
+
+    /** @} */
 };
 
 
@@ -356,28 +449,32 @@ class String {
  *** lx::Gd (LX Generic Descriptor) class
  ****************************************************************************/
 class Gd {
+    /**
+     * @defgroup GDumbrella lx::GD components
+     * @{
+     */
 
     public:
         lx_gd gd;
         bool eof;
 
-        Gd(int fd, unsigned int blocksize = 0) throw(AllocError);
-        ~Gd() throw();
-
         /****************************************************************//**
-          Constructors and destructors
+          @defgroup GDnew Constructors and destructors
+          @{
          ********************************************************************/
 
         /** construct.
          *
-         * init this.gd with file descriptor [fd], and optionally an explicit [blocksize]
-         * autoflush defaults to false
+         * init this.gd with file descriptor [fd], and optionally an explicit [blocksize].
+         * autoflush defaults to false.
          *
          * exceptions:
          *   - AllocError
          *
+         * @see lx_gdnew()
+         *
          ***********/
-        inline Gd(int fd, unsigned int blocksize) throw(AllocError)
+        inline Gd(int fd, unsigned int blocksize=0) throw(AllocError)
         {
             _autoflush = false;
             eof = false;
@@ -388,7 +485,10 @@ class Gd {
 
         /** destroy.
          *
-         * free this.gd
+         * free this.gd.  If autoflush is true, then also flush it.
+         *
+         * @see flush()
+         * @see lx_gdfree()
          ***********/
         inline ~Gd() throw()
         {
@@ -397,8 +497,10 @@ class Gd {
         }
 
 
+        /** @} */
         /****************************************************************//**
-          State changing functions
+          @defgroup GDstate State changing functions
+          @{
          ********************************************************************/
 
         /** Set autoflush property to val.
@@ -416,13 +518,18 @@ class Gd {
         inline bool autoflush() throw()
         { return _autoflush; }
 
-        /** lx_gdflush(this) */
+        /**
+         * lx_gdflush(this).
+         * @see lx_gdflush()
+         */
         inline void flush() throw()
         { lx_gdflush(&gd); }
 
 
+        /** @} */
         /****************************************************************//**
-          GD seeking and searching functions
+          @defgroup GDsearch GD seeking and searching functions
+          @{
          ********************************************************************/
 
         /**
@@ -430,6 +537,8 @@ class Gd {
          * retrieve is maxlen.
          *
          * Returns true if EOS was reached, false otherwise.
+         *
+         * @see lx_getseg()
          */
         inline bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
         {
@@ -444,6 +553,8 @@ class Gd {
 
         /**
          * Same as getseg(), but c is '\n'.
+         *
+         * @see lx_getln()
          */
         inline bool getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError)
         {
@@ -456,15 +567,18 @@ class Gd {
             throw AllocError(); /// \todo check errno, maybe throw ReadError
         }
 
-
+        /** @} */
         /****************************************************************//**
-          GD output functions
+          @defgroup GDout GD output functions
+          @{
 
           \todo templatized variable-argument put() version using lx_map()
          ********************************************************************/
 
         /**
-         * lx_gdstrput(this, S.base())
+         * lx_gdstrput(this, S.base()).
+         *
+         * @see lx_gdstrput()
          */
         inline void put(String& S) throw(WriteError)
         {
@@ -473,7 +587,9 @@ class Gd {
         }
 
         /**
-         * lx_gdputs(this, c_str)
+         * lx_gdputs(this, c_str).
+         *
+         * @see lx_gdputs()
          */
         inline void put(char *c_str) throw(WriteError)
         {
@@ -481,8 +597,12 @@ class Gd {
                 throw WriteError();
         }
 
+        /** @} */
+
     protected:
         bool _autoflush;
+
+    /** @} */
 };
 
 

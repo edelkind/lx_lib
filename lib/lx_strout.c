@@ -1,16 +1,15 @@
 #include "lx_string.h"
 #include <stdio.h>
-extern int write();
-/*
-extern unsigned int fwrite();
-*/
+//extern unsigned int fwrite();
+
+#include <unistd.h>
+//extern int write();
 
 /**
  * Print str to a given file descriptor (fd).
  *
  * Returns the number of bytes written, or -1 on error.
  */
-
 int lx_strout (fd, str)
 	int fd;
 	struct lx_string *str;
@@ -24,7 +23,6 @@ int lx_strout (fd, str)
  *
  * Returns the number of characters written; short/0 count on error (see fwrite()).
  */
-
 unsigned int lx_fstrout (fs, str)
 	void *fs;
 	struct lx_string *str;
