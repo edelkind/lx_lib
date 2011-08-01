@@ -26,10 +26,10 @@ struct lx_map_opt {
 #define LXM_lxs(ls)    ((struct lx_map_opt){ LX_TYPE_STRING, (ls)->s, (ls)->len })
 #define LXM_END        ((struct lx_map_opt){ LX_TYPE_END,    0,         0       })
 
-static inline char *LX_N_TO_S(i, ip, base)
-    unsigned long i;
-    char *ip;
-    unsigned int base;
+static inline char *LX_N_TO_S(
+        unsigned long i,
+        char *ip,
+        unsigned int base)
 {
     unsigned int n;
 

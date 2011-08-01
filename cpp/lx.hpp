@@ -1,3 +1,5 @@
+#ifndef _LX_HPP
+#define _LX_HPP
 #include <stdexcept>
 
 
@@ -259,6 +261,10 @@ class String {
                 throw AllocError();
         }
 
+        /** empty string contents.
+         */
+        inline void empty() throw()
+        { s.len = 0; }
 
         /** @} */
         /****************************************************************//**
@@ -270,8 +276,14 @@ class String {
          * @see lx_strcat()
         */
         inline void append(const String& src) throw(AllocError)
+        { append(src.s); }
+
+        /** append : lx_strcat(this, src).
+         * @see lx_strcat()
+        */
+        inline void append(const lx_s& src) throw(AllocError)
         {
-            if (lx_strcat(&s, const_cast<lx_s*>(&src.s) ))
+            if (lx_strcat(&s, const_cast<lx_s*>(&src) ))
                 throw AllocError();
         }
 
@@ -581,8 +593,16 @@ class Gd {
          * @see lx_gdstrput()
          */
         inline void put(String& S) throw(WriteError)
+        { put(S.base()); }
+
+        /**
+         * lx_gdstrput(this, S.base()).
+         *
+         * @see lx_gdstrput()
+         */
+        inline void put(lx_s& s) throw(WriteError)
         {
-            if ( lx_gdstrput( &gd, &S.base() ) )
+            if ( lx_gdstrput( &gd, &s ) )
                 throw WriteError();
         }
 
@@ -626,9 +646,12 @@ class Gd {
 };
 
 
-
 /****************************************************************************
  ***   END   ****************************************************************
  ****************************************************************************/
 
 } // namespace lx
+
+#include "lx_map.hpp"
+
+#endif // _LX_HPP
