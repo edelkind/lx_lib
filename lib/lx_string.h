@@ -28,6 +28,7 @@ extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
 extern char lx_straddlong(lx_s *, long, unsigned int);
 extern char lx_cadd(lx_s *, char);
 extern char lx_check0(lx_s *);
+extern char lx_post0(lx_s *);
 extern char lx_chop(lx_s *, unsigned int);
 extern char lx_chomp(lx_s *, char *);
 extern void lx_chomp_ws(lx_s *);

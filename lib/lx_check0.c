@@ -12,3 +12,18 @@ char lx_check0 (s)
 	if (s->s[s->len-1]) return (lx_cadd(s, 0));
 	return 0;
 }
+
+/**
+ * Null-terminate s without adding to the length.
+ *
+ * Returns 0 on success, 1 if out of memory.
+ */
+char lx_post0 (s)
+    lx_s *s;
+{
+    if (lx_setalloc(s, s->len+1))
+        return 1;
+    s->s[s->len] = 0;
+
+    return 0;
+}
