@@ -58,6 +58,20 @@ class Gd {
 
         /** @} */
         /****************************************************************//**
+          @defgroup GDconvenient Convenience for underlying data structures
+          @{
+         ********************************************************************/
+
+        /** @returns underlying gd */
+        inline lx_gd& base()
+        { return gd; }
+
+        /** @returns underlying fd */
+        inline int fd()
+        { return gd.fd; }
+
+        /** @} */
+        /****************************************************************//**
           @defgroup GDstate State changing functions
           @{
          ********************************************************************/
@@ -114,10 +128,10 @@ class Gd {
          *
          * @see lx_getseg()
          */
-        inline bool getseg(String& s, char c, unsigned long maxlen) throw(AllocError, ReadError)
+        inline bool getseg(String *s, char c, unsigned long maxlen) throw(AllocError, ReadError)
         {
             unsigned char match;
-            if (!lx_getseg(&s.s, &gd, &c, &match, maxlen)) {
+            if (!lx_getseg(&s->s, &gd, &c, &match, maxlen)) {
                 if (!match) eof = true;
                 return (match == MATCH_OK);
             }
@@ -130,10 +144,10 @@ class Gd {
          *
          * @see lx_getln()
          */
-        inline bool getln(String& s, unsigned long maxlen)          throw(AllocError, ReadError)
+        inline bool getln(String *s, unsigned long maxlen)          throw(AllocError, ReadError)
         {
             unsigned char match;
-            if (!lx_getseg(&s.s, &gd, &_separator, &match, maxlen)) {
+            if (!lx_getseg(&s->s, &gd, &_separator, &match, maxlen)) {
                 if (!match) eof = true;
                 return (match == MATCH_OK);
             }
@@ -154,7 +168,7 @@ class Gd {
          *
          * @see lx_gdstrput()
          */
-        inline void put(String& S) throw(WriteError)
+        inline void put(const String& S) throw(WriteError)
         { put(S.base()); }
 
         /**
@@ -162,7 +176,7 @@ class Gd {
          *
          * @see lx_gdstrput()
          */
-        inline void put(lx_s& s) throw(WriteError)
+        inline void put(const lx_s& s) throw(WriteError)
         {
             if ( lx_gdstrput( &gd, &s ) )
                 throw WriteError();
@@ -195,7 +209,7 @@ class Gd {
          *
          * @see lx_gdstrput()
          */
-        inline void putln(String& S) throw(WriteError)
+        inline void putln(const String& S) throw(WriteError)
         { put(S.base()); put(_separator); }
 
         /**
@@ -203,7 +217,7 @@ class Gd {
          *
          * @see lx_gdstrput()
          */
-        inline void putln(lx_s& s) throw(WriteError)
+        inline void putln(const lx_s& s) throw(WriteError)
         {
             if ( lx_gdstrput( &gd, &s ) )
                 throw WriteError();
