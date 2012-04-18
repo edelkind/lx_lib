@@ -11,7 +11,8 @@
 /**
  * Offers a string buffer as a pointer.
  *
- * Returns a pointer to a newly allocated C string, or 0 on error.
+ * Returns a pointer to a newly allocated C string, or 0 on error
+ * (out-of-memory or unallocated-string-buffer).
  */
 void *lx_stroffer (s)
 	lx_s *s;

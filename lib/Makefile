@@ -7,6 +7,7 @@ SRC             = lx_alloc.c \
                   lx_cadd.c \
                   lx_check0.c \
                   lx_chop.c \
+                  lx_cstr.c \
                   lx_free.c \
                   lx_gd2s.c \
                   lx_gdaddnum.c \

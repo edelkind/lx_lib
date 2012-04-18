@@ -77,6 +77,7 @@ extern char lx_upperstr(lx_s *, char *, unsigned int);
 extern int  lx_map();
 
 extern void *lx_stroffer(lx_s *);
+extern const char *lx_cstr(lx_s *);
 
 /* objects */
 
