@@ -100,7 +100,7 @@ extern unsigned int lx_sa_setxbuf(unsigned int);
 extern void lx_gd2s(lx_s *, lx_gd *, unsigned int *);
 extern char lx_read(lx_s *, lx_gd *, unsigned int);
 extern int  lx_gdread(lx_s *, lx_gd *, int, unsigned int);
-extern char lx_gdfill(lx_gd *);
+//- extern char lx_gdfill(lx_gd *);
 extern char lx_gdicopy(lx_s *, lx_gd *, unsigned int);
 extern char lx_gdiappend(lx_s *, lx_gd *, unsigned int);
 //! extern char lx_gdputs(lx_gd *, const char *);  // Gd::put(char *)

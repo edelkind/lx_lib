@@ -8,6 +8,47 @@
 //extern void *malloc();
 #endif
 
+
+/** Fast forward past the nth instance of a specified character.  As in \ref
+ * lx_strff, but the optional output will be in the form of a lx_s value.
+ *
+ * @see lx_strff()
+ */
+char lx_strffx (lx_s *s, lx_s *out, char c, unsigned n)
+{
+    register unsigned int ix;
+    register char *px;
+    register char cx;
+    char *p;
+    char rv = 0;
+
+    px = s->s;
+    ix = s->len;
+    cx = c;
+
+    if (out) *p = px;
+
+    if (!(px)) {
+        return 1; /* user error */
+    }
+
+    for (;;) {
+        if (!ix) return 1;
+        if (*px == cx) {
+            if (!--n) {
+                *px++ = 0; --ix; /* advance past c */
+                if (out) {
+                    rv = lx_striset(out, p, s->len - ix);
+                }
+                (void) lx_striset (s, px, ix);
+                return rv;
+            }
+        }
+        --ix; ++px;
+    }
+}
+
+
 /**
  * Fast forward past the nth instance of a specified character.
  * The current implementation copies the remaining data to the beginning of s
@@ -27,34 +68,18 @@ char lx_strff (s, p, c, n)
 	char c;
 	unsigned int n;
 {
-	register unsigned int ix;
-	register char *px;
-	register char cx;
+    if (!p) return lx_strffx(s, NULL, c, n);
 
-	px = s->s;
-	ix = s->len;
-	cx = c;
+    /* If we only want a pointer, create a temporary lx_s variable. The stack
+     * will unwind the structure, but the allocated buffer will live on in *p.
+     */
+    {
+        char rv;
+        lx_s out = {0};
 
-	if (p) *p = px;
+        rv = lx_strffx(s, &out, c, n);
+        *p = out.s;
 
-	if (!(px)) {
-		return 1; /* user error */
-	}
-
-	for (;;) {
-		if (!ix) return 1;
-		if (*px == cx) {
-			if (!--n) {
-				*px++ = 0; --ix; /* advance past c */
-				if (p) {
-					char *q = *p;
-					*p = (char *)malloc(s->len - ix);
-					memmove(*p, q, s->len - ix);
-				}
-				lx_striset (s, px, ix);
-				return 0;
-			}
-		}
-		--ix; ++px;
-	}
+        return rv;
+    }
 }

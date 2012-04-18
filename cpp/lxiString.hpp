@@ -88,7 +88,12 @@ class String {
         inline unsigned int len()
         { return s.len; }
 
-        /** pointer to the buffer of the underlying lx_s */
+        /** pointer to the buffer of the underlying lx_s
+         *
+         * \note For use as a C string, use \ref cstr().  Do not use this
+         * function unless you know what you are doing, since it may not be
+         * null-terminated!
+         */
         inline char *ptr()
         { return s.s; }
 
@@ -290,11 +295,15 @@ class String {
         /** cstr : return lx_cstr(this).
          * @see lx_cstr()
         */
-        inline const char *post0() throw()
+        inline const char *cstr() throw()
         { return lx_cstr(&s); }
 
         /** offer : return lx_stroffer(this).
          * @see lx_stroffer()
+         *
+         * New allocation: can use \c free().
+         *
+         * @throws AllocError on ENOMEM
         */
         inline void *offer() throw(AllocError)
         {
@@ -346,6 +355,21 @@ class String {
          */
         inline void chompf() throw (AllocError)
             { if (lx_chompf_ws(&s)) throw AllocError(); }
+
+        /** lx_strff()
+         * @see lx_strff()
+         */
+        inline String& fastfw(char **p, char c, unsigned int n)
+        { if (lx_strff(&s, p, c, n)) throw AllocError(); return *this; }
+
+        inline String& fastfw(char c, unsigned int n)
+        { return fastfw(NULL, c, n); }
+
+        inline String& fastfw(String *p, char c, unsigned int n)
+        {
+            if (lx_strffx(&s, &p->base(), c, n)) throw AllocError();
+            return *this;
+        }
 
 
         /** Make string lowercase.
