@@ -287,6 +287,22 @@ class String {
                 throw AllocError();
         }
 
+        /** cstr : return lx_cstr(this).
+         * @see lx_cstr()
+        */
+        inline const char *post0() throw()
+        { return lx_cstr(&s); }
+
+        /** offer : return lx_stroffer(this).
+         * @see lx_stroffer()
+        */
+        inline void *offer() throw(AllocError)
+        {
+            void *rv = lx_stroffer(&s);
+            if (!rv) throw AllocError();
+            return rv;
+        }
+
 
 
         /** @} */
@@ -331,6 +347,73 @@ class String {
         inline void chompf() throw (AllocError)
             { if (lx_chompf_ws(&s)) throw AllocError(); }
 
+
+        /** Make string lowercase.
+         *
+         * \returns \c this for convenience.
+         * @see lx_lowers()
+         */
+        inline String& lower() throw ()
+        { lx_lowers(s.s, s.len); return *this; }
+
+        /** Make (up to) @a n bytes of string lowercase.
+         *
+         * \returns \c this for convenience.
+         * @see lx_lowers()
+         */
+        inline String& lower(unsigned int n) throw ()
+        {
+            if (n > s.len) n = s.len;
+            lx_lowers(s.s, n);
+            return *this;
+        }
+
+        /** Store @a n bytes of lower-case @a s into @c this.
+         *
+         * \returns \c this for convenience.
+         * @see lx_lowerstr()
+         */
+        inline String& lowerAssign(const char *src, unsigned int n)
+            throw (AllocError)
+        {
+            if (lx_lowerstr(&s, src, n))
+                throw AllocError();
+            return *this;
+        }
+
+
+        /** Make string uppercase.
+         *
+         * \returns \c this for convenience.
+         * @see lx_uppers()
+         */
+        inline String& upper() throw ()
+        { lx_uppers(s.s, s.len); return *this; }
+
+        /** Make (up to) @a n bytes of string uppercase.
+         *
+         * \returns \c this for convenience.
+         * @see lx_uppers()
+         */
+        inline String& upper(unsigned int n) throw ()
+        {
+            if (n > s.len) n = s.len;
+            lx_uppers(s.s, n);
+            return *this;
+        }
+
+        /** Store @a n bytes of upper-case @a s into @c this.
+         *
+         * \returns \c this for convenience.
+         * @see lx_upperstr()
+         */
+        inline String& upperAssign(const char *src, unsigned int n)
+            throw (AllocError)
+        {
+            if (lx_upperstr(&s, src, n))
+                throw AllocError();
+            return *this;
+        }
 
         /** @} */
         /****************************************************************//**

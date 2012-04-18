@@ -65,19 +65,19 @@ extern void lx_zero(lx_s *);
 extern void lx_zeroa(lx_s *);
 extern void lx_strrev(lx_s *);
 
-extern char lx_lowerb(char);
-extern char lx_upperb(char);
-extern void lx_lowers(char *, unsigned int);
-extern void lx_uppers(char *, unsigned int);
-extern void lx_lowersp(char *, char *, unsigned int);
-extern void lx_uppersp(char *, char *, unsigned int);
-extern char lx_lowerstr(lx_s *, char *, unsigned int);
-extern char lx_upperstr(lx_s *, char *, unsigned int);
+//- extern char lx_lowerb(char);
+//- extern char lx_upperb(char);
+//! extern void lx_lowers(char *, unsigned int);
+//! extern void lx_uppers(char *, unsigned int);
+//- extern void lx_lowersp(char *, char *, unsigned int);
+//- extern void lx_uppersp(char *, char *, unsigned int);
+//! extern char lx_lowerstr(lx_s *, char *, unsigned int);
+//! extern char lx_upperstr(lx_s *, char *, unsigned int);
 
 extern int  lx_map();
 
-extern void *lx_stroffer(lx_s *);
-extern const char *lx_cstr(lx_s *);
+//! extern void *lx_stroffer(lx_s *);
+//! extern const char *lx_cstr(lx_s *);
 
 /* objects */
 
