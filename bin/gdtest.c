@@ -1,4 +1,5 @@
 #include "lx_string.h"
+#include <stdlib.h>
 
 int main (argc, argv)
 	int argc;

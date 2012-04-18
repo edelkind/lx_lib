@@ -3,6 +3,7 @@
 #include <errno.h>
 #include <sys/times.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include "lx_string.h"
 
 #define BLOCKSIZE 8192
@@ -12,7 +13,7 @@ extern void p_time ();
 int main(void) {
 	lx_gd gd_stdin;
 	lx_s s = {0};
-	char match;
+	unsigned char match;
 
 	struct tms tstart, tend;
 

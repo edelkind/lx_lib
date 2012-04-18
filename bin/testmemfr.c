@@ -39,7 +39,7 @@ int main(void) {
 
 		*p = 0;
 	}
-	printf ("strlen = %d\n", strlen (from));
+	printf ("strlen = %u\n", (unsigned) strlen (from));
 
 	each = EACH;
 	do {
