@@ -8,25 +8,48 @@
  * Move the string forward n bytes.  The place in memory is not
  * modified, nor is the allocation.
  * 
- * If p != 0, a pointer to the removed portion will be kept (allocated with
- * malloc()).
+ * If \a out != NULL, it will be used to store the removed portion.
  * 
  * Returns 0 on success, or 1 on ENOMEM.
  */
-char lx_strfw (s, p, n)
-	lx_s *s;
-	char **p;
-	unsigned int n;
+char lx_strfwx (s, out, n)
+    lx_s *s;
+    lx_s *out;
+    unsigned int n;
 {
-	if (s->len < n) n = s->len;
+    int rv = 0;
 
-	if (p) {
-		if (!(*p = malloc(n + 1))) return 1;
-		memmove (*p, s->s, n);
-		*(*p + n) = 0;
-	}
+    if (s->len < n) n = s->len;
 
-	s->len -= n;
-	memmove (s->s, s->s + n, s->len);
-	return 0;
+    if (out) {
+        rv = lx_striset(out, s->s, n);
+    }
+
+    s->len -= n;
+    memmove (s->s, s->s + n, s->len);
+    return rv;
+}
+
+/** Move the string forward n bytes.
+ *
+ * If p != 0, a pointer to the removed portion will be kept (allocated with
+ * malloc()).
+ * 
+ * @see lx_strfwx()
+ */
+char lx_strfw (s, p, n)
+    lx_s *s;
+    char **p;
+    unsigned int n;
+{
+    if (p) return lx_strfwx(s, NULL, n);
+
+    {
+        lx_s tmp = {0};
+        char rv;
+
+        rv = lx_strfwx(s, &tmp, n);
+        *p = tmp.s; /* doesn't matter if strfwx failed here */
+        return rv;
+    }
 }

@@ -340,36 +340,85 @@ class String {
 
         /** chompf : lx_chompf(this, cstr).
          * @see lx_chompf()
+         *
+         * @returns a reference to @a this, for convenience.
          */
-        inline void chompf(char *cstr) throw (AllocError)
-            { if (lx_chompf(&s, cstr)) throw AllocError(); }
+        inline String& chompf(char *cstr) throw (AllocError)
+            { if (lx_chompf(&s, cstr)) throw AllocError(); return *this; }
 
         /** chomp : lx_chomp_ws(this).
          * @see lx_chomp_ws()
+         *
+         * @returns a reference to @a this, for convenience.
          */
-        inline void chomp() throw ()
-            { lx_chomp_ws(&s); }
+        inline String& chomp() throw ()
+            { lx_chomp_ws(&s); return *this; }
 
         /** lx_chompf_ws(this).
          * @see lx_chompf_ws()
+         *
+         * @returns a reference to @a this, for convenience.
          */
-        inline void chompf() throw (AllocError)
-            { if (lx_chompf_ws(&s)) throw AllocError(); }
+        inline String& chompf() throw (AllocError)
+            { if (lx_chompf_ws(&s)) throw AllocError(); return *this; }
 
-        /** lx_strff()
+        /** Fast-forward past the \a n th instance of a character.  If \a p is
+         * not NULL, allocates a new C string for the old segment and stores it
+         * in \a *p .
+         *
          * @see lx_strff()
+         *
+         * \returns a reference to \c this for convenience.
          */
         inline String& fastfw(char **p, char c, unsigned int n)
+            throw (AllocError)
         { if (lx_strff(&s, p, c, n)) throw AllocError(); return *this; }
 
-        inline String& fastfw(char c, unsigned int n)
+        /** Fast-forward past the \a n th instance of a character.
+         *
+         * @see lx_strff()
+         *
+         * \returns a reference to \c this for convenience.
+         */
+        inline String& fastfw(char c, unsigned int n) throw (AllocError)
         { return fastfw(NULL, c, n); }
 
+        /** Fast-forward past the \a n th instance of a character.  If \a p is
+         * not NULL, it will be used to store the old segment (any prior
+         * contents will be replaced).
+         *
+         * @see lx_strffx()
+         *
+         * \returns a reference to \c this for convenience.
+         */
         inline String& fastfw(String *p, char c, unsigned int n)
+            throw (AllocError)
         {
             if (lx_strffx(&s, &p->base(), c, n)) throw AllocError();
             return *this;
         }
+
+        /** Move a String forward n bytes.
+         *
+         * @see lx_strfw();
+         */
+        inline String& forward(char **p, unsigned n) throw (AllocError)
+        { if (lx_strfw(p, n)) throw AllocError(); return *this; }
+
+        /** Move a String forward n bytes.
+         *
+         * @see lx_strfw();
+         */
+        inline String& forward(unsigned n) throw (AllocError)
+        { return forward(NULL, n); }
+
+        /** Move a String forward n bytes.
+         *
+         * @see lx_strfwx();
+         */
+        inline String& forward(String *p, unsigned n) throw (AllocError)
+        { if (lx_strfwx(&p->base(), n)) throw AllocError(); return *this; }
+
 
 
         /** Make string lowercase.
@@ -441,25 +490,99 @@ class String {
 
         /** @} */
         /****************************************************************//**
+          @defgroup Ssearch Search functions
+          @{
+         ********************************************************************/
+
+        /** Find the \a n th index of character \a c.
+         *
+         * @see lx_strindex()
+         *
+         * \returns -1 if the character could not be found.
+         */
+        inline long index(char c, unsigned n) throw()
+        { return lx_strindex(&s, c, n); }
+
+        /** Find the \a n th index of any character in set \a set (which has
+         * length \a setl).
+         *
+         * @see lx_strindex()
+         *
+         * \returns -1 if no such character could be found.
+         */
+        inline long indexSet(char *set, unsigned setl, unsigned n) throw()
+        { return lx_strsindex(&s, set, setl, n); }
+
+
+        /** @} */
+        /****************************************************************//**
           @defgroup Scomp Comparison functions
           @{
          ********************************************************************/
 
-        /**
-         * returns true if strings match; false if not.
-         * Note C++ style, not C style.
+        /** Compare with an lx_s.
+         *
+         * \retval true strings match
+         * \retval false they do not.
+         *
+         * \note boolean style return value, not C style.
+         *
          * @see lx_strcmp()
          */
-        inline bool compare(lx_s *s2) throw()
+        inline bool compare(const lx_s *s2) throw()
             { return !lx_strcmp(&s, s2); }
 
-        /**
-         * returns true if strings match; false if not.
-         * Note C++ style, not C style.
+        /** Compare with a character pointer.
+         *
+         * \retval true strings match
+         * \retval false they do not.
+         *
+         * \note boolean style return value, not C style.
+         *
          * @see lx_strscmp()
          */
-        inline bool compare(char *s2) throw()
+        inline bool compare(const char *s2) throw()
             { return !lx_strscmp(&s, s2); }
+
+        /** Compare with another String.
+         *
+         * \retval true strings match
+         * \retval false they do not.
+         *
+         * \note boolean style return value, not C style.
+         *
+         * @see lx_strcmp()
+         */
+        inline bool compare(const String& s2) throw()
+        { return !lx_strcmp(&s, &s2.base());
+
+        /** Compare strings case insensitively.
+         *
+         * \retval true strings match
+         * \retval false they do not.
+         *
+         * \note boolean style return value, not C style.
+         *
+         * @see lx_stricmp()
+         */
+        inline bool icompare(const String &s2) throw()
+        { return !lx_stricmp(&s, &s2.base()); }
+
+        /** Compare strings case insensitively.
+         *
+         * \retval true strings match
+         * \retval false they do not.
+         *
+         * \note boolean style return value, not C style.
+         *
+         * @see lx_stricmp()
+         */
+        inline bool icompare(const char *s2) throw()
+        {
+            lx_s stmp = { const_cast<char *>(s2) };
+            stmp.len = strlen(s2);
+            return !lx_stricmp(&s, &stmp);
+        }
 
         /** @} */
 

@@ -38,18 +38,18 @@
 //! extern char lx_chompf_ws(lx_s *);
 //! extern char lx_strcmp(lx_s *, lx_s *);
 //! extern char lx_strscmp(lx_s *, char *);
-extern char lx_stricmp(lx_s *, lx_s *);
-extern char lx_strlcmp(lx_s *, lx_s *);
+//! extern char lx_stricmp(lx_s *, lx_s *);
+//! extern char lx_strlcmp(lx_s *, lx_s *);
 extern char lx_strncmp(lx_s *, lx_s *, unsigned int);
 extern char lx_strnicmp(lx_s *, lx_s *, unsigned int);
 extern char lx_strnlcmp(lx_s *, lx_s *, unsigned int);
 extern char lx_strnpcmp(char *, char *, unsigned int);
 extern char lx_strnipcmp(char *, char *, unsigned int);
 extern char lx_strnlpcmp(char *, char *, unsigned int);
-extern char lx_strff(lx_s *, char **, char, unsigned int);
-extern char lx_strfw(lx_s *, char **, unsigned int);
-extern long lx_strindex(lx_s *, char, unsigned int);
-extern long lx_strsindex(lx_s *, char *, unsigned int, unsigned int);
+//! extern char lx_strff(lx_s *, char **, char, unsigned int);
+//! extern char lx_strfw(lx_s *, char **, unsigned int);
+//! extern long lx_strindex(lx_s *, char, unsigned int);
+//! extern long lx_strsindex(lx_s *, char *, unsigned int, unsigned int);
 extern char lx_straddp(lx_s *, char *, ...);
 extern char lx_strsetp(lx_s *, char *, ...);
 
