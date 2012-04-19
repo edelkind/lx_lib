@@ -143,8 +143,8 @@ class UnderflowError: public std::exception
 #include "lxiString.hpp"
 #include "lxiGd.hpp"
 
-class Gd;
-class String;
+//class Gd;
+//class String;
 
 
 

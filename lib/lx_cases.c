@@ -49,7 +49,8 @@ void lx_uppers (s, l)
  */
 
 void lx_lowersp (p, s, l)
-	char *p, *s;
+	char *p;
+        const char *s;
 	unsigned int l;
 {
 	char c;
@@ -72,7 +73,8 @@ void lx_lowersp (p, s, l)
  */
 
 void lx_uppersp (p, s, l)
-	char *p, *s;
+	char *p;
+        const char *s;
 	unsigned int l;
 {
 	char c;
@@ -96,7 +98,7 @@ void lx_uppersp (p, s, l)
 
 char lx_lowerstr (ss, s, l)
 	lx_s *ss;
-	char *s;
+	const char *s;
 	unsigned int l;
 {
 	if (lx_setalloc (ss, l))
@@ -117,7 +119,7 @@ char lx_lowerstr (ss, s, l)
 
 char lx_upperstr (ss, s, l)
 	lx_s *ss;
-	char *s;
+	const char *s;
 	unsigned int l;
 {
 	if (lx_setalloc (ss, l))

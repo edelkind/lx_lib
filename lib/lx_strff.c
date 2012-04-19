@@ -26,7 +26,7 @@ char lx_strffx (lx_s *s, lx_s *out, char c, unsigned n)
     ix = s->len;
     cx = c;
 
-    if (out) *p = px;
+    if (out) p = px;
 
     if (!(px)) {
         return 1; /* user error */

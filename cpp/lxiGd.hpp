@@ -169,7 +169,7 @@ class Gd {
          * @see lx_gdstrput()
          */
         inline void put(const String& S) throw(WriteError)
-        { put(S.base()); }
+        { put(S.s); }
 
         /**
          * lx_gdstrput(this, S.base()).
@@ -210,7 +210,7 @@ class Gd {
          * @see lx_gdstrput()
          */
         inline void putln(const String& S) throw(WriteError)
-        { put(S.base()); put(_separator); }
+        { put(S.s); put(_separator); }
 
         /**
          * lx_gdstrput(this, S.base()), but appends the default separator.

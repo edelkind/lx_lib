@@ -4,6 +4,10 @@
 // #define NDEBUG
 #include <cassert>
 
+extern "C" {
+#include <string.h>
+}
+
 /************************************************************************//**
  *** lx::String (LX Generic Data Buffer class)
  ****************************************************************************/
@@ -381,7 +385,7 @@ class String {
          * \returns a reference to \c this for convenience.
          */
         inline String& fastfw(char c, unsigned int n) throw (AllocError)
-        { return fastfw(NULL, c, n); }
+        { return fastfw((String*)NULL, c, n); }
 
         /** Fast-forward past the \a n th instance of a character.  If \a p is
          * not NULL, it will be used to store the old segment (any prior
@@ -403,21 +407,21 @@ class String {
          * @see lx_strfw();
          */
         inline String& forward(char **p, unsigned n) throw (AllocError)
-        { if (lx_strfw(p, n)) throw AllocError(); return *this; }
+        { if (lx_strfw(&s, p, n)) throw AllocError(); return *this; }
 
         /** Move a String forward n bytes.
          *
          * @see lx_strfw();
          */
         inline String& forward(unsigned n) throw (AllocError)
-        { return forward(NULL, n); }
+        { return forward((String*)NULL, n); }
 
         /** Move a String forward n bytes.
          *
          * @see lx_strfwx();
          */
         inline String& forward(String *p, unsigned n) throw (AllocError)
-        { if (lx_strfwx(&p->base(), n)) throw AllocError(); return *this; }
+        { if (lx_strfwx(&s, &p->base(), n)) throw AllocError(); return *this; }
 
 
 
@@ -554,7 +558,7 @@ class String {
          * @see lx_strcmp()
          */
         inline bool compare(const String& s2) throw()
-        { return !lx_strcmp(&s, &s2.base());
+        { return !lx_strcmp(&s, &s2.s); }
 
         /** Compare strings case insensitively.
          *
@@ -566,7 +570,7 @@ class String {
          * @see lx_stricmp()
          */
         inline bool icompare(const String &s2) throw()
-        { return !lx_stricmp(&s, &s2.base()); }
+        { return !lx_stricmp(&s, &s2.s); }
 
         /** Compare strings case insensitively.
          *

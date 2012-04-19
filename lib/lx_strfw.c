@@ -42,7 +42,7 @@ char lx_strfw (s, p, n)
     char **p;
     unsigned int n;
 {
-    if (p) return lx_strfwx(s, NULL, n);
+    if (!p) return lx_strfwx(s, NULL, n);
 
     {
         lx_s tmp = {0};

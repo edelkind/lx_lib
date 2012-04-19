@@ -7,11 +7,11 @@
  */
 
 char lx_strcmp (s1, s2)
-	struct lx_string *s1;
-	struct lx_string *s2;
+	const struct lx_string *s1;
+	const struct lx_string *s2;
 {
-	register char *p1;
-	register char *p2;
+	register const char *p1;
+	register const char *p2;
 	register int len = s1->len;
 
 	if (len != s2->len)
@@ -39,11 +39,11 @@ char lx_strcmp (s1, s2)
  */
 
 char lx_strscmp (s1, s2)
-	struct lx_string *s1;
-	char *s2;
+	const struct lx_string *s1;
+	const char *s2;
 {
-	register char *p1;
-	register char *p2;
+	register const char *p1;
+	register const char *p2;
 	register int len = s1->len;
 
 	p1 = s1->s;
@@ -73,11 +73,11 @@ char lx_strscmp (s1, s2)
  */
 
 char lx_stricmp (s1, s2)
-	struct lx_string *s1;
-	struct lx_string *s2;
+	const struct lx_string *s1;
+	const struct lx_string *s2;
 {
-	register char *p1;
-	register char *p2;
+	register const char *p1;
+	register const char *p2;
 	register int len = s1->len;
 
 	if (len != s2->len)
@@ -105,8 +105,8 @@ char lx_stricmp (s1, s2)
  */
 
 char lx_strlcmp (s1, s2)
-	struct lx_string *s1;
-	struct lx_string *s2;
+	const struct lx_string *s1;
+	const struct lx_string *s2;
 {
 	register char *p1;
 	register char *p2;
@@ -137,7 +137,7 @@ char lx_strlcmp (s1, s2)
  */
 
 char lx_strncmp (s1, s2, l)
-	lx_s *s1, *s2;
+	const lx_s *s1, *s2;
 	unsigned int l;
 {
 	lx_s x1, x2; /* mirrored */
@@ -158,7 +158,7 @@ char lx_strncmp (s1, s2, l)
  */
 
 char lx_strnicmp (s1, s2, l)
-	lx_s *s1, *s2;
+	const lx_s *s1, *s2;
 	unsigned int l;
 {
 	lx_s x1, x2; /* mirrored */
@@ -180,7 +180,7 @@ char lx_strnicmp (s1, s2, l)
  */
 
 char lx_strnlcmp (s1, s2, l)
-	lx_s *s1, *s2;
+	const lx_s *s1, *s2;
 	unsigned int l;
 {
 	lx_s x1, x2; /* mirrored */
@@ -204,7 +204,7 @@ char lx_strnlcmp (s1, s2, l)
  */
 
 char lx_strnpcmp (p1, p2, l)
-	register char *p1, *p2;
+	register const char *p1, *p2;
 	unsigned int l;
 {
 	for (;;) {
@@ -227,7 +227,7 @@ char lx_strnpcmp (p1, p2, l)
  */
 
 char lx_strnipcmp (p1, p2, l)
-	register char *p1, *p2;
+	register const char *p1, *p2;
 	unsigned int l;
 {
 	for (;;) {
@@ -251,7 +251,7 @@ char lx_strnipcmp (p1, p2, l)
  */
 
 char lx_strnlpcmp (p1, p2, l)
-	register char *p1, *p2;
+	register const char *p1, *p2;
 	unsigned int l;
 {
 	for (;;) {
