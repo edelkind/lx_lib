@@ -93,7 +93,7 @@ class String {
         { return s; }
 
         /** length of underlying lx_s */
-        inline unsigned int len()
+        inline unsigned int len() const
         { return s.len; }
 
         /** pointer to the buffer of the underlying lx_s
@@ -104,6 +104,8 @@ class String {
          */
         inline char *ptr()
         { return s.s; }
+        inline const char *ptr() const
+        { return s.s; }
 
 
         /** Check whether the String has actually been initialized (used) yet.
@@ -111,7 +113,7 @@ class String {
          * \retval TRUE \c s.s != 0
          * \retval FALSE \c !s.s
          */
-        inline bool initialized()
+        inline bool initialized() const
         { return s.s != 0; }
 
 
