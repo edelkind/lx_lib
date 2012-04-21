@@ -127,17 +127,17 @@ extern "C" {
 }
 
 class AllocError: public std::exception
-{ const char *what() { return "Bad Allocation"; } };
+{ const char *what() const throw() { return "Bad Allocation"; } };
 
 /// \todo add errno checking/reporting
 class ReadError: public std::exception
-{ const char *what() { return "Read Error"; } };
+{ const char *what() const throw() { return "Read Error"; } };
 
 class WriteError: public std::exception
-{ const char *what() { return "Write Error"; } };
+{ const char *what() const throw() { return "Write Error"; } };
 
 class UnderflowError: public std::exception
-{ const char *what() { return "Underflow Error"; } };
+{ const char *what() const throw() { return "Underflow Error"; } };
 
 
 #include "lxiString.hpp"

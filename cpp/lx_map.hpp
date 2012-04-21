@@ -165,13 +165,13 @@ class Container : protected ContBase {
 
 };
 
-void writeClist(Gd &gd, Container *Clist)
+inline void writeClist(Gd &gd, Container *Clist)
 {
     while (*Clist)
         (*Clist++).write(gd);
 };
 
-void writeClist(String &s, Container *Clist)
+inline void writeClist(String &s, Container *Clist)
 {
     s.empty();
     while (*Clist)

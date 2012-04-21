@@ -33,7 +33,7 @@ char lx_strfwx (s, out, n)
 /** Move the string forward n bytes.
  *
  * If p != 0, a pointer to the removed portion will be kept (allocated with
- * malloc()).
+ * malloc()).  Note that this may not be null-terminated.
  * 
  * @see lx_strfwx()
  */

@@ -33,13 +33,14 @@ char lx_strffx (lx_s *s, lx_s *out, char c, unsigned n)
     }
 
     for (;;) {
-        if (!ix) return 1;
+        if (!ix) return -1;
         if (*px == cx) {
             if (!--n) {
-                *px++ = 0; --ix; /* advance past c */
+                //*px++ = 0; --ix; /* advance past c */
                 if (out) {
                     rv = lx_striset(out, p, s->len - ix);
                 }
+                px++; ix--; /* advance past c */
                 (void) lx_striset (s, px, ix);
                 return rv;
             }
@@ -60,7 +61,11 @@ char lx_strffx (lx_s *s, lx_s *out, char c, unsigned n)
  * p[index] (the index of the specified character) will be the 0-termination
  * for the new ptr.
  * 
- * Returns 0 on success.
+ * \retval 0  success
+ * \retval -1 the character was not found, and the internal buffer was
+ * unmodified.
+ * \retval 1 ENOMEM (only possible if \a p != NULL). Internal buffer may be
+ * modified.
  */
 char lx_strff (s, p, c, n)
 	struct lx_string *s;
@@ -78,6 +83,7 @@ char lx_strff (s, p, c, n)
         lx_s out = {0};
 
         rv = lx_strffx(s, &out, c, n);
+        if (lx_post0(&out)) return 1;
         *p = out.s;
 
         return rv;

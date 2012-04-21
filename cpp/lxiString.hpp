@@ -88,6 +88,10 @@ class String {
         inline lx_s& base()
         { return s; }
 
+        /** for use in const situations */
+        inline const lx_s& base() const
+        { return s; }
+
         /** length of underlying lx_s */
         inline unsigned int len()
         { return s.len; }
@@ -180,76 +184,87 @@ class String {
         /** append : lx_strcat(this, src).
          * @see lx_strcat()
         */
-        inline void append(const String& src) throw(AllocError)
-        { append(src.s); }
+        inline String& append(const String& src) throw(AllocError)
+        { append(src.s); return *this; }
 
         /** append : lx_strcat(this, src).
          * @see lx_strcat()
         */
-        inline void append(const lx_s& src) throw(AllocError)
+        inline String& append(const lx_s& src) throw(AllocError)
         {
             if (lx_strcat(&s, const_cast<lx_s*>(&src) ))
                 throw AllocError();
+            return *this;
         }
 
         /** append : lx_striadd(this, src, maxlen||src.len()).
          * @see lx_striadd()
         */
-        inline void append(const String& src, unsigned int maxlen) throw(AllocError)
+        inline String& append(const String& src, unsigned int maxlen)
+            throw(AllocError)
         {
             if (maxlen > src.s.len)
                 maxlen = src.s.len;
 
             if (lx_striadd(&s, src.s.s, maxlen))
                 throw AllocError();
+            return *this;
         }
 
 
         /** append : lx_striadd(this, src, len).
          * @see lx_striadd()
         */
-        inline void append(const char *src, unsigned int len) throw(AllocError)
+        inline String& append(const char *src, unsigned int len) throw(AllocError)
         {
             if (lx_striadd(&s, const_cast<char*>(src), len))
                 throw AllocError();
+            return *this;
         }
 
         /** append : lx_stradd(this, src).
          * @see lx_stradd()
         */
-        inline void append(const char *src) throw(AllocError)
+        inline String& append(const char *src) throw(AllocError)
         {
             if (lx_stradd(&s, const_cast<char*>(src) ))
                 throw AllocError();
+            return *this;
         }
 
         /** append : lx_cadd(this, src).
          * @see lx_cadd()
         */
-        inline void append(char c) throw(AllocError)
+        inline String& append(char c) throw(AllocError)
         {
             if (lx_cadd(&s, c ))
                 throw AllocError();
+
+            return *this;
         }
 
         /** Add unsigned num with base base.
          * @see: lx_straddulong()
          */
-        inline void addulong(unsigned long num,
+        inline String& addulong(unsigned long num,
                              unsigned int base=10) throw(AllocError)
         {
             if (lx_straddulong(&s, num, base))
                 throw AllocError();
+
+            return *this;
         }
 
         /** Add signed num with base base.
          * @see: lx_straddlong()
          */
-        inline void addlong(long num,
+        inline String& addlong(long num,
                             unsigned int base=10) throw(AllocError)
         {
             if (lx_straddlong(&s, num, base))
                 throw AllocError();
+
+            return *this;
         }
 
         /** Append to string.
@@ -262,13 +277,15 @@ class String {
          *
          * @see: lx_strinsert()
          */
-        inline void insert( const char *p,
+        inline String& insert( const char *p,
                             unsigned int len,
                             unsigned int off,
                             unsigned int del=0) throw(AllocError)
         {
             if (lx_strinsert(&s, const_cast<char*>(p), len, off, del))
                 throw AllocError();
+
+            return *this;
         }
 
 
@@ -374,9 +391,15 @@ class String {
          *
          * \returns a reference to \c this for convenience.
          */
-        inline String& fastfw(char **p, char c, unsigned int n)
+        inline bool fastfw(char **p, char c, unsigned int n)
             throw (AllocError)
-        { if (lx_strff(&s, p, c, n)) throw AllocError(); return *this; }
+        {
+            char rv;
+            rv = lx_strff(&s, p, c, n);
+            if (!rv) return true;
+            if (rv > 0) throw AllocError();
+            return false;
+        }
 
         /** Fast-forward past the \a n th instance of a character.
          *
@@ -384,7 +407,7 @@ class String {
          *
          * \returns a reference to \c this for convenience.
          */
-        inline String& fastfw(char c, unsigned int n) throw (AllocError)
+        inline bool fastfw(char c, unsigned int n) throw (AllocError)
         { return fastfw((String*)NULL, c, n); }
 
         /** Fast-forward past the \a n th instance of a character.  If \a p is
@@ -395,11 +418,14 @@ class String {
          *
          * \returns a reference to \c this for convenience.
          */
-        inline String& fastfw(String *p, char c, unsigned int n)
+        inline bool fastfw(String *p, char c, unsigned int n)
             throw (AllocError)
         {
-            if (lx_strffx(&s, &p->base(), c, n)) throw AllocError();
-            return *this;
+            switch (lx_strffx(&s, &p->base(), c, n)) {
+                case 0: return true;
+                case 1: throw AllocError();
+            }
+            return false;
         }
 
         /** Move a String forward n bytes.
@@ -558,7 +584,7 @@ class String {
          * @see lx_strcmp()
          */
         inline bool compare(const String& s2) throw()
-        { return !lx_strcmp(&s, &s2.s); }
+        { return !lx_strcmp(&s, &s2.base()); }
 
         /** Compare strings case insensitively.
          *
