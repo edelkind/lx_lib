@@ -140,7 +140,7 @@ class Gd {
         }
 
         /**
-         * Same as getseg(), but c is the default separator.
+         * Same as getseg(), but c is the default \ref separator.
          *
          * @see lx_getln()
          */
@@ -205,7 +205,7 @@ class Gd {
         }
 
         /**
-         * lx_gdstrput(this, S.base()), but appends the default separator.
+         * lx_gdstrput(this, S.base()), but appends the default \ref separator.
          *
          * @see lx_gdstrput()
          */
@@ -213,7 +213,7 @@ class Gd {
         { put(S.s); put(_separator); }
 
         /**
-         * lx_gdstrput(this, S.base()), but appends the default separator.
+         * lx_gdstrput(this, S.base()), but appends the default \ref separator.
          *
          * @see lx_gdstrput()
          */
@@ -225,7 +225,7 @@ class Gd {
         }
 
         /**
-         * lx_gdputs(this, c_str), but appends the default separator.
+         * lx_gdputs(this, c_str), but appends the default \ref separator.
          *
          * @see lx_gdputs()
          */
