@@ -50,7 +50,7 @@ extern char lx_strfw(lx_s *, char **, unsigned int);
 extern char lx_strffx(lx_s *, lx_s *, char, unsigned int);
 extern char lx_strfwx(lx_s *, lx_s *, unsigned int);
 extern long lx_strindex(lx_s *, char, unsigned int);
-extern long lx_strsindex(lx_s *, char *, unsigned int, unsigned int);
+extern long lx_strsindex(lx_s *, const char *, unsigned int, unsigned int);
 extern char lx_straddp(lx_s *, char *, ...);
 extern char lx_strsetp(lx_s *, char *, ...);
 

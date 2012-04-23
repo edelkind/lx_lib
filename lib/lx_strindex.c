@@ -38,19 +38,19 @@ long lx_strindex (s, c, n)
 
 long lx_strsindex (s, set, setl, n)
 	lx_s *s;
-	char *set;
+	const char *set;
 	unsigned int setl, n;
 {
 	unsigned int sl, l = s->len;
 	register char *p = s->s;
-	register char *x;
+	register const char *x;
 	char c;
 
-	for (;;) {
-	    if (!l--) return -1;
+	for (;; p++, l--) {
+	    if (!l) return -1;
 	    x = set;
 	    sl = setl;
-	    c = *p++;
+	    c = *p;
 
 	    for (;;) {
 		if (!sl--) break; if (*x == c) { if (!--n) goto out; } x++;

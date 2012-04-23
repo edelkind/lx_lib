@@ -96,6 +96,9 @@ class String {
         inline unsigned int len() const
         { return s.len; }
 
+        inline unsigned int alloc() const
+        { return s.alloc; }
+
         /** pointer to the buffer of the underlying lx_s
          *
          * \note For use as a C string, use \ref cstr().  Do not use this
@@ -122,6 +125,12 @@ class String {
           @defgroup Sassign String assignment functions
           @{
          ********************************************************************/
+
+        /** alloc : lx_setalloc(this, n)
+         * @see lx_setalloc()
+         */
+        inline void setalloc(unsigned n) throw(AllocError)
+        { if (lx_setalloc(&s, n)) throw AllocError(); }
 
         /** strnset : lx_strnset(this, src, maxlen).
          * @see lx_strnset()
@@ -542,7 +551,7 @@ class String {
          *
          * \returns -1 if no such character could be found.
          */
-        inline long indexSet(char *set, unsigned setl, unsigned n) throw()
+        inline long indexSet(const char *set, unsigned setl, unsigned n) throw()
         { return lx_strsindex(&s, set, setl, n); }
 
 
