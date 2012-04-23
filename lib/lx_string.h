@@ -88,9 +88,15 @@ extern void  lx_destroy(void *);
 
 extern char lx_sa_add(lx_sa *, lx_s *);
 extern char lx_sa_adds(lx_sa *, char *);
+extern char lx_sa_adds0(lx_sa *, char *);
 extern char lx_sa_alloc(lx_sa *, unsigned int);
 extern char lx_sa_realloc(lx_sa *, unsigned int);
 extern char lx_sa_setalloc(lx_sa *, unsigned int);
+char lx_sa_plusalloc(lx_sa *sa, unsigned int elem);
+extern void lx_sa_free(lx_sa *sa);
+extern void lx_sa_zfree(lx_sa *sa);
+char lx_sa_post0(lx_sa *sa);
+char lx_sa_post0(lx_sa *sa);
 
 extern unsigned int lx_sa_setxbuf(unsigned int);
 

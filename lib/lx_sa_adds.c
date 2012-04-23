@@ -10,7 +10,6 @@
  *
  * Returns 0 on success.
  */
-
 char lx_sa_adds (sa, src)
 	lx_sa *sa;
 	char *src;
@@ -18,6 +17,23 @@ char lx_sa_adds (sa, src)
 	lx_s tmp = {0};
 
 	if (lx_strset (&tmp, src)) return 1;
+
+	return (lx_sa_add (sa, &tmp));
+}
+
+/** Like \ref lx_sa_adds(), but adds a terminating 0.
+ *
+ * \sa lx_sa_adds()
+ * \sa lx_post0()
+ */
+char
+lx_sa_adds0 (lx_sa *sa, char *src)
+{
+	lx_s tmp = {0};
+
+	if (    lx_strset (&tmp, src) ||
+                lx_post0 (&tmp) )
+            return 1;
 
 	return (lx_sa_add (sa, &tmp));
 }

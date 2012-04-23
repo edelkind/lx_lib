@@ -104,9 +104,8 @@ char lx_sa_setalloc (sa, elem)
  * Returns 0 on success, 1 on error.
  */
 
-char lx_sa_plusalloc (sa, elem)
-	lx_sa *sa;
-	unsigned int elem;
+char
+lx_sa_plusalloc(lx_sa *sa, unsigned int elem)
 {
 	if (!(sa->sarray)) return (lx_sa_alloc (sa, elem));
 	else return (lx_sa_setalloc (sa, sa->elem+elem));

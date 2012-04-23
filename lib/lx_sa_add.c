@@ -20,11 +20,12 @@ char lx_sa_add (sa, s)
 			return 1;
 	}
 
-	sa->elem++;
-
-	sa->sarray[sa->elem-1].s = 0;
+	sa->sarray[sa->elem].s = 0;
 	//lx_alloc(sa->sarray[sa->elem-1], s->len);
-	lx_strcopy(&sa->sarray[sa->elem-1], s);
+	if (lx_strcopy(&sa->sarray[sa->elem], s))
+            return 1;
 	//memmove(&(sa->sarray[sa->elem-1]), s);
+
+	sa->elem++;
 	return 0;
 }
