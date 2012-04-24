@@ -32,8 +32,9 @@ lx_sa_adds0 (lx_sa *sa, char *src)
 	lx_s tmp = {0};
 
 	if (    lx_strset (&tmp, src) ||
-                lx_post0 (&tmp) )
+	        lx_sa_add (sa, &tmp) ||
+                lx_post0(&sa->sarray[sa->elem-1]) )
             return 1;
 
-	return (lx_sa_add (sa, &tmp));
+        return 0;
 }

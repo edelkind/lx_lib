@@ -97,6 +97,7 @@ extern void lx_sa_free(lx_sa *sa);
 extern void lx_sa_zfree(lx_sa *sa);
 char lx_sa_post0(lx_sa *sa);
 char lx_sa_post0(lx_sa *sa);
+char lx_sa_to_charpp(lx_sa *sa, lx_s *dest);
 
 extern unsigned int lx_sa_setxbuf(unsigned int);
 

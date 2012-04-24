@@ -30,6 +30,7 @@ SRC             = lx_alloc.c \
                   lx_sa_add0.c \
                   lx_sa_alloc.c \
                   lx_sa_free.c \
+                  lx_sa_to_charpp.c \
                   lx_stradd.c \
                   lx_straddnum.c \
                   lx_straddp.c \
@@ -45,7 +46,7 @@ SRC             = lx_alloc.c \
                   lx_strrev.c \
                   lx_strset.c \
                   lx_strsetp.c \
-		  lx_strinsert.c \
+				  lx_strinsert.c \
                   lx_zero.c \
                   lx_caseb.c \
                   lx_cases.c \
