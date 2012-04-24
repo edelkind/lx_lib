@@ -1,7 +1,6 @@
 #include "lx_string.h"
 
 /** add a 0-termination element after the last recorded element.
- * Useful for, say, casting sarray to (char **).
  */
 char
 lx_sa_post0(lx_sa *sa)
