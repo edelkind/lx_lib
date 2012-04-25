@@ -12,7 +12,7 @@
  */
 char lx_sa_adds (sa, src)
 	lx_sa *sa;
-	char *src;
+	const char *src;
 {
 	lx_s tmp = {0};
 
@@ -27,7 +27,7 @@ char lx_sa_adds (sa, src)
  * \sa lx_post0()
  */
 char
-lx_sa_adds0 (lx_sa *sa, char *src)
+lx_sa_adds0 (lx_sa *sa, const char *src)
 {
 	lx_s tmp = {0};
 

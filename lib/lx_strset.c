@@ -11,11 +11,11 @@
  */
 char lx_strset (s_dest, src)
 	struct lx_string *s_dest;
-	char *src;
+	const char *src;
 {
 	struct lx_string s_src = {0};
 
-	s_src.s = src;
+	s_src.s = (char*)src;
 	s_src.len = lx_strlen(src);
 	s_src.alloc = s_src.len;
 
@@ -31,13 +31,13 @@ char lx_strset (s_dest, src)
  */
 char lx_strnset (s_dest, src, n)
 	lx_s *s_dest;
-	register char *src;
+	register const char *src;
 	register unsigned int n;
 {
 	register int len = 0;
 	lx_s s_src = {0};
 
-	s_src.s = src;
+	s_src.s = (char*)src;
 	for (;;) {
 		if (!(*src) || !n)
 			break;
@@ -58,7 +58,7 @@ char lx_strnset (s_dest, src, n)
  */
 char lx_striset (s_dest, src, n)
 	struct lx_string *s_dest;
-	char *src;
+	const char *src;
 	unsigned int n;
 {
 	if (lx_setalloc (s_dest, n))

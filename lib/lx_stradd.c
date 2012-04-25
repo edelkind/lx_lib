@@ -10,7 +10,7 @@
 
 char lx_stradd (s_dest, src)
 	struct lx_string *s_dest;
-	char *src;
+	const char *src;
 {
 	if (!(s_dest->s))
 		return (lx_strset (s_dest, src));
@@ -26,12 +26,12 @@ char lx_stradd (s_dest, src)
 
 char lx_striadd (s_dest, src, len)
 	lx_s *s_dest;
-	char *src;
+	const char *src;
 	unsigned int len;
 {
 	struct lx_string s_src = {0};
 
-	s_src.s = src;
+	s_src.s = (char*)src;
 	s_src.len = len;
 	s_src.alloc = s_src.len;
 

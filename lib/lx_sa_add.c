@@ -10,7 +10,7 @@
  */
 char lx_sa_add (sa, s)
 	lx_sa *sa;
-	lx_s *s;
+	const lx_s *s;
 {
 	if (!(sa->sarray)) {
 		if (lx_sa_alloc (sa, 1))

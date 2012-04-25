@@ -8,9 +8,9 @@
  */
 
 unsigned int lx_strlen(s)
-	register char *s;
+	register const char *s;
 {
-	register char *p = s;
+	register const char *p = s;
 
 	for (;;) {
 		if (!*p) return (p-s); p++;

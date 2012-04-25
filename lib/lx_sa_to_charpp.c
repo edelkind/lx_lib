@@ -2,6 +2,8 @@
 #include "lx_string.h"
 
 /** Place a (char**) array in \a dest that points to all elements of \a sa.
+ * Each element in \a sa is guaranteed to be null-terminated (and \a sa may be
+ * modified to meet this guarantee with \ref lx_post0()).
  *
  * Sample usage:
  * \code
@@ -25,6 +27,7 @@ lx_sa_to_charpp(lx_sa *sa, lx_s *dest)
 {
     int i, elem;
     char **pp;
+    lx_s *sp;
 
     if (!sa->sarray)
         return 1;
@@ -34,7 +37,9 @@ lx_sa_to_charpp(lx_sa *sa, lx_s *dest)
 
     pp = (char**) dest->s;
     for (i=0; i < elem; i++) {
-        pp[i] = sa->sarray[i].s;
+        sp = &sa->sarray[i];
+        lx_post0(sp);
+        pp[i] = sp->s;
     }
     pp[elem] = 0;
 

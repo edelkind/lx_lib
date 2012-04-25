@@ -5,13 +5,8 @@
 void
 lx_sa_free(lx_sa *sa)
 {
-    int elem;
-
     if (!sa->sarray) return;
-
-    for (elem = sa->elem; elem;)
-        lx_free(&sa->sarray[--elem]);
-
+    lx_sa_empty(sa);
     free(sa->sarray);
     sa->sarray = 0;
 }
@@ -19,13 +14,8 @@ lx_sa_free(lx_sa *sa)
 void
 lx_sa_zfree(lx_sa *sa)
 {
-    int elem;
-
     if (!sa->sarray) return;
-
-    for (elem = sa->elem; elem;)
-        lx_zfree(&sa->sarray[--elem]);
-
+    lx_sa_zempty(sa);
     free(sa->sarray);
     sa->sarray = 0;
 }

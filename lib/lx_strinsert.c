@@ -14,7 +14,7 @@
  */
 char lx_strinsert (s, p, len, off, del)
     lx_s *s;
-    char *p;
+    const char *p;
     unsigned int len, off, del;
 {
     char *start_from, *start_to;

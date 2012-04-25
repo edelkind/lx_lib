@@ -10,7 +10,7 @@
 
 void lx_strcatb (s1, s2, len1, len2)
 	register char *s1;
-	register char *s2;
+	register const char *s2;
 	unsigned int len1;
 	register unsigned int len2;
 {
@@ -33,7 +33,7 @@ void lx_strcatb (s1, s2, len1, len2)
 
 char lx_strcat (s1, s2)
 	struct lx_string *s1;
-	struct lx_string *s2;
+	const struct lx_string *s2;
 {
 	/* if there isn't enough space allocated, allocate it */
 	if (lx_setalloc(s1, (s1->len + s2->len)) != 0)

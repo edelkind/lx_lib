@@ -6,7 +6,7 @@
 #include "lxi_gendesc.h"
 #include "lxi_gendef.h"
 
-extern unsigned int lx_strlen(char *);
+extern unsigned int lx_strlen(const char *);
 extern unsigned int lx_fstrout(void *, lx_s *);
 extern unsigned int lx_setxbuf(unsigned int);
 extern          int lx_strout(int, lx_s *);
@@ -15,15 +15,15 @@ extern char lx_alloc(lx_s *, unsigned int);
 extern char lx_realloc(lx_s *, unsigned int);
 extern char lx_setalloc(lx_s *, unsigned int);
 extern char lx_plusalloc(lx_s *, unsigned int);
-extern char lx_strcopy(lx_s *, lx_s *);
-extern char lx_strncopy(lx_s *, lx_s *, unsigned int);
-extern char lx_strcat(lx_s *, lx_s *);
-extern char lx_stradd(lx_s *, char *);
-extern char lx_striadd(lx_s *, char *, unsigned int);
-extern char lx_strset(lx_s *, char *);
-extern char lx_striset(lx_s *, char *, unsigned int);
-extern char lx_strnset(lx_s *, char *, unsigned int);
-extern char lx_strinsert(lx_s *,char *,unsigned int,unsigned int,unsigned int);
+extern char lx_strcopy(lx_s *, const lx_s *);
+extern char lx_strncopy(lx_s *, const lx_s *, unsigned int);
+extern char lx_strcat(lx_s *, const lx_s *);
+extern char lx_stradd(lx_s *, const char *);
+extern char lx_striadd(lx_s *, const char *, unsigned int);
+extern char lx_strset(lx_s *, const char *);
+extern char lx_striset(lx_s *, const char *, unsigned int);
+extern char lx_strnset(lx_s *, const char *, unsigned int);
+extern char lx_strinsert(lx_s *,const char *,unsigned int,unsigned int,unsigned int);
 extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
 extern char lx_straddlong(lx_s *, long, unsigned int);
 extern char lx_cadd(lx_s *, char);
@@ -86,17 +86,20 @@ extern void  lx_destroy(void *);
 
 /* arrays */
 
-extern char lx_sa_add(lx_sa *, lx_s *);
-extern char lx_sa_adds(lx_sa *, char *);
-extern char lx_sa_adds0(lx_sa *, char *);
+extern char lx_sa_add(lx_sa *, const lx_s *);
+extern char lx_sa_adds(lx_sa *, const char *);
+extern char lx_sa_adds0(lx_sa *, const char *);
+char lx_sa_addpp (lx_sa *sa, const char **src);
 extern char lx_sa_alloc(lx_sa *, unsigned int);
 extern char lx_sa_realloc(lx_sa *, unsigned int);
 extern char lx_sa_setalloc(lx_sa *, unsigned int);
 char lx_sa_plusalloc(lx_sa *sa, unsigned int elem);
 extern void lx_sa_free(lx_sa *sa);
 extern void lx_sa_zfree(lx_sa *sa);
+extern void lx_sa_empty(lx_sa *sa);
+extern void lx_sa_zempty(lx_sa *sa);
 char lx_sa_post0(lx_sa *sa);
-char lx_sa_post0(lx_sa *sa);
+char lx_sa_add0(lx_sa *sa);
 char lx_sa_to_charpp(lx_sa *sa, lx_s *dest);
 
 extern unsigned int lx_sa_setxbuf(unsigned int);

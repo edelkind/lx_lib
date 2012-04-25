@@ -10,7 +10,7 @@
 
 char lx_strcopy (dest, src)
 	struct lx_string *dest;
-	struct lx_string *src;
+	const struct lx_string *src;
 {
 	if (lx_setalloc(dest, src->len))
 		return 1;
@@ -29,7 +29,8 @@ char lx_strcopy (dest, src)
  */
 
 char lx_strncopy (dest, src, l)
-	lx_s *dest, *src;
+	lx_s *dest;
+        const lx_s *src;
 	unsigned int l;
 {
 	lx_s xsrc; /* mirrored */
