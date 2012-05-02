@@ -8,7 +8,7 @@
  * \sa lx_sa_adds0()
  */
 char
-lx_sa_addpp (lx_sa *sa, const char **src)
+lx_sa_addpp (lx_sa *sa, const char *const *src)
 {
     const char *p;
 

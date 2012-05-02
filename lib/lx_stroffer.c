@@ -15,7 +15,7 @@
  * (out-of-memory or unallocated-string-buffer).
  */
 void *lx_stroffer (s)
-	lx_s *s;
+	const lx_s *s;
 {
 	char *sp;
 

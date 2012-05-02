@@ -139,6 +139,9 @@ class WriteError: public std::exception
 class UnderflowError: public std::exception
 { const char *what() const throw() { return "Underflow Error"; } };
 
+class RangeError: public std::exception
+{ const char *what() const throw() { return "Range Error"; } };
+
 
 #include "lxiString.hpp"
 #include "lxiStringArray.hpp"

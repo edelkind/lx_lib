@@ -151,6 +151,15 @@ class String {
                 throw AllocError();
         }
 
+        /** copy : lx_strcopy(this, src).
+         * @see lx_strcopy()
+        */
+        inline void copy(const lx_s& src) throw(AllocError)
+        {
+            if (lx_strcopy(&s, const_cast<lx_s*>(&src) ))
+                throw AllocError();
+        }
+
 
         /** copy : lx_strncopy(this, src, maxlen).
          * @see lx_strncopy()
@@ -327,8 +336,8 @@ class String {
         /** cstr : return lx_cstr(this).
          * @see lx_cstr()
         */
-        inline const char *cstr() throw()
-        { return lx_cstr(&s); }
+        inline const char *cstr() const throw()
+        { return lx_cstr(const_cast<lx_s*>(&s)); }
 
         /** offer : return lx_stroffer(this).
          * @see lx_stroffer()
@@ -337,7 +346,7 @@ class String {
          *
          * @throws AllocError on ENOMEM
         */
-        inline void *offer() throw(AllocError)
+        inline void *offer() const throw(AllocError)
         {
             void *rv = lx_stroffer(&s);
             if (!rv) throw AllocError();

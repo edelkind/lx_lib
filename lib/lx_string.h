@@ -77,7 +77,7 @@ extern char lx_upperstr(lx_s *, const char *, unsigned int);
 
 extern int  lx_map();
 
-extern void *lx_stroffer(lx_s *);
+extern void *lx_stroffer(const lx_s *);
 
 /* objects */
 
@@ -89,7 +89,7 @@ extern void  lx_destroy(void *);
 extern char lx_sa_add(lx_sa *, const lx_s *);
 extern char lx_sa_adds(lx_sa *, const char *);
 extern char lx_sa_adds0(lx_sa *, const char *);
-char lx_sa_addpp (lx_sa *sa, const char **src);
+char lx_sa_addpp (lx_sa *sa, const char *const *src);
 extern char lx_sa_alloc(lx_sa *, unsigned int);
 extern char lx_sa_realloc(lx_sa *, unsigned int);
 extern char lx_sa_setalloc(lx_sa *, unsigned int);
