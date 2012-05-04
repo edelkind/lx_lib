@@ -1,6 +1,5 @@
 #ifndef _LX_HPP
 #define _LX_HPP
-#include <stdexcept>
 
 
 #if 0 /*** PORTING STATUS **************************************************/
@@ -57,7 +56,7 @@ extern char lx_strsetp(lx_s *, char *, ...);
 //! extern char lx_getseg(lx_s *, lx_gd *, char *, unsigned char *, unsigned long);
 
 //- extern void lx_free(lx_s *);
-extern void lx_zfree(lx_s *); // TODO: wipe flag?
+//! extern void lx_zfree(lx_s *); // TODO: wipe flag?
 extern void lx_strnull(lx_s *);
 extern void lx_strznull(lx_s *);
 extern void lx_mirror(lx_s *, const lx_s *);
@@ -86,8 +85,8 @@ extern int  lx_map();
 
 /* arrays */
 
-extern char lx_sa_add(lx_sa *, lx_s *);
-extern char lx_sa_adds(lx_sa *, char *);
+//! extern char lx_sa_add(lx_sa *, lx_s *);
+//! extern char lx_sa_adds(lx_sa *, char *);
 extern char lx_sa_alloc(lx_sa *, unsigned int);
 extern char lx_sa_realloc(lx_sa *, unsigned int);
 extern char lx_sa_setalloc(lx_sa *, unsigned int);
@@ -105,7 +104,7 @@ extern char lx_gdicopy(lx_s *, lx_gd *, unsigned int);
 extern char lx_gdiappend(lx_s *, lx_gd *, unsigned int);
 //! extern char lx_gdputs(lx_gd *, const char *);  // Gd::put(char *)
 extern char lx_gdputsn(lx_gd *, const char *, unsigned int);
-//extern char lx_gdputc(lx_gd *, const char);
+//! extern char lx_gdputc(lx_gd *, const char);
 //! extern char lx_gdstrput(lx_gd *, const lx_s *); // Gd::put(String)
 //! extern char lx_gdflush(lx_gd *);
 //- extern char lx_gdfree(lx_gd *);
@@ -115,7 +114,6 @@ extern char lx_gdputsn(lx_gd *, const char *, unsigned int);
 #endif /*** END PORTING STATUS **********************************************/
 
 
-namespace lx {
 
 /****************************************************************************
  ***   BEGIN   **************************************************************
@@ -126,23 +124,8 @@ extern "C" {
 #include "lx_string.h"
 }
 
-class AllocError: public std::exception
-{ const char *what() const throw() { return "Bad Allocation"; } };
 
-/// \todo add errno checking/reporting
-class ReadError: public std::exception
-{ const char *what() const throw() { return "Read Error"; } };
-
-class WriteError: public std::exception
-{ const char *what() const throw() { return "Write Error"; } };
-
-class UnderflowError: public std::exception
-{ const char *what() const throw() { return "Underflow Error"; } };
-
-class RangeError: public std::exception
-{ const char *what() const throw() { return "Range Error"; } };
-
-
+#include "lxiException.hpp"
 #include "lxiString.hpp"
 #include "lxiStringArray.hpp"
 #include "lxiGd.hpp"
@@ -151,14 +134,14 @@ class RangeError: public std::exception
 //class String;
 
 
+namespace lx {
+} // namespace lx
 
 
 
 /****************************************************************************
  ***   END   ****************************************************************
  ****************************************************************************/
-
-} // namespace lx
 
 #include "lx_map.hpp"
 

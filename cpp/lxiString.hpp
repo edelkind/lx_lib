@@ -8,6 +8,8 @@ extern "C" {
 #include <string.h>
 }
 
+namespace lx {
+
 /************************************************************************//**
  *** lx::String (LX Generic Data Buffer class)
  ****************************************************************************/
@@ -648,5 +650,6 @@ class String {
 };
 
 
+} // namespace lx
 
 #endif // _LXISTRING_HPP

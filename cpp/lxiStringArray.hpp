@@ -4,6 +4,8 @@
 extern "C" {
 }
 
+namespace lx {
+
 #define FLAG_ZERO_MEMORY    0x1
 
 /************************************************************************//**
@@ -132,5 +134,9 @@ class StringArray {
 
     /** @} */
 };
+
+
+} // namespace lx
+
 
 #endif /* _LXISTRINGARRAY_HPP */

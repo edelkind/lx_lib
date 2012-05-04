@@ -1,6 +1,13 @@
 #ifndef _LXIGD_HPP
 #define _LXIGD_HPP
 
+extern "C" {
+#include <fcntl.h>
+#include <errno.h>
+#include <string.h>
+}
+
+namespace lx {
 
 /************************************************************************//**
  *** lx::Gd (LX Generic Descriptor) class
@@ -32,7 +39,7 @@ class Gd {
          * @see lx_gdnew()
          *
          ***********/
-        inline Gd(int fd, unsigned int blocksize=0) throw(AllocError)
+        inline Gd(int fd=-1, unsigned int blocksize=0) throw(AllocError)
         {
             _autoflush = false;
             eof = false;
@@ -76,6 +83,16 @@ class Gd {
           @{
          ********************************************************************/
 
+        /** Set the descriptor that the underlying gd uses.
+         * \returns the old fd value.
+         */
+        inline int setFd(int newfd) throw()
+        {
+            int oldfd = gd.fd;
+            gd.fd = newfd;
+            return oldfd;
+        }
+
         /** Set autoflush property to val.
          *
          * Return old autoflush value.
@@ -112,6 +129,17 @@ class Gd {
          */
         inline void flush() throw()
         { lx_gdflush(&gd); }
+
+        /** Set blocking status of the descriptor.
+         */
+        inline void blocking(bool value)
+        {
+            int rv;
+            rv = fcntl(gd.fd, F_SETFL, O_NONBLOCK);
+            if (rv < 0) {
+                throw SystemError(strerror(errno));
+            }
+        }
 
 
         /** @} */
@@ -264,6 +292,9 @@ class Gd {
 
     /** @} */
 };
+
+
+} // namespace lx
 
 
 #endif // _LXIGD_HPP
