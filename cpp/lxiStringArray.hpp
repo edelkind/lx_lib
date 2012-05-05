@@ -28,7 +28,7 @@ class StringArray {
          ********************************************************************/
 
         inline StringArray() throw()
-        { sa.sarray = 0; sa.elem = 0; }
+        { sa.sarray = 0; sa.elem = 0; flags = 0; }
 
         inline ~StringArray() throw()
         {
@@ -73,6 +73,9 @@ class StringArray {
 
         inline void add(const char *const *pp)
         { if (lx_sa_addpp(&sa, pp)) throw AllocError(); }
+
+        inline void add(const char *const *pp, int n)
+        { if (lx_sa_addppn(&sa, pp, n)) throw AllocError(); }
 
         /** add a char* _with_ its terminating zero. */
         inline void add0(const char *s)

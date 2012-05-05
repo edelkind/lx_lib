@@ -20,3 +20,14 @@ lx_sa_addpp (lx_sa *sa, const char *const *src)
     return 0;
 }
 
+char
+lx_sa_addppn(lx_sa *sa, const char *const *src, int n)
+{
+    int i;
+    for (i=0; i < n; i++, src++) {
+        if (lx_sa_adds0(sa, *src))
+            return 1;
+    }
+
+    return 0;
+}

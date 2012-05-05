@@ -39,9 +39,9 @@ class Gd {
          * @see lx_gdnew()
          *
          ***********/
-        inline Gd(int fd=-1, unsigned int blocksize=0) throw(AllocError)
+        inline Gd(int fd=-1, unsigned int blocksize=0, bool autoflush=false) throw(AllocError)
         {
-            _autoflush = false;
+            _autoflush = autoflush;
             eof = false;
             _separator = '\n';
 
@@ -134,8 +134,15 @@ class Gd {
          */
         inline void blocking(bool value)
         {
-            int rv;
-            rv = fcntl(gd.fd, F_SETFL, O_NONBLOCK);
+            int oflags, nflags, rv;
+
+            oflags = fcntl(gd.fd, F_GETFL);
+            if (!value) nflags = oflags | O_NONBLOCK;
+            else        nflags = oflags & (~O_NONBLOCK);
+            if (oflags == nflags)
+                return;
+
+            rv = fcntl(gd.fd, F_SETFL, nflags);
             if (rv < 0) {
                 throw SystemError(strerror(errno));
             }
@@ -164,6 +171,9 @@ class Gd {
                 return (match == MATCH_OK);
             }
 
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+                return false;
+
             throw AllocError(); /// \todo check errno, maybe throw ReadError
         }
 
@@ -179,6 +189,9 @@ class Gd {
                 if (!match) eof = true;
                 return (match == MATCH_OK);
             }
+
+            if (errno == EAGAIN || errno == EWOULDBLOCK)
+                return false;
 
             throw AllocError(); /// \todo check errno, maybe throw ReadError
         }

@@ -90,6 +90,7 @@ extern char lx_sa_add(lx_sa *, const lx_s *);
 extern char lx_sa_adds(lx_sa *, const char *);
 extern char lx_sa_adds0(lx_sa *, const char *);
 char lx_sa_addpp (lx_sa *sa, const char *const *src);
+char lx_sa_addppn(lx_sa *sa, const char *const *src, int n);
 extern char lx_sa_alloc(lx_sa *, unsigned int);
 extern char lx_sa_realloc(lx_sa *, unsigned int);
 extern char lx_sa_setalloc(lx_sa *, unsigned int);
