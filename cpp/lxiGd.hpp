@@ -127,8 +127,8 @@ class Gd {
          * lx_gdflush(this).
          * @see lx_gdflush()
          */
-        inline void flush() throw()
-        { lx_gdflush(&gd); }
+        inline void flush() throw(WriteError)
+        { if (lx_gdflush(&gd)) throw WriteError(); }
 
         /** Set blocking status of the descriptor.
          */
