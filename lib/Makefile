@@ -32,6 +32,7 @@ SRC             = lx_alloc.c \
                   lx_sa_alloc.c \
                   lx_sa_empty.c \
                   lx_sa_free.c \
+                  lx_sa_pop.c \
                   lx_sa_to_charpp.c \
                   lx_stradd.c \
                   lx_straddnum.c \

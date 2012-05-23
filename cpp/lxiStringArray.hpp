@@ -84,6 +84,22 @@ class StringArray {
         /** @} */
 
         /****************************************************************//**
+          @defgroup SApop Element removal functions
+          @{
+         ********************************************************************/
+
+        inline void popBack(lx_s *destp)
+        { if (lx_sa_pop_back(&sa, destp)) throw RangeError(); }
+
+        inline void popFront(lx_s *destp)
+        { if (lx_sa_pop_front(&sa, destp)) throw RangeError(); }
+
+        inline void popIndex(lx_s *destp, int index)
+        { if (lx_sa_pop_index(&sa, destp, index)) throw RangeError(); }
+
+        /** @} */
+
+        /****************************************************************//**
           @defgroup SAref Data reference functions
           @{
          ********************************************************************/

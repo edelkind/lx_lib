@@ -102,6 +102,9 @@ extern void lx_sa_zempty(lx_sa *sa);
 char lx_sa_post0(lx_sa *sa);
 char lx_sa_add0(lx_sa *sa);
 char lx_sa_to_charpp(lx_sa *sa, lx_s *dest);
+char lx_sa_pop_back (lx_sa *sa, lx_s *destp);
+char lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index);
+char lx_sa_pop_front(lx_sa *sa, lx_s *destp);
 
 extern unsigned int lx_sa_setxbuf(unsigned int);
 

@@ -649,6 +649,29 @@ class String {
     /** @} */
 };
 
+class StringDirect : public String
+{
+    /** Directly assign basea structure to \a *s_from. */
+    StringDirect(lx_s *s_from)
+    { s = *s_from; }
+
+    /** Use \ref assign() to initialize. */
+    StringDirect()
+    { }
+
+    /** Base \c lx_s memory will not be freed. */
+    ~StringDirect()
+    { }
+
+    /* Directly assign the base \c lx_s to \a s_from . */
+    inline void assign(lx_s *s_from)
+    { s = *s_from; }
+
+    /** Not allocated -- take care that this never needs to realloc! */
+    inline void assign(char *s_from, int len)
+    { s.s = s_from; s.len = s.alloc = len; }
+};
+
 
 } // namespace lx
 

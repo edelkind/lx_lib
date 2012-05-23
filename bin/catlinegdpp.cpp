@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include <lx.hh>
+#include <lx.hpp>
 
 using namespace lx;
 
@@ -39,7 +39,7 @@ int main() {
     try {
 
 	do {
-            match = gdin.getln(buf, BLOCKSIZE);
+            match = gdin.getln(&buf, BLOCKSIZE);
             gdout.put(buf);
 	} while (!gdin.eof);
 
