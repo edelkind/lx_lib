@@ -14,14 +14,13 @@ namespace lx {
  *** lx::String (LX Generic Data Buffer class)
  ****************************************************************************/
 
-class String {
+class String : public lx_string {
     /**
      * @defgroup Sumbrella lx::String components
      * @{
      */
 
     public:
-        lx_string s;
 
         /****************************************************************//**
           @defgroup Snew Constructors and destructors
@@ -30,53 +29,32 @@ class String {
 
         /** [new] : [init this, basic form].
          *
-         * @c s.s is set to 0.
-         * @c s.len is set to 0.
+         * @c s is set to 0.
+         * @c len is set to 0.
          *
-         * Calls to @c this.len() will return 0 if we haven't yet been
+         * Calls to @c this.size() will return 0 if we haven't yet been
          * initialized.
         */
         inline String() throw()
-        { s.s = 0; s.len = 0; }
+        { s = 0; len = 0; }
 
         /** [new] : lx_strset(this, src).
          * @see lx_strset()
         */
         inline String(const char *src) throw(AllocError)
-        { s.s = 0; copy(src); }
+        { s = 0; copy(src); }
 
         /** [new] : lx_striset(this, src, n).
          * @see lx_striset()
         */
         inline String(const char *src, unsigned int n) throw(AllocError)
-        { s.s = 0; copy(src, n); }
+        { s = 0; copy(src, n); }
 
         /** [destroy] : lx_free(this).
          * @see lx_free()
         */
         inline ~String() throw()
-        { if (s.s) lx_free(&s); }
-
-#if 0
-        inline String(const String& rhs)
-        {
-            assert(!"use copy() instead of direct assignment -- did you forget to mark a reference?");
-            if (this != &rhs) {
-                s.s = 0;
-                this->copy(rhs);
-            }
-        }
-
-        String& operator= (const String& rhs)
-        {
-            assert(!"use copy() instead of direct assignment -- did you forget to mark a reference?");
-            if (this != &rhs) {
-                this->copy(rhs);
-            }
-
-            return *this;
-        }
-#endif
+        { if (s) lx_free(this); }
 
 
 
@@ -88,18 +66,18 @@ class String {
 
         /** returns underlying lx_s */
         inline lx_s& base()
-        { return s; }
+        { return *this; }
 
         /** for use in const situations */
         inline const lx_s& base() const
-        { return s; }
+        { return *this; }
 
         /** length of underlying lx_s */
-        inline unsigned int len() const
-        { return s.len; }
+        inline unsigned int size() const
+        { return len; }
 
-        inline unsigned int alloc() const
-        { return s.alloc; }
+        inline unsigned int sizeAlloc() const
+        { return alloc; }
 
         /** pointer to the buffer of the underlying lx_s
          *
@@ -108,18 +86,18 @@ class String {
          * null-terminated!
          */
         inline char *ptr()
-        { return s.s; }
+        { return s; }
         inline const char *ptr() const
-        { return s.s; }
+        { return s; }
 
 
         /** Check whether the String has actually been initialized (used) yet.
          *
-         * \retval TRUE \c s.s != 0
-         * \retval FALSE \c !s.s
+         * \retval TRUE \c s != 0
+         * \retval FALSE \c !s
          */
         inline bool initialized() const
-        { return s.s != 0; }
+        { return s != 0; }
 
 
         /** @} */
@@ -132,14 +110,14 @@ class String {
          * @see lx_setalloc()
          */
         inline void setalloc(unsigned n) throw(AllocError)
-        { if (lx_setalloc(&s, n)) throw AllocError(); }
+        { if (lx_setalloc(this, n)) throw AllocError(); }
 
         /** strnset : lx_strnset(this, src, maxlen).
          * @see lx_strnset()
         */
         inline void strnset(const char *src, unsigned int maxlen) throw(AllocError)
         {
-            if (lx_strnset(&s, (char *)(void *)src, maxlen))
+            if (lx_strnset(this, (char *)(void *)src, maxlen))
                 throw AllocError();
         }
 
@@ -149,7 +127,7 @@ class String {
         */
         inline void copy(const String& src) throw(AllocError)
         {
-            if (lx_strcopy(&s, const_cast<lx_s*>(&src.s) ))
+            if (lx_strcopy(this, const_cast<lx_s*>((const lx_s*)&src) ))
                 throw AllocError();
         }
 
@@ -158,7 +136,7 @@ class String {
         */
         inline void copy(const lx_s& src) throw(AllocError)
         {
-            if (lx_strcopy(&s, const_cast<lx_s*>(&src) ))
+            if (lx_strcopy(this, const_cast<lx_s*>(&src) ))
                 throw AllocError();
         }
 
@@ -168,7 +146,7 @@ class String {
         */
         inline void copy(const String& src, unsigned int maxlen) throw(AllocError)
         {
-            if (lx_strncopy(&s, const_cast<lx_s*>(&src.s), maxlen))
+            if (lx_strncopy(this, const_cast<lx_s*>((const lx_s*)&src), maxlen))
                 throw AllocError();
         }
 
@@ -178,7 +156,7 @@ class String {
         */
         inline void copy(const char *src) throw(AllocError)
         {
-            if (lx_strset(&s, const_cast<char*>(src) )) /// \todo fix const in lxlib
+            if (lx_strset(this, const_cast<char*>(src) )) /// \todo fix const in lxlib
                 throw AllocError();
         }
 
@@ -188,14 +166,14 @@ class String {
         */
         inline void copy(const char *src, unsigned int n) throw(AllocError)
         {
-            if (lx_striset(&s, const_cast<char*>(src), n))
+            if (lx_striset(this, const_cast<char*>(src), n))
                 throw AllocError();
         }
 
         /** empty string contents.
          */
         inline void empty() throw()
-        { s.len = 0; }
+        { len = 0; }
 
         /** @} */
         /****************************************************************//**
@@ -207,28 +185,28 @@ class String {
          * @see lx_strcat()
         */
         inline String& append(const String& src) throw(AllocError)
-        { append(src.s); return *this; }
+        { append(src); return *this; }
 
         /** append : lx_strcat(this, src).
          * @see lx_strcat()
         */
         inline String& append(const lx_s& src) throw(AllocError)
         {
-            if (lx_strcat(&s, const_cast<lx_s*>(&src) ))
+            if (lx_strcat(this, const_cast<lx_s*>(&src) ))
                 throw AllocError();
             return *this;
         }
 
-        /** append : lx_striadd(this, src, maxlen||src.len()).
+        /** append : lx_striadd(this, src, maxlen||src.size()).
          * @see lx_striadd()
         */
         inline String& append(const String& src, unsigned int maxlen)
             throw(AllocError)
         {
-            if (maxlen > src.s.len)
-                maxlen = src.s.len;
+            if (maxlen > src.len)
+                maxlen = src.len;
 
-            if (lx_striadd(&s, src.s.s, maxlen))
+            if (lx_striadd(this, src.s, maxlen))
                 throw AllocError();
             return *this;
         }
@@ -239,7 +217,7 @@ class String {
         */
         inline String& append(const char *src, unsigned int len) throw(AllocError)
         {
-            if (lx_striadd(&s, const_cast<char*>(src), len))
+            if (lx_striadd(this, const_cast<char*>(src), len))
                 throw AllocError();
             return *this;
         }
@@ -249,7 +227,7 @@ class String {
         */
         inline String& append(const char *src) throw(AllocError)
         {
-            if (lx_stradd(&s, const_cast<char*>(src) ))
+            if (lx_stradd(this, const_cast<char*>(src) ))
                 throw AllocError();
             return *this;
         }
@@ -259,7 +237,7 @@ class String {
         */
         inline String& append(char c) throw(AllocError)
         {
-            if (lx_cadd(&s, c ))
+            if (lx_cadd(this, c ))
                 throw AllocError();
 
             return *this;
@@ -271,7 +249,7 @@ class String {
         inline String& addulong(unsigned long num,
                              unsigned int base=10) throw(AllocError)
         {
-            if (lx_straddulong(&s, num, base))
+            if (lx_straddulong(this, num, base))
                 throw AllocError();
 
             return *this;
@@ -283,7 +261,7 @@ class String {
         inline String& addlong(long num,
                             unsigned int base=10) throw(AllocError)
         {
-            if (lx_straddlong(&s, num, base))
+            if (lx_straddlong(this, num, base))
                 throw AllocError();
 
             return *this;
@@ -304,7 +282,7 @@ class String {
                             unsigned int off,
                             unsigned int del=0) throw(AllocError)
         {
-            if (lx_strinsert(&s, const_cast<char*>(p), len, off, del))
+            if (lx_strinsert(this, const_cast<char*>(p), len, off, del))
                 throw AllocError();
 
             return *this;
@@ -322,7 +300,7 @@ class String {
         */
         inline void check0() throw(AllocError)
         {
-            if (lx_check0(&s))
+            if (lx_check0(this))
                 throw AllocError();
         }
 
@@ -331,7 +309,7 @@ class String {
         */
         inline void post0() throw(AllocError)
         {
-            if (lx_post0(&s))
+            if (lx_post0(this))
                 throw AllocError();
         }
 
@@ -339,7 +317,7 @@ class String {
          * @see lx_cstr()
         */
         inline const char *cstr() const throw()
-        { return lx_cstr(const_cast<lx_s*>(&s)); }
+        { return lx_cstr(const_cast<lx_s*>((const lx_s*)this)); }
 
         /** offer : return lx_stroffer(this).
          * @see lx_stroffer()
@@ -350,7 +328,7 @@ class String {
         */
         inline void *offer() const throw(AllocError)
         {
-            void *rv = lx_stroffer(&s);
+            void *rv = lx_stroffer(this);
             if (!rv) throw AllocError();
             return rv;
         }
@@ -370,7 +348,7 @@ class String {
          * @returns a reference to @a this, for convenience.
          */
         inline String& chop(unsigned int n) throw (UnderflowError)
-            { if (lx_chop(&s, n)) throw UnderflowError(); return *this; }
+            { if (lx_chop(this, n)) throw UnderflowError(); return *this; }
 
 
         /** chomp : lx_chomp(this, cstr).
@@ -379,7 +357,7 @@ class String {
          * @returns a reference to @a this, for convenience.
          */
         inline String& chomp(char *cstr) throw (AllocError)
-            { if (lx_chomp(&s, cstr)) throw AllocError(); return *this; }
+            { if (lx_chomp(this, cstr)) throw AllocError(); return *this; }
 
         /** chompf : lx_chompf(this, cstr).
          * @see lx_chompf()
@@ -387,7 +365,7 @@ class String {
          * @returns a reference to @a this, for convenience.
          */
         inline String& chompf(char *cstr) throw (AllocError)
-            { if (lx_chompf(&s, cstr)) throw AllocError(); return *this; }
+            { if (lx_chompf(this, cstr)) throw AllocError(); return *this; }
 
         /** chomp : lx_chomp_ws(this).
          * @see lx_chomp_ws()
@@ -395,7 +373,7 @@ class String {
          * @returns a reference to @a this, for convenience.
          */
         inline String& chomp() throw ()
-            { lx_chomp_ws(&s); return *this; }
+            { lx_chomp_ws(this); return *this; }
 
         /** lx_chompf_ws(this).
          * @see lx_chompf_ws()
@@ -403,7 +381,7 @@ class String {
          * @returns a reference to @a this, for convenience.
          */
         inline String& chompf() throw (AllocError)
-            { if (lx_chompf_ws(&s)) throw AllocError(); return *this; }
+            { if (lx_chompf_ws(this)) throw AllocError(); return *this; }
 
         /** Fast-forward past the \a n th instance of a character.  If \a p is
          * not NULL, allocates a new C string for the old segment and stores it
@@ -417,7 +395,7 @@ class String {
             throw (AllocError)
         {
             char rv;
-            rv = lx_strff(&s, p, c, n);
+            rv = lx_strff(this, p, c, n);
             if (!rv) return true;
             if (rv > 0) throw AllocError();
             return false;
@@ -443,7 +421,7 @@ class String {
         inline bool fastfw(String *p, char c, unsigned int n)
             throw (AllocError)
         {
-            switch (lx_strffx(&s, &p->base(), c, n)) {
+            switch (lx_strffx(this, p, c, n)) {
                 case 0: return true;
                 case 1: throw AllocError();
             }
@@ -455,7 +433,7 @@ class String {
          * @see lx_strfw();
          */
         inline String& forward(char **p, unsigned n) throw (AllocError)
-        { if (lx_strfw(&s, p, n)) throw AllocError(); return *this; }
+        { if (lx_strfw(this, p, n)) throw AllocError(); return *this; }
 
         /** Move a String forward n bytes.
          *
@@ -469,7 +447,7 @@ class String {
          * @see lx_strfwx();
          */
         inline String& forward(String *p, unsigned n) throw (AllocError)
-        { if (lx_strfwx(&s, &p->base(), n)) throw AllocError(); return *this; }
+        { if (lx_strfwx(this, p, n)) throw AllocError(); return *this; }
 
 
 
@@ -479,7 +457,7 @@ class String {
          * @see lx_lowers()
          */
         inline String& lower() throw ()
-        { lx_lowers(s.s, s.len); return *this; }
+        { lx_lowers(s, len); return *this; }
 
         /** Make (up to) @a n bytes of string lowercase.
          *
@@ -488,8 +466,8 @@ class String {
          */
         inline String& lower(unsigned int n) throw ()
         {
-            if (n > s.len) n = s.len;
-            lx_lowers(s.s, n);
+            if (n > len) n = len;
+            lx_lowers(s, n);
             return *this;
         }
 
@@ -501,7 +479,7 @@ class String {
         inline String& lowerAssign(const char *src, unsigned int n)
             throw (AllocError)
         {
-            if (lx_lowerstr(&s, src, n))
+            if (lx_lowerstr(this, src, n))
                 throw AllocError();
             return *this;
         }
@@ -513,7 +491,7 @@ class String {
          * @see lx_uppers()
          */
         inline String& upper() throw ()
-        { lx_uppers(s.s, s.len); return *this; }
+        { lx_uppers(s, len); return *this; }
 
         /** Make (up to) @a n bytes of string uppercase.
          *
@@ -522,8 +500,8 @@ class String {
          */
         inline String& upper(unsigned int n) throw ()
         {
-            if (n > s.len) n = s.len;
-            lx_uppers(s.s, n);
+            if (n > len) n = len;
+            lx_uppers(s, n);
             return *this;
         }
 
@@ -535,7 +513,7 @@ class String {
         inline String& upperAssign(const char *src, unsigned int n)
             throw (AllocError)
         {
-            if (lx_upperstr(&s, src, n))
+            if (lx_upperstr(this, src, n))
                 throw AllocError();
             return *this;
         }
@@ -553,7 +531,7 @@ class String {
          * \returns -1 if the character could not be found.
          */
         inline long index(char c, unsigned n) throw()
-        { return lx_strindex(&s, c, n); }
+        { return lx_strindex(this, c, n); }
 
         /** Find the \a n th index of any character in set \a set (which has
          * length \a setl).
@@ -563,7 +541,7 @@ class String {
          * \returns -1 if no such character could be found.
          */
         inline long indexSet(const char *set, unsigned setl, unsigned n) throw()
-        { return lx_strsindex(&s, set, setl, n); }
+        { return lx_strsindex(this, set, setl, n); }
 
 
         /** @} */
@@ -582,7 +560,7 @@ class String {
          * @see lx_strcmp()
          */
         inline bool compare(const lx_s *s2) throw()
-            { return !lx_strcmp(&s, s2); }
+            { return !lx_strcmp(this, s2); }
 
         /** Compare with a character pointer.
          *
@@ -594,7 +572,7 @@ class String {
          * @see lx_strscmp()
          */
         inline bool compare(const char *s2) throw()
-            { return !lx_strscmp(&s, s2); }
+            { return !lx_strscmp(this, s2); }
 
         /** Compare with another String.
          *
@@ -606,7 +584,7 @@ class String {
          * @see lx_strcmp()
          */
         inline bool compare(const String& s2) throw()
-        { return !lx_strcmp(&s, &s2.base()); }
+        { return !lx_strcmp(this, &s2); }
 
         /** Compare strings case insensitively.
          *
@@ -618,7 +596,7 @@ class String {
          * @see lx_stricmp()
          */
         inline bool icompare(const String &s2) throw()
-        { return !lx_stricmp(&s, &s2.s); }
+        { return !lx_stricmp(this, &s2); }
 
         /** Compare strings case insensitively.
          *
@@ -633,7 +611,7 @@ class String {
         {
             lx_s stmp = { const_cast<char *>(s2) };
             stmp.len = strlen(s2);
-            return !lx_stricmp(&s, &stmp);
+            return !lx_stricmp(this, &stmp);
         }
 
         /** @} */
@@ -653,7 +631,7 @@ class StringDirect : public String
 {
     /** Directly assign basea structure to \a *s_from. */
     StringDirect(lx_s *s_from)
-    { s = *s_from; }
+    { *(lx_s*)this = *s_from; }
 
     /** Use \ref assign() to initialize. */
     StringDirect()
@@ -665,11 +643,11 @@ class StringDirect : public String
 
     /* Directly assign the base \c lx_s to \a s_from . */
     inline void assign(lx_s *s_from)
-    { s = *s_from; }
+    { *(lx_s*)this = *s_from; }
 
     /** Not allocated -- take care that this never needs to realloc! */
-    inline void assign(char *s_from, int len)
-    { s.s = s_from; s.len = s.alloc = len; }
+    inline void assign(char *s_from, int s_len)
+    { s = s_from; len = alloc = s_len; }
 };
 
 

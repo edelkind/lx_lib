@@ -65,8 +65,8 @@ class StringArray {
         inline void add(const lx_s *s)
         { if (lx_sa_add(&sa, s)) throw AllocError(); }
 
-        inline void add(const String& S)
-        { add(&S.base()); }
+        //inline void add(const String& S)
+        //{ add(&S.base()); }
 
         inline void add(const char *s)
         { if (lx_sa_adds(&sa, s)) throw AllocError(); }
@@ -118,17 +118,17 @@ class StringArray {
                 return NULL;
             }
 
-            if (lx_sa_to_charpp(&sa, &dest->base()))
+            if (lx_sa_to_charpp(&sa, dest))
                 throw AllocError();
             return (char**)dest->ptr();
         }
 
-        inline lx_s& get(int index) const
+        inline String *get(int index) const
         {
             if (index > len())
                 throw RangeError();
 
-            return array()[index];
+            return (String*)&array()[index];
         }
         /** @} */
 
