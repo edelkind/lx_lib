@@ -163,7 +163,7 @@ class Gd {
          *
          * @see lx_getseg()
          */
-        inline bool getseg(String *s, char c, unsigned long maxlen) throw(AllocError, ReadError)
+        inline bool getseg(lx_s *s, char c, unsigned long maxlen) throw(AllocError, ReadError)
         {
             unsigned char match;
             if (!lx_getseg(s, &gd, &c, &match, maxlen)) {
@@ -182,10 +182,10 @@ class Gd {
          *
          * @see lx_getln()
          */
-        inline bool getln(String *s, unsigned long maxlen)          throw(AllocError, ReadError)
+        inline bool getln(lx_s *s, unsigned long maxlen)          throw(AllocError, ReadError)
         {
             unsigned char match;
-            if (!lx_getseg((lx_s*)s, &gd, &_separator, &match, maxlen)) {
+            if (!lx_getseg(s, &gd, &_separator, &match, maxlen)) {
                 if (!match) eof = true;
                 return (match == MATCH_OK);
             }
@@ -242,8 +242,8 @@ class Gd {
          *
          * @see lx_gdstrput()
          */
-        inline void putln(const String& S) throw(WriteError)
-        { put(S); put(_separator); }
+        //inline void putln(const String& S) throw(WriteError)
+        //{ put(S); put(_separator); }
 
         /**
          * lx_gdstrput(this, S.base()), but appends the default \ref separator.

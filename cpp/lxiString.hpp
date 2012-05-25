@@ -125,11 +125,11 @@ class String : public lx_string {
         /** copy : lx_strcopy(this, src).
          * @see lx_strcopy()
         */
-        inline void copy(const String& src) throw(AllocError)
-        {
-            if (lx_strcopy(this, const_cast<lx_s*>((const lx_s*)&src) ))
-                throw AllocError();
-        }
+        //inline void copy(const String& src) throw(AllocError)
+        //{
+        //    if (lx_strcopy(this, const_cast<lx_s*>((const lx_s*)&src) ))
+        //        throw AllocError();
+        //}
 
         /** copy : lx_strcopy(this, src).
          * @see lx_strcopy()
@@ -144,9 +144,9 @@ class String : public lx_string {
         /** copy : lx_strncopy(this, src, maxlen).
          * @see lx_strncopy()
         */
-        inline void copy(const String& src, unsigned int maxlen) throw(AllocError)
+        inline void copy(const lx_s& src, unsigned int maxlen) throw(AllocError)
         {
-            if (lx_strncopy(this, const_cast<lx_s*>((const lx_s*)&src), maxlen))
+            if (lx_strncopy(this, const_cast<lx_s*>(&src), maxlen))
                 throw AllocError();
         }
 
@@ -184,8 +184,8 @@ class String : public lx_string {
         /** append : lx_strcat(this, src).
          * @see lx_strcat()
         */
-        inline String& append(const String& src) throw(AllocError)
-        { append(src); return *this; }
+        //inline String& append(const String& src) throw(AllocError)
+        //{ append(src); return *this; }
 
         /** append : lx_strcat(this, src).
          * @see lx_strcat()
@@ -200,7 +200,7 @@ class String : public lx_string {
         /** append : lx_striadd(this, src, maxlen||src.size()).
          * @see lx_striadd()
         */
-        inline String& append(const String& src, unsigned int maxlen)
+        inline String& append(const lx_s& src, unsigned int maxlen)
             throw(AllocError)
         {
             if (maxlen > src.len)
@@ -408,7 +408,7 @@ class String : public lx_string {
          * \returns a reference to \c this for convenience.
          */
         inline bool fastfw(char c, unsigned int n) throw (AllocError)
-        { return fastfw((String*)NULL, c, n); }
+        { return fastfw((lx_s*)NULL, c, n); }
 
         /** Fast-forward past the \a n th instance of a character.  If \a p is
          * not NULL, it will be used to store the old segment (any prior
@@ -418,7 +418,7 @@ class String : public lx_string {
          *
          * \returns a reference to \c this for convenience.
          */
-        inline bool fastfw(String *p, char c, unsigned int n)
+        inline bool fastfw(lx_s *p, char c, unsigned int n)
             throw (AllocError)
         {
             switch (lx_strffx(this, p, c, n)) {
@@ -440,13 +440,13 @@ class String : public lx_string {
          * @see lx_strfw();
          */
         inline String& forward(unsigned n) throw (AllocError)
-        { return forward((String*)NULL, n); }
+        { return forward((lx_s*)NULL, n); }
 
         /** Move a String forward n bytes.
          *
          * @see lx_strfwx();
          */
-        inline String& forward(String *p, unsigned n) throw (AllocError)
+        inline String& forward(lx_s *p, unsigned n) throw (AllocError)
         { if (lx_strfwx(this, p, n)) throw AllocError(); return *this; }
 
 
@@ -583,7 +583,7 @@ class String : public lx_string {
          *
          * @see lx_strcmp()
          */
-        inline bool compare(const String& s2) throw()
+        inline bool compare(const lx_s& s2) throw()
         { return !lx_strcmp(this, &s2); }
 
         /** Compare strings case insensitively.
@@ -595,7 +595,7 @@ class String : public lx_string {
          *
          * @see lx_stricmp()
          */
-        inline bool icompare(const String &s2) throw()
+        inline bool icompare(const lx_s &s2) throw()
         { return !lx_stricmp(this, &s2); }
 
         /** Compare strings case insensitively.

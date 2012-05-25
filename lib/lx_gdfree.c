@@ -25,10 +25,14 @@
 char lx_gdfree (gd)
 	register lx_gd *gd;
 {
-	gd->a = 0;
-	gd->n = 0;
-	gd->p = 0;
-	free (gd->buf);
-	if (close(gd->fd)) return 1;
-	gd->fd = 0; return 0;
+    if (!gd->buf)
+        return 0;
+
+    gd->a = 0;
+    gd->n = 0;
+    gd->p = 0;
+    free (gd->buf);
+    gd->buf = 0;
+    if (close(gd->fd)) return 1;
+    gd->fd = -1; return 0;
 }
