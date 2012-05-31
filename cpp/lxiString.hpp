@@ -170,6 +170,26 @@ class String : public lx_string {
                 throw AllocError();
         }
 
+        inline String& printf(const char *fmt, ...) throw(AllocError)
+        {
+            va_list ap;
+            int rv;
+
+            va_start(ap, fmt);
+            rv = lx_strvprintf(this, fmt, ap);
+            va_end(ap);
+
+            if (rv) throw AllocError();
+            return *this;
+        }
+
+        inline String& printf(const char *fmt, va_list ap) throw(AllocError)
+        {
+            if (lx_strvprintf(this, fmt, ap))
+                throw AllocError();
+            return *this;
+        }
+
         /** empty string contents.
          */
         inline void empty() throw()

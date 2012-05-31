@@ -6,6 +6,8 @@
 #include "lxi_gendesc.h"
 #include "lxi_gendef.h"
 
+#include <stdarg.h>
+
 extern unsigned int lx_strlen(const char *);
 extern unsigned int lx_fstrout(void *, lx_s *);
 extern unsigned int lx_setxbuf(unsigned int);
@@ -29,6 +31,8 @@ extern char lx_straddlong(lx_s *, long, unsigned int);
 extern char lx_cadd(lx_s *, char);
 extern char lx_check0(lx_s *);
 extern char lx_post0(lx_s *);
+extern char lx_strprintf(lx_s *dest, const char *fmt, ...) __attribute__((format(printf, 2, 3)));
+extern char lx_strvprintf(lx_s *dest, const char *fmt, va_list ap);
 extern const char *lx_cstr(lx_s *);
 extern char lx_chop(lx_s *, unsigned int);
 extern char lx_chomp(lx_s *, char *);

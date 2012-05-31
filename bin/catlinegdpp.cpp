@@ -40,7 +40,8 @@ int main() {
 
 	do {
             match = gdin.getln(&buf, BLOCKSIZE);
-            gdout.put(buf);
+            if (buf.size())
+                gdout.put(buf);
 	} while (!gdin.eof);
 
     } catch (std::exception& e) {

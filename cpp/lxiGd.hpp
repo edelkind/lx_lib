@@ -5,6 +5,7 @@ extern "C" {
 #include <fcntl.h>
 #include <errno.h>
 #include <string.h>
+#include <stdio.h>
 }
 
 namespace lx {
@@ -47,6 +48,9 @@ class Gd {
 
             if (lx_gdnew(&gd, fd, blocksize))
                 throw AllocError();
+
+            fprintf(stderr, "new gd with fd %d\n", gd.fd);
+            fflush(stderr);
         }
 
         /** destroy.
@@ -58,6 +62,8 @@ class Gd {
          ***********/
         inline ~Gd() throw()
         {
+            fprintf(stderr, "destroy gd with fd %d\n", gd.fd);
+            fflush(stderr);
             if (_autoflush) flush();
             lx_gdfree(&gd);
         }

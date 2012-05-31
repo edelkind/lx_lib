@@ -66,7 +66,7 @@ lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index)
     sa->elem--;
 
     if (index < sa->elem)
-        memmove(sa->sarray + index, sa->sarray + index + 1, sa->elem - index);
+        memmove(sa->sarray + index, sa->sarray + index + 1, (sa->elem - index)*sizeof(sa->sarray[0]));
 
     return 0;
 }

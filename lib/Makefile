@@ -41,6 +41,7 @@ SRC             = lx_alloc.c \
                   lx_strcmp.c \
                   lx_strcopy.c \
                   lx_strff.c \
+                  lx_strfmt.c \
                   lx_strfw.c \
                   lx_strlen.c \
                   lx_strnull.c \
