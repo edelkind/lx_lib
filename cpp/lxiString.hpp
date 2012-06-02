@@ -183,7 +183,7 @@ class String : public lx_string {
             return *this;
         }
 
-        inline String& printf(const char *fmt, va_list ap) throw(AllocError)
+        inline String& vprintf(const char *fmt, va_list ap) throw(AllocError)
         {
             if (lx_strvprintf(this, fmt, ap))
                 throw AllocError();
