@@ -19,6 +19,7 @@ SRC             = lx_alloc.c \
                   lx_gdnew.c \
                   lx_gdputc.c \
                   lx_gdputs.c \
+                  lx_gdstd.c \
                   lx_gdstrput.c \
                   lx_getln.c \
                   lx_map.c \

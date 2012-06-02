@@ -10,7 +10,8 @@ tests:
 	cd $(LX_BINDIR) && $(MAKE)
 
 docs:
-	cd $(LX_DOCDIR) && $(MAKE)
+	doxygen
+#	cd $(LX_DOCDIR) && $(MAKE)
 
 remake: clean all
 
