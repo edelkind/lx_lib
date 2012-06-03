@@ -6,6 +6,7 @@ extern "C" {
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h>
 }
 
 namespace lx {
@@ -18,6 +19,13 @@ class Gd {
      * @defgroup GDumbrella lx::GD components
      * @{
      */
+
+    protected:
+        inline void _init_common(bool autoflush) {
+            _autoflush = autoflush;
+            eof = false;
+            _separator = '\n';
+        }
 
     public:
         lx_gd gd;
@@ -42,15 +50,20 @@ class Gd {
          ***********/
         inline Gd(int fd=-1, unsigned int blocksize=0, bool autoflush=false) throw(AllocError)
         {
-            _autoflush = autoflush;
-            eof = false;
-            _separator = '\n';
-
+            _nofree = false;
             if (lx_gdnew(&gd, fd, blocksize))
                 throw AllocError();
 
-            fprintf(stderr, "new gd with fd %d\n", gd.fd);
-            fflush(stderr);
+            _init_common(autoflush);
+//            fprintf(stderr, "new gd with fd %d\n", gd.fd);
+//            fflush(stderr);
+        }
+
+        inline Gd(lx_gd *gd_src, bool autoflush=false)
+        {
+            _nofree = true;
+            memcpy(&gd, gd_src, sizeof(gd));
+            _init_common(autoflush);
         }
 
         /** destroy.
@@ -60,12 +73,16 @@ class Gd {
          * @see flush()
          * @see lx_gdfree()
          ***********/
-        inline ~Gd() throw()
+        inline ~Gd()
         {
-            fprintf(stderr, "destroy gd with fd %d\n", gd.fd);
-            fflush(stderr);
+//            fprintf(stderr, "destroy gd with fd %d\n", gd.fd);
+//            fflush(stderr);
+
+            assert(gd.buf);
+
             if (_autoflush) flush();
-            lx_gdfree(&gd);
+            if (!_nofree)
+                lx_gdfree(&gd);
         }
 
 
@@ -300,6 +317,7 @@ class Gd {
     protected:
         bool _autoflush;
         char _separator;
+        bool _nofree;
 
     /** @} */
 };
