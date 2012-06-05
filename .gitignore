@@ -1,3 +1,5 @@
+[a-z]*
+!*.*
 .*.sw?
 *.pyc
 *.strace
@@ -6,3 +8,4 @@
 compile.sh
 makelib.sh
 *BANNER
+
