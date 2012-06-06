@@ -13,6 +13,9 @@ docs:
 	doxygen
 #	cd $(LX_DOCDIR) && $(MAKE)
 
+dox: Doxyfile $(wildcard lib/*.[ch])
+	doxygen
+
 remake: clean all
 
 clean:
