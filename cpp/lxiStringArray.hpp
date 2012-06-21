@@ -123,7 +123,7 @@ class StringArray {
             return (char**)dest->ptr();
         }
 
-        inline String *get(int index) const
+        inline String *get(unsigned index) const
         {
             if (index > len())
                 throw RangeError();

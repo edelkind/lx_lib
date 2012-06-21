@@ -120,7 +120,7 @@ char lx_chompf (s, cstr)
 
 	lx_free (&ns);
 
-	if (nchop) memcpy (s->s, s->s+nchop, slen);
+	if (nchop) memmove (s->s, s->s+nchop, slen);
 	s->len -= nchop;
 	return 0;
 }

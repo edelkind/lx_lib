@@ -9,8 +9,8 @@ all:
 tests:
 	cd $(LX_BINDIR) && $(MAKE)
 
-docs:
-	doxygen
+docs: dox
+#	doxygen
 #	cd $(LX_DOCDIR) && $(MAKE)
 
 dox: Doxyfile $(wildcard lib/*.[ch])

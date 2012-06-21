@@ -353,6 +353,17 @@ class String : public lx_string {
             return rv;
         }
 
+        /** Disown a currently allocated buffer.  This string will be reset,
+         * and the original buffer will no longer be managed or tracked by this
+         * object.  Returns a pointer to the disowned memory.
+         */
+        inline void *disown()
+        {
+            void *buf = (void*)s;
+            s = 0;
+            len = alloc = 0;
+            return buf;
+        }
 
 
         /** @} */
@@ -409,12 +420,15 @@ class String : public lx_string {
          *
          * @see lx_strff()
          *
-         * \returns a reference to \c this for convenience.
+         * \returns true if the character was found; false if it did not exist
+         * (\a p will not be modified).
          */
         inline bool fastfw(char **p, char c, unsigned int n)
-            throw (AllocError)
+            throw (AllocError, std::invalid_argument)
         {
             char rv;
+            if (!s) throw std::invalid_argument("fastfw called on null value");
+
             rv = lx_strff(this, p, c, n);
             if (!rv) return true;
             if (rv > 0) throw AllocError();
@@ -425,7 +439,8 @@ class String : public lx_string {
          *
          * @see lx_strff()
          *
-         * \returns a reference to \c this for convenience.
+         * \returns true if the character was found; false if it did not exist
+         * (\a p will not be modified).
          */
         inline bool fastfw(char c, unsigned int n) throw (AllocError)
         { return fastfw((lx_s*)NULL, c, n); }
@@ -436,11 +451,14 @@ class String : public lx_string {
          *
          * @see lx_strffx()
          *
-         * \returns a reference to \c this for convenience.
+         * \returns true if the character was found; false if it did not exist
+         * (\a p will not be modified).
          */
         inline bool fastfw(lx_s *p, char c, unsigned int n)
-            throw (AllocError)
+            throw (AllocError, std::invalid_argument)
         {
+            if (!s) throw std::invalid_argument("fastfw called on null value");
+
             switch (lx_strffx(this, p, c, n)) {
                 case 0: return true;
                 case 1: throw AllocError();
@@ -649,9 +667,13 @@ class String : public lx_string {
 
 class StringDirect : public String
 {
+    public:
     /** Directly assign basea structure to \a *s_from. */
-    StringDirect(lx_s *s_from)
+    StringDirect(const lx_s *s_from)
     { *(lx_s*)this = *s_from; }
+
+    StringDirect(const char *s_from)
+    { this->s = const_cast<char*>(s_from); this->len = strlen(s_from); }
 
     /** Use \ref assign() to initialize. */
     StringDirect()
@@ -659,7 +681,7 @@ class StringDirect : public String
 
     /** Base \c lx_s memory will not be freed. */
     ~StringDirect()
-    { }
+    { s = 0; }
 
     /* Directly assign the base \c lx_s to \a s_from . */
     inline void assign(lx_s *s_from)

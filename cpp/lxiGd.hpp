@@ -186,7 +186,7 @@ class Gd {
          *
          * @see lx_getseg()
          */
-        inline bool getseg(lx_s *s, char c, unsigned long maxlen) throw(AllocError, ReadError)
+        inline bool getseg(lx_s *s, char c, unsigned long maxlen=0) throw(AllocError, ReadError)
         {
             unsigned char match;
             if (!lx_getseg(s, &gd, &c, &match, maxlen)) {
@@ -194,10 +194,17 @@ class Gd {
                 return (match == MATCH_OK);
             }
 
-            if (errno == EAGAIN || errno == EWOULDBLOCK)
-                return false;
-
-            throw AllocError(); /// \todo check errno, maybe throw ReadError
+            switch (errno) {
+                case EAGAIN:
+#if EAGAIN != EWOULDBLOCK
+                case EWOULDBLOCK:
+#endif
+                    return false;
+                case ENOMEM:
+                    throw AllocError();
+                default:
+                    throw ReadError();
+            }
         }
 
         /**
@@ -205,18 +212,28 @@ class Gd {
          *
          * @see lx_getln()
          */
-        inline bool getln(lx_s *s, unsigned long maxlen)          throw(AllocError, ReadError)
+        inline bool getln(lx_s *s, unsigned long maxlen=0)          throw(AllocError, ReadError)
         {
+            return getseg(s, _separator, maxlen);
+#if 0
             unsigned char match;
             if (!lx_getseg(s, &gd, &_separator, &match, maxlen)) {
                 if (!match) eof = true;
                 return (match == MATCH_OK);
             }
 
-            if (errno == EAGAIN || errno == EWOULDBLOCK)
-                return false;
-
-            throw AllocError(); /// \todo check errno, maybe throw ReadError
+            switch (errno) {
+                case EAGAIN:
+#if EAGAIN != EWOULDBLOCK
+                case EWOULDBLOCK:
+#endif
+                    return false;
+                case ENOMEM:
+                    throw AllocError();
+                default:
+                    throw ReadError();
+            }
+#endif
         }
 
         /** @} */
