@@ -77,7 +77,7 @@ class String : public lx_string {
         { return len; }
 
         inline unsigned int sizeAlloc() const
-        { return alloc; }
+        { if (!s) return 0; return alloc; }
 
         /** pointer to the buffer of the underlying lx_s
          *
