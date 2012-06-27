@@ -568,7 +568,7 @@ class String : public lx_string {
          *
          * \returns -1 if the character could not be found.
          */
-        inline long index(char c, unsigned n) throw()
+        inline long index(char c, unsigned n=1) throw()
         { return lx_strindex(this, c, n); }
 
         /** Find the \a n th index of any character in set \a set (which has
