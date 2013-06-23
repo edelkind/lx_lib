@@ -51,7 +51,7 @@ SRC             = lx_alloc.c \
                   lx_strrev.c \
                   lx_strset.c \
                   lx_strsetp.c \
-				  lx_strinsert.c \
+                  lx_strinsert.c \
                   lx_zero.c \
                   lx_caseb.c \
                   lx_cases.c \
@@ -60,26 +60,53 @@ SRC             = lx_alloc.c \
 
 OBJ             = $(SRC:.c=.o)
 LIB             = liblx.a
+LIBSO           = liblx.so
 
 CFLAGS         += $(D_CFLAGS)
+PREFIX          = /usr
+INSTALL_LIB     = $(PREFIX)/lib
+INSTALL_INC     = $(PREFIX)/include
+
+dynamic         = 0
 
 .c.o:
 	./compile.sh $<
 	
-all: lib
 
-ready-local: READYBANNER compile.sh makelib.sh
+ifeq ($(dynamic), 1)
+    $(info building a dynamic library)
+    CFLAGS += -fPIC
+    MAKELIB = makesolib.sh
+    LIBTARGET = solib
+else
+    $(info building a static library)
+    MAKELIB = makelib.sh
+    LIBTARGET = lib
+endif
+
+
+all: $(LIBTARGET)
+
+ready-local: READYBANNER compile.sh $(MAKELIB)
 
 lib: ready-local $(LIB) lib$(LIB)
+solib: ready-local $(LIBSO) lib$(LIBSO)
 
 $(LIB): BINBANNER $(OBJ)
-	./makelib.sh $@ $(OBJ)
+	./$(MAKELIB) $@ $(OBJ)
 #	$(AR) $@ $(OBJ)
 #	$(RANLIB) $@
+
+$(LIBSO): BINBANNER $(OBJ)
+	./$(MAKELIB) $@ $(OBJ)
 
 lib$(LIB): $(LIB)
 	rm -f $@
 	ln -s $(LIB) $@
+
+lib$(LIBSO): $(LIBSO)
+	rm -f $@
+	ln -s $(LIBSO) $@
 
 relib: lean libclean lib
 
@@ -91,7 +118,7 @@ lean:
 	rm -f core $(OBJ)
 
 libclean:
-	rm -f BINBANNER $(LIB) lib$(LIB)
+	rm -f BINBANNER $(LIB) lib$(LIB) $(LIBSO) lib$(LIBSO)
 
 clean: lean libclean readyclean
 

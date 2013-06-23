@@ -50,6 +50,11 @@ class String : public lx_string {
         inline String(const char *src, unsigned int n) throw(AllocError)
         { s = 0; copy(src, n); }
 
+        /**
+         */
+        inline String(const String *src) throw(AllocError)
+        { s = 0; copy(src); }
+
         /** [destroy] : lx_free(this).
          * @see lx_free()
         */
@@ -140,6 +145,12 @@ class String : public lx_string {
                 throw AllocError();
         }
 
+        inline void copy(const lx_s *src) throw(AllocError)
+        {
+            if (lx_strcopy(this, src) )
+                throw AllocError();
+        }
+
 
         /** copy : lx_strncopy(this, src, maxlen).
          * @see lx_strncopy()
@@ -147,6 +158,12 @@ class String : public lx_string {
         inline void copy(const lx_s& src, unsigned int maxlen) throw(AllocError)
         {
             if (lx_strncopy(this, const_cast<lx_s*>(&src), maxlen))
+                throw AllocError();
+        }
+
+        inline void copy(const lx_s *src, unsigned int maxlen) throw(AllocError)
+        {
+            if (lx_strncopy(this, src, maxlen))
                 throw AllocError();
         }
 
@@ -213,6 +230,13 @@ class String : public lx_string {
         inline String& append(const lx_s& src) throw(AllocError)
         {
             if (lx_strcat(this, const_cast<lx_s*>(&src) ))
+                throw AllocError();
+            return *this;
+        }
+
+        inline String& append(const lx_s *src) throw(AllocError)
+        {
+            if (lx_strcat(this, src) )
                 throw AllocError();
             return *this;
         }
