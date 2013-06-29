@@ -8,9 +8,7 @@
  *
  * Returns 0 on success.
  */
-char lx_sa_add (sa, s)
-	lx_sa *sa;
-	const lx_s *s;
+char lx_sa_add (lx_sa *sa, const lx_s *s)
 {
 	if (!(sa->sarray)) {
 		if (lx_sa_alloc (sa, 1))
@@ -28,4 +26,16 @@ char lx_sa_add (sa, s)
 
 	sa->elem++;
 	return 0;
+}
+
+char lx_sa_addsa (lx_sa *dest, const lx_sa *src)
+{
+    int i;
+
+    for (i = 0; i < src->elem; i++) {
+        if (lx_sa_add(dest, &src->sarray[i]))
+            return 1;
+    }
+
+    return 0;
 }

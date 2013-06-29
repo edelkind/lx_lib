@@ -25,6 +25,7 @@ extern char lx_striadd(lx_s *, const char *, unsigned int);
 extern char lx_strset(lx_s *, const char *);
 extern char lx_striset(lx_s *, const char *, unsigned int);
 extern char lx_strnset(lx_s *, const char *, unsigned int);
+extern void lx_strsetdirect(lx_s *, const char *);
 extern char lx_strinsert(lx_s *,const char *,unsigned int,unsigned int,unsigned int);
 extern char lx_straddulong(lx_s *, unsigned long, unsigned int);
 extern char lx_straddlong(lx_s *, long, unsigned int);
@@ -34,6 +35,7 @@ extern char lx_post0(lx_s *);
 extern char lx_strprintf(lx_s *dest, const char *fmt, ...) __attribute__((format(printf, 2, 3)));
 extern char lx_strvprintf(lx_s *dest, const char *fmt, va_list ap);
 extern const char *lx_cstr(lx_s *);
+extern const char *lx_cstr_tryconst(lx_s *);
 extern char lx_chop(lx_s *, unsigned int);
 extern char lx_chomp(lx_s *, char *);
 extern void lx_chomp_ws(lx_s *);
@@ -91,6 +93,7 @@ extern void  lx_destroy(void *);
 /* arrays */
 
 extern char lx_sa_add(lx_sa *, const lx_s *);
+extern char lx_sa_addsa (lx_sa *dest, const lx_sa *src);
 extern char lx_sa_adds(lx_sa *, const char *);
 extern char lx_sa_adds0(lx_sa *, const char *);
 char lx_sa_addpp (lx_sa *sa, const char *const *src);

@@ -13,3 +13,17 @@ lx_cstr(lx_s *buf) {
 
     return buf->s;
 }
+
+/** Best effort to fulfill a lx_cstr() style request without modifying \a buf.
+ * If \a buf was directly assigned to a cstring, using \ref lx_strsetdirect, no
+ * modifications should be performed.
+ */
+const char *
+lx_cstr_tryconst(lx_s *buf) {
+    if ( (  buf->alloc > buf->len && !buf->s[buf->len]  ) ||
+         (  buf->len              && !buf->s[buf->len-1]) ) {
+        return buf->s;
+    }
+
+    return lx_cstr(buf);
+}

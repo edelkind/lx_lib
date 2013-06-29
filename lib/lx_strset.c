@@ -69,3 +69,10 @@ char lx_striset (s_dest, src, n)
 	return (0);
 }
 
+
+void lx_strsetdirect(lx_s *s_dest, const char *src)
+{
+    s_dest->s = (char *)src;
+    s_dest->alloc = s_dest->len = strlen(src);
+    s_dest->alloc++; /* terminating 0 */
+}

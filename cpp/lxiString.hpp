@@ -6,6 +6,7 @@
 
 extern "C" {
 #include <string.h>
+#include <lx_string.h>
 }
 
 namespace lx {
@@ -360,7 +361,7 @@ class String : public lx_string {
         /** cstr : return lx_cstr(this).
          * @see lx_cstr()
         */
-        inline const char *cstr() const throw()
+        virtual const char *cstr() const throw()
         { return lx_cstr(const_cast<lx_s*>((const lx_s*)this)); }
 
         /** offer : return lx_stroffer(this).
@@ -697,7 +698,7 @@ class StringDirect : public String
     { *(lx_s*)this = *s_from; }
 
     StringDirect(const char *s_from)
-    { this->s = const_cast<char*>(s_from); this->len = strlen(s_from); }
+    { assign(s_from); }
 
     /** Use \ref assign() to initialize. */
     StringDirect()
@@ -711,9 +712,23 @@ class StringDirect : public String
     inline void assign(lx_s *s_from)
     { *(lx_s*)this = *s_from; }
 
+    /** Not allocated -- take care that this never needs to realloc!
+     * Note that if there is a terminating 0 past \a s_len, and you will be
+     * using cstr(), you should define s_alloc to be s_len+1. */
+    inline void assign(char *s_from, unsigned int s_len,
+            unsigned int s_alloc=0)
+    { s = s_from; len = alloc = s_len; if (s_alloc) alloc = s_alloc; }
+
     /** Not allocated -- take care that this never needs to realloc! */
-    inline void assign(char *s_from, int s_len)
-    { s = s_from; len = alloc = s_len; }
+    inline void assign(const char *s_from)
+    { lx_strsetdirect(this, s_from); }
+
+    /** cstr : return lx_cstr(this).
+     * @see lx_cstr()
+    */
+    const char *cstr() const throw()
+    { return lx_cstr_tryconst(const_cast<lx_s*>((const lx_s*)this)); }
+
 };
 
 

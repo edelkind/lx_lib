@@ -71,6 +71,9 @@ class StringArray {
         inline void add(const char *s)
         { if (lx_sa_adds(&sa, s)) throw AllocError(); }
 
+        inline void add(const lx::StringArray *src)
+        { if (lx_sa_addsa(&sa, &src->sa)) throw AllocError(); }
+
         inline void add(const char *const *pp)
         { if (lx_sa_addpp(&sa, pp)) throw AllocError(); }
 
