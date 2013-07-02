@@ -59,7 +59,7 @@ class String : public lx_string {
         /** [destroy] : lx_free(this).
          * @see lx_free()
         */
-        inline ~String() throw()
+        virtual ~String() throw()
         { if (s) lx_free(this); }
 
 
@@ -705,7 +705,7 @@ class StringDirect : public String
     { }
 
     /** Base \c lx_s memory will not be freed. */
-    ~StringDirect()
+    virtual ~StringDirect() throw()
     { s = 0; }
 
     /* Directly assign the base \c lx_s to \a s_from . */
