@@ -1,3 +1,4 @@
+/** @file */
 
 #define GD_DEFAULT_SIZE 8192
 
