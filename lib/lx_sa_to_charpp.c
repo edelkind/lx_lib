@@ -19,6 +19,9 @@
  *
  * \note The object data is not copied; Do not use after freeing \a sa.
  *
+ * \deprecated Use lx_sa_each_post0_charpp to avoid having to allocate and
+ * manage new memory in \a dest.
+ *
  * \retval 0 success
  * \retval 1 ENOMEM
  */
@@ -37,7 +40,7 @@ lx_sa_to_charpp(lx_sa *sa, lx_s *dest)
 
     pp = (char**) dest->s;
     for (i=0; i < elem; i++) {
-        sp = &sa->sarray[i];
+        sp = sa->sarray[i];
         lx_post0(sp);
         pp[i] = sp->s;
     }

@@ -33,7 +33,7 @@ lx_sa_adds0 (lx_sa *sa, const char *src)
 
 	if (    lx_strset (&tmp, src) ||
 	        lx_sa_add (sa, &tmp) ||
-                lx_post0(&sa->sarray[sa->elem-1]) )
+                lx_post0(sa->sarray[sa->elem-1]) )
             return 1;
 
         return 0;

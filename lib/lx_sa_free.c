@@ -11,6 +11,7 @@ lx_sa_free(lx_sa *sa)
     sa->sarray = 0;
 }
 
+#if 0
 void
 lx_sa_zfree(lx_sa *sa)
 {
@@ -19,3 +20,4 @@ lx_sa_zfree(lx_sa *sa)
     free(sa->sarray);
     sa->sarray = 0;
 }
+#endif

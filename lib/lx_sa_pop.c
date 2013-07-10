@@ -10,7 +10,7 @@
  * \sa lx_sa_pop_index()
  */
 char
-lx_sa_pop_back (lx_sa *sa, lx_s *destp)
+lx_sa_pop_back (lx_sa *sa, lx_s **destp)
 {
 #if 0
     if (!(sa->sarray) || !sa->elem)
@@ -36,17 +36,17 @@ lx_sa_pop_back (lx_sa *sa, lx_s *destp)
  * Pop an element from a specified index.  The index may be negative, in which
  * case it is taken as an offset from the end of the array.
  *
- * If \a destp is not null, it will be set to the contents of the popped
- * element.  These contents will no longer be tracked by the string array, so
- * they must be freed normally.
+ * If \a destp is not null, it will be set to be a pointer to the popped
+ * element.  These contents (including the lx_s structure itself) will no
+ * longer be tracked by the string array, so they must be freed by the caller
+ * when no longer required (e.g. by lx_destroy()).
  *
- * If \a destp is already initialized, the contents will be freed before
- * continuing.
+ * If \a destp is null, the element will be destroyed with \a sa->_delete().
  *
  * \returns 0 on success, or 1 on range error.
  */
 char
-lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index)
+lx_sa_pop_index (lx_sa *sa, lx_s **destp, int index)
 {
     if (index < 0)
         index = sa->elem + index;
@@ -55,12 +55,10 @@ lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index)
         return 1;
 
     if (destp) {
-        if (destp->s)
-            lx_free(destp);
-
         *destp = sa->sarray[index];
+        sa->sarray[index] = 0;
     } else {
-        lx_free(&sa->sarray[index]);
+        sa->_delete(sa->sarray[index]);
     }
 
     sa->elem--;
@@ -79,7 +77,7 @@ lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index)
  * \sa lx_sa_pop_index()
  */
 char
-lx_sa_pop_front(lx_sa *sa, lx_s *destp)
+lx_sa_pop_front(lx_sa *sa, lx_s **destp)
 {
     return lx_sa_pop_index(sa, destp, 0);
 }

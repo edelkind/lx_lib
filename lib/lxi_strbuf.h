@@ -15,9 +15,12 @@ typedef struct lx_stringplus {
 } lx_sp;
 
 typedef struct lx_stringarray {
-	lx_s *sarray;       /**< Beginning of lx_s* array */
+	lx_s **sarray;       /**< Beginning of lx_s** array */
 	unsigned int elem;  /**< Elements in array */
 	unsigned int alloc; /**< Total allocated space for array elements */
+        unsigned int flags; /**< Bitwise Flags */
+        lx_s *(*_new)();
+        void (*_delete)(lx_s *);
 } lx_sa;
 
 #endif

@@ -19,15 +19,18 @@ char lx_sa_alloc (sa, elem)
 	unsigned int elem;
 {
 	unsigned int xelem = (elem + extra_sa_buf);
-	unsigned int slen  = xelem * sizeof(lx_s);
+	unsigned int slen  = xelem * sizeof(lx_s*);
 
 	if (sa->sarray) /* user error */
 		return 255;
 
-	if ((sa->sarray = (lx_s *)malloc(slen)) == 0)
+	if ((sa->sarray = (lx_s **)malloc(slen)) == 0)
 		return 1;
 	sa->alloc = xelem;
 	sa->elem = 0;
+        sa->flags = 0;
+        sa->_new = lx_new;
+        sa->_delete = lx_destroy;
 	return 0;
 }
 
@@ -50,7 +53,7 @@ char lx_sa_realloc (sa, elem)
 	struct lx_stringarray *sa;
 	unsigned int elem;
 {
-	unsigned int slen  = elem * sizeof(lx_s);
+	unsigned int slen  = elem * sizeof(lx_s*);
 	void *sa_alloc;
 
 	if (!(sa_alloc = realloc (sa->sarray, slen))) return 1;
@@ -89,7 +92,7 @@ char lx_sa_setalloc (sa, elem)
 	if (lx_sa_alloc(&newalloc, elem))
 		return 1;
 
-	memmove(newalloc.sarray, sa->sarray, (sa->elem*sizeof(lx_s)));
+	memmove(newalloc.sarray, sa->sarray, (sa->elem*sizeof(lx_s*)));
 	free (sa->sarray);
 	sa->sarray = newalloc.sarray;
 	sa->alloc = newalloc.alloc;

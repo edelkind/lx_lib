@@ -140,8 +140,8 @@ extern int  lx_map();
      * @{
      */
 
-extern void *lx_new(void);
-extern void  lx_destroy(void *);
+extern lx_s *lx_new(void);
+extern void  lx_destroy(lx_s *);
 
     /** @} */
 /**************************************************//**
@@ -170,11 +170,13 @@ extern void lx_sa_zfree(lx_sa *sa);
 extern void lx_sa_empty(lx_sa *sa);
 extern void lx_sa_zempty(lx_sa *sa);
 extern char lx_sa_post0(lx_sa *sa);
+extern char lx_sa_each_post0(lx_sa *sa);
+extern const char **lx_sa_each_post0_charpp(lx_sa *sa);
 extern char lx_sa_add0(lx_sa *sa);
 extern char lx_sa_to_charpp(lx_sa *sa, lx_s *dest);
-extern char lx_sa_pop_back (lx_sa *sa, lx_s *destp);
-extern char lx_sa_pop_index (lx_sa *sa, lx_s *destp, int index);
-extern char lx_sa_pop_front(lx_sa *sa, lx_s *destp);
+extern char lx_sa_pop_back (lx_sa *sa, lx_s **destp);
+extern char lx_sa_pop_index (lx_sa *sa, lx_s **destp, int index);
+extern char lx_sa_pop_front(lx_sa *sa, lx_s **destp);
 
 extern unsigned int lx_sa_setxbuf(unsigned int);
 

@@ -18,9 +18,11 @@ char lx_sa_add (lx_sa *sa, const lx_s *s)
 			return 1;
 	}
 
-	sa->sarray[sa->elem].s = 0;
+        if ( !(sa->sarray[sa->elem] = sa->_new()) )
+            return 1;
+
 	//lx_alloc(sa->sarray[sa->elem-1], s->len);
-	if (lx_strcopy(&sa->sarray[sa->elem], s))
+	if (lx_strcopy(sa->sarray[sa->elem], s))
             return 1;
 	//memmove(&(sa->sarray[sa->elem-1]), s);
 
@@ -33,7 +35,7 @@ char lx_sa_addsa (lx_sa *dest, const lx_sa *src)
     int i;
 
     for (i = 0; i < src->elem; i++) {
-        if (lx_sa_add(dest, &src->sarray[i]))
+        if (lx_sa_add(dest, src->sarray[i]))
             return 1;
     }
 

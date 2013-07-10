@@ -6,21 +6,32 @@ extern "C" {
 
 namespace lx {
 
+class StringArray;
+
+static inline lx_s *StringNew() {
+    return new lx::String();
+}
+
+static inline void StringDelete(lx_s *s) {
+    String *sx = static_cast<String*>(s);
+    return delete sx;
+}
+
 #define FLAG_ZERO_MEMORY    0x1
 
 /************************************************************************//**
  *** lx::StringArray (lx::String Array class)
  ****************************************************************************/
 
-class StringArray {
+class StringArray : public lx_stringarray {
     /**
      * @defgroup SAumbrella lx::StringArray components
      * @{
      */
 
     public:
-        lx_sa sa;
-        int flags;
+        //lx_sa sa;
+        //int flags;
 
         /****************************************************************//**
           @defgroup SAnew Constructors and destructors
@@ -28,22 +39,21 @@ class StringArray {
          ********************************************************************/
 
         inline StringArray() throw()
-        { sa.sarray = 0; sa.elem = 0; flags = 0; }
+        {
+            sarray = 0;
+            lx_sa_alloc(this, 1);
+            _new = StringNew;
+            _delete = StringDelete;
+        }
 
         inline ~StringArray() throw()
         {
-            if (!(flags & FLAG_ZERO_MEMORY))
-                lx_sa_free(&sa);
-            else
-                lx_sa_zfree(&sa);
+            lx_sa_free(this);
         }
 
         inline void empty(void) throw()
         {
-            if (!(flags & FLAG_ZERO_MEMORY))
-                lx_sa_empty(&sa);
-            else
-                lx_sa_zempty(&sa);
+            lx_sa_empty(this);
         }
 
         /** @} */
@@ -63,26 +73,26 @@ class StringArray {
          ********************************************************************/
 
         inline void add(const lx_s *s)
-        { if (lx_sa_add(&sa, s)) throw AllocError(); }
+        { if (lx_sa_add(this, s)) throw AllocError(); }
 
         //inline void add(const String& S)
         //{ add(&S.base()); }
 
         inline void add(const char *s)
-        { if (lx_sa_adds(&sa, s)) throw AllocError(); }
+        { if (lx_sa_adds(this, s)) throw AllocError(); }
 
         inline void add(const lx::StringArray *src)
-        { if (lx_sa_addsa(&sa, &src->sa)) throw AllocError(); }
+        { if (lx_sa_addsa(this, src)) throw AllocError(); }
 
         inline void add(const char *const *pp)
-        { if (lx_sa_addpp(&sa, pp)) throw AllocError(); }
+        { if (lx_sa_addpp(this, pp)) throw AllocError(); }
 
         inline void add(const char *const *pp, int n)
-        { if (lx_sa_addppn(&sa, pp, n)) throw AllocError(); }
+        { if (lx_sa_addppn(this, pp, n)) throw AllocError(); }
 
         /** add a char* _with_ its terminating zero. */
         inline void add0(const char *s)
-        { if (lx_sa_adds(&sa, s) || lx_post0(&sa.sarray[sa.elem-1]))
+        { if (lx_sa_adds(this, s) || lx_post0(sarray[elem-1]))
             throw AllocError(); }
         /** @} */
 
@@ -91,14 +101,14 @@ class StringArray {
           @{
          ********************************************************************/
 
-        inline void popBack(lx_s *destp)
-        { if (lx_sa_pop_back(&sa, destp)) throw RangeError(); }
+        inline void popBack(lx_s **destp)
+        { if (lx_sa_pop_back(this, destp)) throw RangeError(); }
 
-        inline void popFront(lx_s *destp)
-        { if (lx_sa_pop_front(&sa, destp)) throw RangeError(); }
+        inline void popFront(lx_s **destp)
+        { if (lx_sa_pop_front(this, destp)) throw RangeError(); }
 
-        inline void popIndex(lx_s *destp, int index)
-        { if (lx_sa_pop_index(&sa, destp, index)) throw RangeError(); }
+        inline void popIndex(lx_s **destp, int index)
+        { if (lx_sa_pop_index(this, destp, index)) throw RangeError(); }
 
         /** @} */
 
@@ -116,12 +126,12 @@ class StringArray {
          */
         inline char **toPointerArray(String* dest)
         {
-            if (!sa.sarray) {
+            if (!sarray) {
                 dest->empty();
                 return NULL;
             }
 
-            if (lx_sa_to_charpp(&sa, dest))
+            if (lx_sa_to_charpp(this, dest))
                 throw AllocError();
             return (char**)dest->ptr();
         }
@@ -131,7 +141,7 @@ class StringArray {
             if (index > len())
                 throw RangeError();
 
-            return (String*)&array()[index];
+            return static_cast<String*>(array()[index]);
         }
         /** @} */
 
@@ -141,16 +151,16 @@ class StringArray {
          ********************************************************************/
 
         inline lx_sa& base() const
-        { return const_cast<lx_sa&>(sa); }
+        { return *const_cast<lx::StringArray*>(this); }
 
-        inline lx_s *array() const
-        { return sa.sarray; }
+        inline lx_s **array() const
+        { return sarray; }
 
         inline unsigned len() const
-        { return sa.elem; }
+        { return elem; }
 
-        inline unsigned alloc() const
-        { return sa.alloc; }
+        inline unsigned allocated() const
+        { return alloc; }
 
         /** @} */
 
