@@ -362,7 +362,7 @@ class String : public lx_string {
          * @see lx_cstr()
         */
         virtual const char *cstr() const throw()
-        { return lx_cstr(const_cast<lx_s*>((const lx_s*)this)); }
+        { return lx_cstr_tryconst(const_cast<lx::String*>(this)); }
 
         /** offer : return lx_stroffer(this).
          * @see lx_stroffer()
@@ -695,7 +695,7 @@ class StringDirect : public String
     public:
     /** Directly assign basea structure to \a *s_from. */
     StringDirect(const lx_s *s_from)
-    { *(lx_s*)this = *s_from; }
+    { *dynamic_cast<lx_s*>(this) = *s_from; }
 
     StringDirect(const char *s_from)
     { assign(s_from); }
@@ -710,7 +710,7 @@ class StringDirect : public String
 
     /* Directly assign the base \c lx_s to \a s_from . */
     inline void assign(lx_s *s_from)
-    { *(lx_s*)this = *s_from; }
+    { *dynamic_cast<lx_s*>(this) = *s_from; }
 
     /** Not allocated -- take care that this never needs to realloc!
      * Note that if there is a terminating 0 past \a s_len, and you will be
