@@ -8,7 +8,7 @@
  */
 const char *
 lx_cstr(lx_s *buf) {
-    if (lx_post0(buf))
+    if (!buf->s || lx_post0(buf))
         return "";
 
     return buf->s;
@@ -20,6 +20,9 @@ lx_cstr(lx_s *buf) {
  */
 const char *
 lx_cstr_tryconst(lx_s *buf) {
+    if (!buf->s)
+        return "";
+
     if ( (  buf->alloc > buf->len && !buf->s[buf->len]  ) ||
          (  buf->len              && !buf->s[buf->len-1]) ) {
         return buf->s;
