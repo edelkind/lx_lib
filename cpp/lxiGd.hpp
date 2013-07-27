@@ -7,7 +7,11 @@ extern "C" {
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
+
+#include <lx_string.h>
 }
+
+#include "lxiException.hpp"
 
 namespace lx {
 

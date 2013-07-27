@@ -2,7 +2,10 @@
 # define _LXISTRINGARRAY_HPP
 
 extern "C" {
+#include <lx_string.h>
 }
+
+#include "lxiString.hpp"
 
 namespace lx {
 

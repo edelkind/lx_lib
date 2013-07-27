@@ -1,11 +1,15 @@
 [a-z]*
+!lib
+!cpp
 !*.*
 .*.sw?
 *.pyc
 *.strace
 *.o
 *.a
+*.so
 compile.sh
 makelib.sh
+makesolib.sh
 *BANNER
 *.kdev*

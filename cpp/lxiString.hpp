@@ -9,6 +9,8 @@ extern "C" {
 #include <lx_string.h>
 }
 
+#include "lxiException.hpp"
+
 namespace lx {
 
 /************************************************************************//**
@@ -672,7 +674,8 @@ class String : public lx_string {
          */
         inline bool icompare(const char *s2) throw()
         {
-            lx_s stmp = { const_cast<char *>(s2) };
+            lx_s stmp;
+            stmp.s   = const_cast<char *>(s2);
             stmp.len = strlen(s2);
             return !lx_stricmp(this, &stmp);
         }
