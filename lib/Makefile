@@ -62,7 +62,7 @@ OBJ             = $(SRC:.c=.o)
 LIB             = liblx.a
 LIBSO           = liblx.so
 
-CFLAGS         += $(D_CFLAGS)
+CFLAGS         += $(D_CFLAGS) -fPIC -Wno-misleading-indentation -Werror
 PREFIX          = /usr
 INSTALL_LIB     = $(PREFIX)/lib
 INSTALL_INC     = $(PREFIX)/include
